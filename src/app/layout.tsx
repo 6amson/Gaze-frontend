@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Gaze',
-  description: 'Push notifications for verified NFTs',
+  description: 'Push notifications for verified NFT collections',
 }
 
 export default function RootLayout({
