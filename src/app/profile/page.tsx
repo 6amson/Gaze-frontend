@@ -8,7 +8,8 @@ export default function Profile() {
 
   // const [notificationPermission, setNotificationPermission] = useState('default');
   const [error, setError] = useState(' ');
-  const vapidKeys = 'BPeKyMo9bFXKR8Al4LWggMdCRxGnIjpqN3rD1N0mJxccSxIWTl3JiKVTWKJ820lfE-b2fb17F-nWGbfo0J8NBeI';
+  const vapidKeys = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
+
 
 
   async function askPermission() {
@@ -28,12 +29,10 @@ export default function Profile() {
                 applicationServerKey: vapidKeys,
               };
 
+              console.log(vapidKeys)
+
               const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
               console.log((await pushSubscription).toJSON());
-
-              // if(pushSubscription){
-
-              // }
               console.log('ServiceWorker registration successful with scope:', registration.scope);
 
             } catch (error) {
