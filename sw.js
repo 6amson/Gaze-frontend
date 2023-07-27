@@ -1,21 +1,24 @@
+const urlsToCache = ['./ART.jpg', './next.svg', '../favicon.ico', './fallback.tsx'];
+const cacheName = "gaze_userv7";
+
 const addResourcesToCache = async (resources) => {
-    const cache = await caches.open('v1');
+    const cache = await caches.open(cacheName);
     await cache.addAll(resources);
   };
   
   const putInCache = async (request, response) => {
-    const cache = await caches.open('v1');
+    const cache = await caches.open(cacheName);
     await cache.put(request, response);
   };
   
   const cacheFirst = async ({ request, preloadResponsePromise, fallbackUrl }) => {
-    // First try to get the resource from the cache
+    //get the resource from the cache
     const responseFromCache = await caches.match(request);
     if (responseFromCache) {
       return responseFromCache;
     }
   
-    // Next try to use the preloaded response, if it's there
+    //use the preloaded response, if it's there
     const preloadResponse = await preloadResponsePromise;
     if (preloadResponse) {
       console.info('using preload response', preloadResponse);
@@ -23,7 +26,7 @@ const addResourcesToCache = async (resources) => {
       return preloadResponse;
     }
   
-    // Next try to get the resource from the network
+    //get the resource from the network
     try {
       const responseFromNetwork = await fetch(request.clone());
       // response may be used only once
@@ -58,20 +61,25 @@ const addResourcesToCache = async (resources) => {
   });
   
   self.addEventListener('install', (event) => {
+    caches.keys().then(names => {
+        names.forEach(name => {
+            if(name !== cacheName){
+                caches.delete(name);
+            }
+        })
+    })
     event.waitUntil(
-      addResourcesToCache([
-        '/ART.jpg',
-      ]),
-    console.log('installed')
+      addResourcesToCache(urlsToCache),
+    console.log(`🔥🔥 service worker installed 🔥🔥`)
     );
   });
   
-  self.addEventListener('fetch', (event) => {
-    event.respondWith(
-      cacheFirst({
-        request: event.request,
-        preloadResponsePromise: event.preloadResponse,
-        fallbackUrl: '/ART.jpg',
-      })
-    );
-  });
+//   self.addEventListener('fetch', (event) => {
+//     event.respondWith(
+//       cacheFirst({
+//         request: event.request,
+//         preloadResponsePromise: event.preloadResponse,
+//         fallbackUrl: 'https://www.google.com',
+//       })
+//     );
+//   });
