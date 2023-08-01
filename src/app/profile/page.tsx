@@ -11,7 +11,6 @@ export default function Profile() {
   const vapidKeys = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
 
 
-
   async function askPermission() {
     try {
       const permissionResult = await Notification.requestPermission();
