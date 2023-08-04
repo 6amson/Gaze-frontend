@@ -98,7 +98,7 @@ self.addEventListener('push', function (event) {
 
   event.waitUntil(promiseChain);
 
-  console.info(event);
+  // console.info(event);
   // self.registration.showNotification(
   //   title,
   //  { options}
