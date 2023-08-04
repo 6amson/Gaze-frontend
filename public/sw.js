@@ -1,4 +1,4 @@
-const urlsToCache = ['./ART.jpg', './next.svg', './fallback.tsx'];
+const urlsToCache = ['./ART.jpg', './next.svg',];
 const cacheName = "gaze_userv001";
 
 const addResourcesToCache = async (resources) => {
@@ -68,10 +68,13 @@ self.addEventListener('install', (event) => {
       }
     })
   })
+  
   event.waitUntil(
     addResourcesToCache(urlsToCache),
     console.log(`🔥🔥 service worker installed 🔥🔥`)
   );
+
+  self.skipWaiting();
 });
 
 //   self.addEventListener('fetch', (event) => {
