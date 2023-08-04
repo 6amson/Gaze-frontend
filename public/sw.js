@@ -90,13 +90,13 @@ self.addEventListener('install', (event) => {
 self.addEventListener('push', function (event) {
   // TODO
   let data = event.data.json();
-  const title = data.title;
+  const title = "NFT Notification";
   options = {
     body: data.body,
     icon: data.icon
   }
 
-  console.info(event.currentTarget.options);
+  console.info(event.currentTarget.options.body);
   // self.registration.showNotification(
   //   title,
   //  { options}
