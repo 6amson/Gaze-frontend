@@ -95,6 +95,8 @@ self.addEventListener('push', function (event) {
     body: data.body,
     icon: data.icon
   }
+
+  console.info(event);
   // self.registration.showNotification(
   //   title,
   //  { options}
