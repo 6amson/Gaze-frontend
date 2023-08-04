@@ -96,7 +96,7 @@ self.addEventListener('push', function (event) {
     icon: data.icon
   }
 
-  console.info(event);
+  console.info(event.currentTarget.options);
   // self.registration.showNotification(
   //   title,
   //  { options}
