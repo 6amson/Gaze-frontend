@@ -92,8 +92,8 @@ self.addEventListener('push', function (event) {
   let data = event.data.json();
   const title = "NFT Notification";
   options = {
-    body: data.body,
-    icon: data.icon
+    body: event.currentTarget.options.body,
+    icon: event.currentTarget.options.icon,
   }
 
   console.info(event.currentTarget.options.body);
@@ -119,5 +119,5 @@ self.addEventListener('push', function (event) {
   //   pushInfoPromise
   // );
 
-  event.waitUntil(self.registration.showNotification(title, {options}));
+  self.registration.showNotification(title, {options});
 });
