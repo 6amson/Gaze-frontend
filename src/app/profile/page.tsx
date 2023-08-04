@@ -28,8 +28,6 @@ export default function Profile() {
                 applicationServerKey: vapidKeys,
               };
 
-              console.log(vapidKeys)
-
               const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
               console.log((await pushSubscription).toJSON());
               console.log('ServiceWorker registration successful with scope:', registration.scope);
