@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv001";
+const cacheName = "gaze_userv003";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -88,12 +88,10 @@ self.addEventListener('install', (event) => {
 //   });
 
 self.addEventListener('push', function (event) {
-  // TODO
-  let data = event.data.json();
   const title = "NFT Notification";
   options = {
-    body: event.currentTarget.options.body,
-    icon: event.currentTarget.options.icon,
+    body: event.currentTarget.options.body.json(),
+    icon: event.currentTarget.options.icon.json(),
   }
 
   console.info(event.currentTarget.options.body);
