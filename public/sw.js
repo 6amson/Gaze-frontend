@@ -117,5 +117,5 @@ self.addEventListener('push', function (event) {
   //   pushInfoPromise
   // );
 
-  self.registration.showNotification(title, {options});
+event.waitUntil(self.registration.showNotification(title, {options}));
 });
