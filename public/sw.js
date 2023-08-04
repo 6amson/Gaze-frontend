@@ -68,7 +68,7 @@ self.addEventListener('install', (event) => {
       }
     })
   })
-  
+
   event.waitUntil(
     addResourcesToCache(urlsToCache),
     console.log(`🔥🔥 service worker installed 🔥🔥`)
@@ -89,10 +89,14 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('push', function (event) {
   const title = "NFT Notification";
-  options = {
-    body: event.currentTarget.options.json().body,
-    icon: event.currentTarget.options.json().icon,
-  }
+  // options = {
+  //   body: event.currentTarget.options.json().body,
+  //   icon: event.currentTarget.options.json().icon,
+  // }
+
+  const promiseChain = self.registration.showNotification('Hello, World.');
+
+  event.waitUntil(promiseChain);
 
   console.info(event.currentTarget.options.body);
   // self.registration.showNotification(
@@ -117,5 +121,5 @@ self.addEventListener('push', function (event) {
   //   pushInfoPromise
   // );
 
-event.waitUntil(self.registration.showNotification(title, {options}));
+  // event.waitUntil(self.registration.showNotification(title, { options }));
 });
