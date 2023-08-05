@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv001";
+const cacheName = "gaze_userv002";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -101,7 +101,7 @@ self.addEventListener('push', function (event) {
 
   const promiseChain = self.registration.showNotification(title, options);
 
-  console.info('here is it', event);
+  console.info('here is it', event.data.text());
 
   event.waitUntil(promiseChain);
 
