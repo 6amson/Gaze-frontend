@@ -101,7 +101,7 @@ self.addEventListener('push', function (event) {
 
   const promiseChain = self.registration.showNotification(title, options);
 
-  console.info(event);
+  console.info(event.data.json());
 
   event.waitUntil(promiseChain);
 
