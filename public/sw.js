@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv002";
+const cacheName = "gaze_userv000";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -88,20 +88,22 @@ self.addEventListener('install', (event) => {
 //   });
 
 self.addEventListener('push', function (event) {
-  const title = "NFT Notification";
+  const title = event.data.json().title;
+  const message = event.data.json().body;
+  const image = event.data.json().icon;
   // options = {
   //   body: event.currentTarget.options.json().body,
   //   icon: event.currentTarget.options.json().icon,
   // }
 
-  const options = {
-    body: "NFT Notification body and more data",
-    icon: "https://res.cloudinary.com/dis6jfj29/image/upload/v1691076029/gaze_logo_no_background_dgy9tr.png",
-  };
+  // const options = {
+  //   body: "NFT Notification body and more data",
+  //   icon: "https://res.cloudinary.com/dis6jfj29/image/upload/v1691076029/gaze_logo_no_background_dgy9tr.png",
+  // };
 
-  const promiseChain = self.registration.showNotification(title, options);
+  const promiseChain = self.registration.showNotification(title, {body: message, icon: image});
 
-  console.info('here is it', event.data.text());
+  console.info('here is it', event.data.json());
 
   event.waitUntil(promiseChain);
 
