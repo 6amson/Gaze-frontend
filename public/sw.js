@@ -101,7 +101,7 @@ self.addEventListener('push', function (event) {
   //   icon: "https://res.cloudinary.com/dis6jfj29/image/upload/v1691076029/gaze_logo_no_background_dgy9tr.png",
   // };
 
-  const promiseChain = self.registration.showNotification(title, {body: message, icon: image});
+  const promiseChain = self.registration.showNotification('HELLO GAZE');
 
   console.info('here is it', event.data.json());
 
