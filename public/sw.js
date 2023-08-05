@@ -99,11 +99,13 @@ self.addEventListener('push', function (event) {
     icon: "https://res.cloudinary.com/dis6jfj29/image/upload/v1691076029/gaze_logo_no_background_dgy9tr.png",
   };
 
-  const promiseChain = self.registration.showNotification(title, options);
+  const promiseChain = await  self.registration.showNotification(title, options);
 
   console.info(event);
 
   event.waitUntil(promiseChain);
+
+  
   // self.registration.showNotification(
   //   title,
   //  { options}
