@@ -106,6 +106,8 @@ self.addEventListener('push', function(event) {
     const text = notificationData.body;
     const img = notificationData.icon;
 
+    console.log(notificationData);
+
     const notificationPromise = self.registration.showNotification(title, {
       body: text,
       icon: img
