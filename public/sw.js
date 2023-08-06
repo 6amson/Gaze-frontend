@@ -110,7 +110,7 @@ self.addEventListener('push', function(event) {
     .then((result) => {
       console.info(`Notifying users`, event.data.json())
         return self.registration.showNotification(title, {body: 
-          event.data.json().body
+          event.data.json()
         });
 
     })
