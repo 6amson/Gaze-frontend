@@ -108,9 +108,11 @@ self.addEventListener('push', function(event) {
   event.waitUntil(
     getEndpoint()
     .then((result) => {
-      if(result){
-        return self.registration.showNotification(title, {body: payload})
-      }
+        return self.registration.showNotification(title, {body: 
+          {body: event.data.text().body,
+          icon: event.data.text().icon,
+        }
+        });
 
     })
     .catch((err) => {
