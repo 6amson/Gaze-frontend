@@ -113,8 +113,8 @@ self.addEventListener('push', function(event) {
       //     event.data.json()
       //   });
 
-      return new Notification("Hello GAZE!", { body: text, icon: img });
-
+      const notifs = new Notification("Hello GAZE!", { body: text, icon: img });
+      return self.registration.showNotification(notifs);
     })
     .catch((err) => {
       throw err
