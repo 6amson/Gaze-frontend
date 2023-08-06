@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv00VI";
+const cacheName = "gaze_userv000";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -91,7 +91,7 @@ function getEndpoint() {
   return self.registration.pushManager.getSubscription()
   .then(function(subscription) {
     if (subscription) {
-      return subscription.endpoint;
+      return true;
     }
 
     throw new Error('User not subscribed');
@@ -100,24 +100,21 @@ function getEndpoint() {
 
 
 self.addEventListener('push', function(event) {
-  // Keep the service worker alive until the notification is created.
+    const title = event.data.json().title;
+    const payload = {
+      body: event.data.text().body,
+      icon: event.data.text().icon,
+    }
   event.waitUntil(
     getEndpoint()
-    .then(function(endpoint) {
-      // Retrieve the textual payload from the server using a GET request.
-      // We are using the endpoint as an unique ID of the user for simplicity.
-      return fetch('./getPayload?endpoint=' + endpoint);
+    .then((result) => {
+      if(result){
+        return self.registration.showNotification(title, {body: payload})
+      }
+
     })
-    .then(function(response) {
-      console.info(response);
-      // return response.text();
-    })
-    .then(function(payload) {
-      // Show a notification with title 'ServiceWorker Cookbook' and use the payload
-      // as the body.
-        self.registration.showNotification('ServiceWorker Cookbook', {
-        body: payload,
-      });
+    .catch((err) => {
+      throw err
     })
   );
 });
