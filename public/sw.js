@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv000";
+const cacheName = "gaze_userv00VV";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -101,17 +101,19 @@ function getEndpoint() {
 
 self.addEventListener('push', function(event) {
     const title = event.data.json().title;
-    const payload = {
-      body: event.data.json().body,
-      icon: event.data.json().icon,
-    }
+
+    const text = event.data.json().body;
+    const img = event.data.json().icon;
+
   event.waitUntil(
     getEndpoint()
     .then((result) => {
-      console.info(`Notifying users`, event.data.json())
-        return self.registration.showNotification(title, {body: 
-          event.data.json()
-        });
+      // console.info(`Notifying users`, event.data.json())
+      //   return self.registration.showNotification(title, {body: 
+      //     event.data.json()
+      //   });
+
+      return new Notification("Hello GAZE!", { body: text, icon: img });
 
     })
     .catch((err) => {
