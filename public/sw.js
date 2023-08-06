@@ -115,7 +115,7 @@ self.addEventListener('push', function(event) {
     .then(function(payload) {
       // Show a notification with title 'ServiceWorker Cookbook' and use the payload
       // as the body.
-      return self.registration.showNotification('ServiceWorker Cookbook', {
+        self.registration.showNotification('ServiceWorker Cookbook', {
         body: payload,
       });
     })
