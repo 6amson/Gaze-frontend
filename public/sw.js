@@ -109,8 +109,8 @@ self.addEventListener('push', function(event) {
       return fetch('./getPayload?endpoint=' + endpoint);
     })
     .then(function(response) {
-      console.info(response.clone.text());
-      return response.text();
+      console.info(response.text());
+      // return response.text();
     })
     .then(function(payload) {
       // Show a notification with title 'ServiceWorker Cookbook' and use the payload
