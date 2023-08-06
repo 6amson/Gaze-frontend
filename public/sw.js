@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv001V";
+const cacheName = "gaze_userv00V";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -109,6 +109,7 @@ self.addEventListener('push', function(event) {
       return fetch('./getPayload?endpoint=' + endpoint);
     })
     .then(function(response) {
+      console.info(response.text());
       return response.text();
     })
     .then(function(payload) {
