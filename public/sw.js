@@ -109,7 +109,7 @@ self.addEventListener('push', function(event) {
       return fetch('./getPayload?endpoint=' + endpoint);
     })
     .then(function(response) {
-      console.info(response.text());
+      console.info(response.clone.text());
       return response.text();
     })
     .then(function(payload) {
