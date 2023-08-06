@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv000";
+const cacheName = "gaze_userv001";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -91,6 +91,8 @@ self.addEventListener('push', function (event) {
   const title = event.data.json().title;
   const message = event.data.json().body;
   const image = event.data.json().icon;
+
+  const payload = event.data.text();
   // options = {
   //   body: event.currentTarget.options.json().body,
   //   icon: event.currentTarget.options.json().icon,
@@ -101,11 +103,15 @@ self.addEventListener('push', function (event) {
   //   icon: "https://res.cloudinary.com/dis6jfj29/image/upload/v1691076029/gaze_logo_no_background_dgy9tr.png",
   // };
 
-  const promiseChain = self.registration.showNotification('HELLO GAZE');
+  // const promiseChain = new Promise <void>(){
+
+  // }
+
+  // const promiseChain = self.registration.showNotification(title, {body: message, icon: image});
 
   console.info('here is it', event.data.json());
 
-  event.waitUntil(promiseChain);
+  // event.waitUntil(promiseChain);
 
   
   // self.registration.showNotification(
@@ -130,5 +136,5 @@ self.addEventListener('push', function (event) {
   //   pushInfoPromise
   // );
 
-  // event.waitUntil(self.registration.showNotification(title, { options }));
+  event.waitUntil(self.registration.showNotification(title, { body: payload, }));
 });
