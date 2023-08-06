@@ -1,5 +1,5 @@
 const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv001";
+const cacheName = "gaze_userv001V";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -87,54 +87,58 @@ self.addEventListener('install', (event) => {
 //     );
 //   });
 
-self.addEventListener('push', function (event) {
-  const title = event.data.json().title;
-  const message = event.data.json().body;
-  const image = event.data.json().icon;
+function getEndpoint() {
+  return self.registration.pushManager.getSubscription()
+  .then(function(subscription) {
+    if (subscription) {
+      return subscription.endpoint;
+    }
 
-  const payload = event.data.text();
-  // options = {
-  //   body: event.currentTarget.options.json().body,
-  //   icon: event.currentTarget.options.json().icon,
-  // }
+    throw new Error('User not subscribed');
+  });
+}
 
-  // const options = {
-  //   body: "NFT Notification body and more data",
-  //   icon: "https://res.cloudinary.com/dis6jfj29/image/upload/v1691076029/gaze_logo_no_background_dgy9tr.png",
-  // };
 
-  // const promiseChain = new Promise <void>(){
-
-  // }
-
-  // const promiseChain = self.registration.showNotification(title, {body: message, icon: image});
-
-  console.info('here is it', event.data.json());
-
-  // event.waitUntil(promiseChain);
-
-  
-  // self.registration.showNotification(
-  //   title,
-  //  { options}
-  // );
-
-  // const pushInfoPromise = fetch('/api/get-more-data')
-  //   .then(function (response) {
-  //     return response.json();
-  //   })
-  //   .then(function (response) {
-  //     const title = response.data.title;
-  //     const message = response.data.message;
-
-  //     return self.registration.showNotification(title, {
-
-  //     });
-  //   });
-
-  // const promiseChain = Promise.all(
-  //   pushInfoPromise
-  // );
-
-  event.waitUntil(self.registration.showNotification(title, { body: payload, }));
+self.addEventListener('push', function(event) {
+  // Keep the service worker alive until the notification is created.
+  event.waitUntil(
+    getEndpoint()
+    .then(function(endpoint) {
+      // Retrieve the textual payload from the server using a GET request.
+      // We are using the endpoint as an unique ID of the user for simplicity.
+      return fetch('./getPayload?endpoint=' + endpoint);
+    })
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(payload) {
+      // Show a notification with title 'ServiceWorker Cookbook' and use the payload
+      // as the body.
+      return self.registration.showNotification('ServiceWorker Cookbook', {
+        body: payload,
+      });
+    })
+  );
 });
+
+
+
+
+
+
+
+
+
+
+// self.addEventListener('push', function (event) {
+//   const title = event.data.json().title;
+//   const message = event.data.json().body;
+//   const image = event.data.json().icon;
+
+//   const payload = event.data.text();
+  
+
+//   console.info('here is it', event.data.json());
+
+//   event.waitUntil(self.registration.showNotification(title, { body: payload, }));
+// });
