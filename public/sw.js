@@ -102,18 +102,18 @@ function getEndpoint() {
 self.addEventListener('push', function(event) {
   const notificationData = event.data.json();
 
-    const title = notificationData.title;
-    const text = notificationData.body;
-    const img = notificationData.icon;
+  const title = notificationData.title;
+  const text = notificationData.body;
+  const img = notificationData.icon;
 
-    console.log(notificationData);
+  console.log(notificationData);
 
-    const notificationPromise = self.registration.showNotification(title, {
-      body: text,
-      icon: img
-    });
+  self.registration.showNotification("hello gaze", {
+    body: text,
+    icon: img
+  });
 
-  event.waitUntil(notificationPromise);
+  // event.waitUntil(notificationPromise);
 });
 
 

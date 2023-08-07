@@ -22,23 +22,26 @@ export default function Profile() {
         // navigator.serviceWorker.register()
         (async function registerServiceWorker() {
           if ('serviceWorker' in navigator) {
-            try {
-              const registration = await navigator.serviceWorker.register('/sw.js');
-              // const subscribeOptions = {
-              //   userVisibleOnly: true,
-              //   applicationServerKey: vapidKeys,
-              // };
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            registration.showNotification("HELLO GAZE")
 
-              // const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
-              // console.log((await pushSubscription).toJSON());
-              // console.log('ServiceWorker registration successful with scope:', registration.scope);
-              console.log('permission granted running now');
-              return new Notification("Hi there!");
+            // try {
+            //   const registration = await navigator.serviceWorker.register('/sw.js');
+            //   const subscribeOptions = {
+            //     userVisibleOnly: true,
+            //     applicationServerKey: vapidKeys,
+            //   };
 
-            } catch (error) {
-              console.log('Error occurred', error);
-              setError('You dont have the facilities big man');
-            }
+            //   const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
+            //   console.log((await pushSubscription).toJSON());
+            //   console.log('ServiceWorker registration successful with scope:', registration.scope);
+            //   // console.log('permission granted running now');
+            //   // return new Notification("Hi there!");
+
+            // } catch (error) {
+            //   console.log('Error occurred', error);
+            //   setError('You dont have the facilities big man');
+            // }
           } else {
             console.log('No service-worker on this browser');
           }
