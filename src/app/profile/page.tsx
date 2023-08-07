@@ -24,14 +24,15 @@ export default function Profile() {
           if ('serviceWorker' in navigator) {
             try {
               const registration = await navigator.serviceWorker.register('/sw.js');
-              const subscribeOptions = {
-                userVisibleOnly: true,
-                applicationServerKey: vapidKeys,
-              };
+              // const subscribeOptions = {
+              //   userVisibleOnly: true,
+              //   applicationServerKey: vapidKeys,
+              // };
 
-              const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
-              console.log((await pushSubscription).toJSON());
-              console.log('ServiceWorker registration successful with scope:', registration.scope);
+              // const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
+              // console.log((await pushSubscription).toJSON());
+              // console.log('ServiceWorker registration successful with scope:', registration.scope);
+              return new Notification("Hi there!");
 
             } catch (error) {
               console.log('Error occurred', error);
