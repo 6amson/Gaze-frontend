@@ -111,7 +111,7 @@ self.addEventListener('push', function(event) {
     icon: img
   }
 
-  console.log(notificationData);
+  console.log(event);
 
   self.registration.showNotification(title, options);
 
