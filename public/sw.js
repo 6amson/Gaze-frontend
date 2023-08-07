@@ -106,12 +106,14 @@ self.addEventListener('push', function(event) {
   const text = notificationData.body;
   const img = notificationData.icon;
 
-  console.log(notificationData);
-
-  self.registration.showNotification("hello gaze", {
+  const options = {
     body: text,
     icon: img
-  });
+  }
+
+  console.log(notificationData.title);
+
+  self.registration.showNotification(title, options);
 
   // event.waitUntil(notificationPromise);
 });
