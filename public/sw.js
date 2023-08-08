@@ -125,7 +125,7 @@ self.addEventListener('notificationclick', function(event) {
 
   // Open a new window/tab with the desired URL
   event.waitUntil(
-    clients.openWindow('https://example.com/destination-page')
+    clients.openWindow('https://nounz.netlify.app')
   );
 });
 
