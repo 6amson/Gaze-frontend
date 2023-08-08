@@ -108,15 +108,27 @@ self.addEventListener('push', function(event) {
 
   const options = {
     body: text,
-    icon: img
+    icon: img,
+    vibrate: [
+      500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+      40, 500,
+    ],
   }
 
-  console.log(event);
+  // console.log(event);
 
-  self.registration.showNotification(title, options);
-
-  // event.waitUntil(notificationPromise);
+  event.waitUntil(self.registration.showNotification(title, options));
 });
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close(); // Close the notification
+
+  // Open a new window/tab with the desired URL
+  event.waitUntil(
+    clients.openWindow('https://example.com/destination-page')
+  );
+});
+
 
 
 
