@@ -1,13 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from 'next/navigation';
 
 
 export class gazeJobs {
 
     constructor() { }
 
-   
+
 
     public verifySubscription(): any {
         // Check if the browser supports the Push API
@@ -30,7 +29,6 @@ export class gazeJobs {
     public handleAuth(): any {
         const accesstoken = localStorage.getItem('token');
         const refreshtoken = Cookies.get('userAccess_TT');
-        let router = useRouter();
 
         if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
             // console.log(accesstoken);
@@ -42,17 +40,18 @@ export class gazeJobs {
 
                 if (res.status == 200) {
                     Cookies.set('userAccess_TT', res.data);
+                    const { userId } = res.data;
+                    const encodedString = encodeURIComponent(userId);
                     // router.push('/meetup');
                 }
 
-            })
-                .catch((err) => {
-                    // console.log(err);
-                    router.push('/signin');
-                });
+            }).catch((err) => {
+                // console.log(err);
+                // router.push('/signin');
+            });
 
         } else if (!accesstoken && !refreshtoken) {
-            router.push('/signin');
+            // router.push('/signin');
         }
     }
 
