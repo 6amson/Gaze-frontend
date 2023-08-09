@@ -1,5 +1,5 @@
-const urlsToCache = ['./ART.jpg', './next.svg',];
-const cacheName = "gaze_userv000";
+const urlsToCache = ['./fallback.tsx',];
+const cacheName = "gaze_userv001";
 
 // const addResourcesToCache = async (resources) => {
 //   const cache = await caches.open(cacheName);
