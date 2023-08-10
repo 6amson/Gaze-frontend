@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${openSans.variable}`}>
+    <html className="bg-black h-fit" lang="en">
+      <body className={`${openSans.variable} max-w-[1440px] relative mx-auto`}>
         <Header></Header>
         {children}
       </body>

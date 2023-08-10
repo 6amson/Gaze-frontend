@@ -8,7 +8,7 @@ export default function Header() {
     { name: "connect with meta-mask", isConnect: true },
   ];
   return (
-    <div className="font-raleWay text-white w-full h-[99px] bg-black z-40 absolute top-0 flex items-center">
+    <div className="font-raleWay text-white w-full  h-[99px] bg-black z-40 absolute top-0 flex items-center">
       <Image
         src={whiteTextIconLogo.src}
         alt="logo with text"
@@ -24,7 +24,7 @@ export default function Header() {
                 item.isConnect
                   ? "border border-neonGreen p-[10px] rounded-[10px]"
                   : ""
-              } text-white uppercase 2xl:text-[12px] text-[12px]`}
+              } text-white uppercase 2xl:text-[16px] text-[16px]`}
               key={index}
             >
               {item.name}

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="bg-black h-screen w-full flex flex-col items-center font-raleWay">
+    <div className=" h-screen w-full flex flex-col items-center font-raleWay">
       <Image
         width={"100"}
         height={"100"}
@@ -21,11 +21,11 @@ export default function Hero() {
         height={"400"}
         alt={"man floating in space"}
       ></Image>
-      <div className="uppercase leading-tight text-white font-black text-[58px] text-center absolute bottom-[8%]">
+      <div className="uppercase leading-tight text-white font-black text-[64px] text-center absolute bottom-[8%]">
         Track your favorite NFT
         <div>Collection</div>
         <div>
-          <button className="bg-neonGreen text-[18px]  font-normal text-black  px-[18px] py-[14px] rounded-[10px] mt-[20px]">
+          <button className="bg-neonGreen text-[32px]  font-normal text-black  p-[16px] rounded-[10px] mt-[20px]">
             GET STARTED
           </button>
         </div>
