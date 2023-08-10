@@ -6,29 +6,27 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className=" h-screen w-full flex flex-col items-center font-raleWay">
+    <div className="h-full w-full flex flex-col items-center font-raleWay relative overflow-hidden">
       <Image
         width={"100"}
         height={"100"}
-        className={"w-full absolute top-0 2xl:w-[70vw]"}
+        className={"w-screen absolute -top-[10vw]"}
         alt={"green stars "}
         src={heroStarsLp.src}
       ></Image>
       <Image
         src={heroMainLp.src}
         width={"700"}
-        className={"w-[50vw] absolute top-[130px] 2xl:w-[40vw]"}
+        className={"w-[40vw] absolute top-[130px] 2xl:w-[40vw]"}
         height={"400"}
         alt={"man floating in space"}
       ></Image>
-      <div className="uppercase leading-tight text-white font-black text-[64px] text-center absolute bottom-[8%]">
+      <div className="uppercase leading-tight text-white font-black text-[64px] text-center absolute bottom-[6%]">
         Track your favorite NFT
         <div>Collection</div>
-        <div>
-          <button className="bg-neonGreen text-[32px]  font-normal text-black  p-[16px] rounded-[10px] mt-[20px]">
-            GET STARTED
-          </button>
-        </div>
+        <button className="bg-neonGreen text-[1.5rem] p-[0.5rem] font-normal text-black rounded-[0.25rem]">
+          GET STARTED
+        </button>
       </div>
     </div>
   );
