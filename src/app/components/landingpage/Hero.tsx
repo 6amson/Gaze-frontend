@@ -10,23 +10,23 @@ export default function Hero() {
       <Image
         width={"100"}
         height={"100"}
-        className={"w-screen absolute -top-[10vw]"}
+        className={"w-screen max-w-[1440px] absolute "}
         alt={"green stars "}
         src={heroStarsLp.src}
       ></Image>
       <Image
         src={heroMainLp.src}
         width={"700"}
-        className={"w-[40vw] absolute top-[130px] 2xl:w-[40vw]"}
+        className={"w-[50vw] absolute top-[130px] 2xl:w-[40vw]"}
         height={"400"}
         alt={"man floating in space"}
       ></Image>
-      <div className="absolute bottom-[6%] text-center">
-        <div className="uppercase leading-tight text-white font-black text-[64px] text-center ">
+      <div className="absolute bottom-[8%] text-center">
+        <div className="uppercase leading-tight text-white font-black text-[4rem] text-center ">
           Track your favorite NFT
           <div>Collection</div>
         </div>
-        <button className="bg-neonGreen text-[1.25rem] p-[0.5rem] font-normal text-black rounded-[0.25rem]">
+        <button className="bg-neonGreen text-[1.25rem] p-[0.8rem] leading-none font-normal text-black rounded-[0.25rem]">
           GET STARTED
         </button>
       </div>

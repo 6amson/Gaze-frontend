@@ -25,7 +25,7 @@ export default function Header() {
                   item.isConnect
                     ? "border border-neonGreen p-[10px] rounded-[10px]"
                     : ""
-                } text-white uppercase 2xl:text-[0.8rem] text-[0.8rem]`}
+                } text-white uppercase 2xl:text-[0.8rem] text-[0.8rem] leading-none`}
                 key={index}
               >
                 {item.name}
