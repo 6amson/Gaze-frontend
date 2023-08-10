@@ -26,7 +26,7 @@ export default function Hero() {
           Track your favorite NFT
           <div>Collection</div>
         </div>
-        <button className="bg-neonGreen text-[1.25rem] p-[0.8rem] leading-none font-normal text-black rounded-[0.25rem]">
+        <button className="bg-neonGreen text-[1.5rem] p-[0.8rem] leading-none font-normal text-black rounded-[0.25rem]">
           GET STARTED
         </button>
       </div>
