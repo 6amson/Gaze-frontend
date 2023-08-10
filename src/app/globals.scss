@@ -1,0 +1,52 @@
+$mainFont: 'ClashDisplay-variable';
+$logoFont: 'ClashDisplay-Bold';
+$priFont: 'ClashDisplay-Regular';
+$mainColor: #4f4fff;
+$secColor: #acadff;
+$spacing: 32px;
+$Mspacing: 16px;
+
+
+:root {
+
+}
+
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input{
+  font-size: 16px;
+  padding: 5px;
+  font-family: '$mainFont';
+  border-radius: 12px;
+  background-color: transparent;
+  width: 20rem;
+  top: 3px;
+  position: relative;
+  padding-left: 15px;
+  outline: whitesmoke;
+}
+
+input::placeholder{
+  margin-left: 12px;
+  font-weight: 200;
+  font-family: $mainFont;
+  font-size: 14px;
+}
+
