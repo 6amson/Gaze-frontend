@@ -21,10 +21,12 @@ export default function Hero() {
         height={"400"}
         alt={"man floating in space"}
       ></Image>
-      <div className="uppercase leading-tight text-white font-black text-[64px] text-center absolute bottom-[6%]">
-        Track your favorite NFT
-        <div>Collection</div>
-        <button className="bg-neonGreen text-[1.5rem] p-[0.5rem] font-normal text-black rounded-[0.25rem]">
+      <div className="absolute bottom-[6%] text-center">
+        <div className="uppercase leading-tight text-white font-black text-[64px] text-center ">
+          Track your favorite NFT
+          <div>Collection</div>
+        </div>
+        <button className="bg-neonGreen text-[1.25rem] p-[0.5rem] font-normal text-black rounded-[0.25rem]">
           GET STARTED
         </button>
       </div>
