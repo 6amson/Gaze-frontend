@@ -18,7 +18,7 @@ export default function Hero() {
       <Image
         src={heroMainLp.src}
         width={"700"}
-        className={"w-[50vw] absolute top-[130px] 2xl:w-[47vw]"}
+        className={"w-[47vw] absolute top-[130px] 2xl:w-[45vw]"}
         height={"400"}
         alt={"man floating in space"}
       ></Image>
