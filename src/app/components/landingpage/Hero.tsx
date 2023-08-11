@@ -14,20 +14,21 @@ export default function Hero() {
         alt={"green stars "}
         src={heroStarsLp.src}
       ></Image>
+
       <Image
         src={heroMainLp.src}
         width={"700"}
-        className={"w-[50vw] absolute top-[130px] 2xl:w-[40vw]"}
+        className={"w-[47vw] absolute top-[130px] 2xl:w-[45vw]"}
         height={"400"}
         alt={"man floating in space"}
       ></Image>
-      <div className="absolute bottom-[8%] text-center">
-        <div className="uppercase leading-tight text-white font-black text-[4rem] text-center ">
-          Track your favorite NFT
+      <div className="absolute bottom-[10%] text-center">
+        <div className="uppercase leading-tight text-white font-black 2xl:text-[3.3rem] xl:text-[3.3rem] lg:text-[3rem] text-center ">
+          Track your favorite <span className="text-spacePurple">NFT</span>
           <div>Collection</div>
         </div>
-        <button className="bg-neonGreen text-[1.5rem] p-[0.8rem] leading-none font-normal text-black rounded-[0.25rem]">
-          GET STARTED
+        <button className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.7rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]">
+          Get Started
         </button>
       </div>
     </div>
