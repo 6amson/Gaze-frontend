@@ -24,10 +24,10 @@ export default function Hero() {
       ></Image>
       <div className="absolute bottom-[10%] text-center">
         <div className="uppercase leading-tight text-white font-black 2xl:text-[3.3rem] xl:text-[3.3rem] lg:text-[3rem] text-center ">
-          Track your favorite NFT
+          Track your favorite <span className="text-[#A157FF]">NFT</span>
           <div>Collection</div>
         </div>
-        <button className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.7rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none font-normal text-black rounded-[10px]">
+        <button className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.7rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]">
           Get Started
         </button>
       </div>
