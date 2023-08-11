@@ -9,7 +9,7 @@ export default function Header() {
   ];
 
   return (
-    <div className="w-full bg-black z-40 absolute top-0">
+    <div className="w-full bg-black z-40 relative top-0">
       <div className="font-raleWay m-auto  text-white w-full max-w-[1440px] h-[80px] flex items-center relative">
         <Image
           src={whiteTextIconLogo.src}
