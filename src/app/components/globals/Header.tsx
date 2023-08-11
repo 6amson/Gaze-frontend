@@ -5,8 +5,9 @@ export default function Header() {
   const headerButtons = [
     { name: "Home" },
     { name: "FAQ" },
-    { name: "connect with metamask", isConnect: true },
+    { name: "Connect with Metamask", isConnect: true },
   ];
+
   return (
     <div className="w-full bg-black z-40 absolute top-0">
       <div className="font-raleWay m-auto  text-white w-full max-w-[1440px] h-[80px] flex items-center relative">

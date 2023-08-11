@@ -3,10 +3,12 @@ import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg"
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import whiteTextLogo from "../../../../public/svgs/globals/white-text-logo.svg";
 import Image from "next/image";
+import Header from "../globals/Header";
 
 export default function Hero() {
   return (
     <div className="h-full w-full flex flex-col items-center font-raleWay relative overflow-hidden">
+       <Header></Header>
       <Image
         width={"100"}
         height={"100"}

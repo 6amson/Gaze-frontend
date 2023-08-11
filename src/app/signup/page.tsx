@@ -1,5 +1,6 @@
 import gazelogo from "../../../public/svgs/globals/gazelogo.svg";
 import Image from "next/image";
+import Header from "../components/globals/Header";
 
 export default function Signup() {
 
@@ -8,17 +9,7 @@ export default function Signup() {
         <div>
             <div className="mainDiv">
                 <div>
-                    <header>
-                        <div>
-                            <Image
-                                width={"100"}
-                                height={"100"}
-                                className={"gazeLogo"}
-                                alt={"gaze logo"}
-                                src={gazelogo.src}
-                            ></Image>
-                        </div>
-                    </header>
+                    {/* <Header></Header> */}
                 </div>
                 <div className="subMainDiv">
                     <p>lets do it</p>

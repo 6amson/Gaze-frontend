@@ -19,11 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className="h-fit" lang="en">
-      <body className={`${openSans.variable}  relative mx-auto  `}>
-        <Header></Header>
+    <html lang="en">
+      <body>
         {children}
       </body>
     </html>
   );
 }
+
+// className={`${openSans.variable}  relative mx-auto  `}
