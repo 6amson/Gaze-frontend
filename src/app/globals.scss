@@ -40,16 +40,5 @@ input{
   font-family: $mainFont;
 }
 
-input::placeholder{
-  position: inherit;
-  width: fit-content;
-  font-weight: 200;
-  font-family: $mainFont;
-  font-size: 14px;
-}
 
-
-input:focus + Image{
-  display: none;
-}
 

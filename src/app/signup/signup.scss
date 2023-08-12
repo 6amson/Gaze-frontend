@@ -1,13 +1,10 @@
 @import "../globals.scss";
 
-.mainDiv{
-
-}
 
 .subMainDiv{
     height: calc(100vh - 80px);
     display: grid;
-    grid-template-columns: 584px 1fr;
+    grid-template-columns: 600px 1fr;
 }
 
 .subMainDiv1{
@@ -22,7 +19,7 @@
         margin-top: 75px;
         margin-left: 100px;
 
-        p:first-child{
+        .signupDiv{
             margin-bottom: 64px;
             font-size: 64px;
             font-weight: 700;
@@ -33,9 +30,18 @@
         }
 
         form{
+            width: fit-content;
             .inputDiv{
                 position: relative;
             }
+        }
+
+        input::placeholder{
+            position: inherit;
+            width: fit-content;
+            font-weight: 200;
+            font-family: $mainFont;
+            font-size: 14px;
         }
     }
 }
@@ -58,3 +64,36 @@
     margin-left: 15px;
 }
 
+.submitButton{
+  font-size: 20px;
+  display: block;
+  padding: 10px;
+  font-family: '$mainFont';
+  border-radius: 12px;
+  background-color: $mainColor;
+  width: 30rem;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  position: relative;
+  padding-left: 45px;
+  border: solid rgb(184, 184, 184) 1px;
+  position: relative;
+  font-family: $mainFont;
+  font-weight: 700;
+  color: white;
+}
+
+.alternateSignin{
+    display: flex;
+    justify-content: center;
+    font-family: $mainFont;
+
+    p:first-child{
+        margin-right: 5px;
+    }
+
+    p:nth-child(2){
+        color: $mainColor;
+        font-weight: 500;
+    }
+}

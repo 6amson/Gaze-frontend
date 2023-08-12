@@ -17,7 +17,7 @@ export default function Signup() {
                     </div>
                     <div className="subMainDiv2">
                         <div className="subMainDiv2Form">
-                            <p>SIGN UP</p>
+                            <p className="signupDiv">SIGN UP</p>
                             <form>
                                 <div className="inputDiv">
                                     <label htmlFor="username">USERNAME</label>
@@ -68,6 +68,11 @@ export default function Signup() {
                                         placeholder="Password"
                                         required
                                     />
+                                </div>
+                                <button className="submitButton" type="submit">SIGN UP</button>
+                                <div className="alternateSignin">
+                                    <p>I already have an account,</p>
+                                    <p>SIGN IN</p>
                                 </div>
                             </form>
                         </div>
