@@ -21,6 +21,7 @@
     background: url('../../../public/signupImage.svg');
     background-size: contain;
     background-repeat: no-repeat;
+    height: 100vh;
 }
 
 .subMainDiv2{
@@ -58,19 +59,19 @@
 
 .usernameIcon{
     position: absolute;
-    top: 43px;
+    top: 40px;
     margin-left: 15px;
 }
 
 .emailIcon{
     position: absolute;
-    top: 47px;
+    top: 43px;
     margin-left: 15px;
 }
 
 .passwordIcon{
     position: absolute;
-    top: 50px;
+    top: 46px;
     margin-left: 15px;
 }
 
