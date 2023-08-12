@@ -1,4 +1,60 @@
+@import "../globals.scss";
+
 .mainDiv{
-background-color: red;
-// height: 100vh;
+
 }
+
+.subMainDiv{
+    height: calc(100vh - 80px);
+    display: grid;
+    grid-template-columns: 584px 1fr;
+}
+
+.subMainDiv1{
+    background: url('../../../public/signupImage.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.subMainDiv2{
+
+    .subMainDiv2Form{
+        margin-top: 75px;
+        margin-left: 100px;
+
+        p:first-child{
+            margin-bottom: 64px;
+            font-size: 64px;
+            font-weight: 700;
+        }
+
+        label{
+            font-weight: 500;
+        }
+
+        form{
+            .inputDiv{
+                position: relative;
+            }
+        }
+    }
+}
+
+.usernameIcon{
+    position: absolute;
+    top: 43px;
+    margin-left: 15px;
+}
+
+.emailIcon{
+    position: absolute;
+    top: 47px;
+    margin-left: 15px;
+}
+
+.passwordIcon{
+    position: absolute;
+    top: 49px;
+    margin-left: 15px;
+}
+

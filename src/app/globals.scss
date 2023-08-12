@@ -25,21 +25,31 @@ a {
 
 input{
   font-size: 16px;
-  padding: 5px;
+  display: block;
+  padding: 10px;
   font-family: '$mainFont';
   border-radius: 12px;
   background-color: transparent;
-  width: 20rem;
-  top: 3px;
+  width: 30rem;
+  margin-top: 8px;
+  margin-bottom: 24px;
   position: relative;
-  padding-left: 15px;
-  outline: whitesmoke;
+  padding-left: 45px;
+  border: solid rgb(184, 184, 184) 1px;
+  position: relative;
+  font-family: $mainFont;
 }
 
 input::placeholder{
-  margin-left: 12px;
+  position: inherit;
+  width: fit-content;
   font-weight: 200;
   font-family: $mainFont;
   font-size: 14px;
+}
+
+
+input:focus + Image{
+  display: none;
 }
 
