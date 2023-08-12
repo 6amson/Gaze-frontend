@@ -79,11 +79,12 @@
     border-radius: 12px;
     background-color: $mainColor;
     width: 25rem;
-    margin-top: 8px;
+    margin-top: 32px;
     margin-bottom: 24px;
     position: relative;
     font-weight: 600;
     color: white;
+    box-shadow: 5px 5px 1px 0 black;
 }
 
 .alternateSignin {

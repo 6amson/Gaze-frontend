@@ -17,7 +17,7 @@ export default function Signin() {
                     </div>
                     <div className="subMainDiv2">
                         <div className="subMainDiv2Form">
-                            <p className="signupDiv">SIGN UP</p>
+                            <p className="signupDiv">SIGN IN</p>
                             <form>
                                 <div className="inputDiv">
                                     <label htmlFor="email">EMAIL</label>
@@ -52,10 +52,10 @@ export default function Signin() {
                                         required
                                     />
                                 </div>
-                                <button className="submitButton" type="submit">SIGN UP</button>
+                                <button className="submitButton" type="submit">SIGN IN</button>
                                 <div className="alternateSignin">
                                     <p>I already have an account,</p>
-                                    <p>SIGN IN</p>
+                                    <p>SIGN UP</p>
                                 </div>
                             </form>
                         </div>
