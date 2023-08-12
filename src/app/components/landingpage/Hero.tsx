@@ -12,8 +12,7 @@ import Header from "../globals/Header";
 
 export default function Hero() {
   return (
-    <div className="h-full w-full flex flex-col items-center font-raleWay relative overflow-hidden bg-white sm:bg-black">
-      <Header></Header>
+    <div className="h-full w-full overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black ">
       <Image
         width={"100"}
         height={"100"}
@@ -26,7 +25,7 @@ export default function Hero() {
         height={100}
         alt={"falling nft coins"}
         src={heroMainMobile.src}
-        className="mt-[1rem] p-2 sm:hidden"
+        className="mt-[1rem] p-2 sm:hidden mt-[45px]"
       ></Image>
       <Image
         src={heroMainLp.src}

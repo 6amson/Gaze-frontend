@@ -15,8 +15,8 @@ export default function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="w-full bg-black z-40 relative top-0 ">
-      <div className=" z-40 font-raleWay m-auto absolute bg-black  text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
+    <div className="w-full  z-40 relative bg-black  ">
+      <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
         <Image
           src={whiteTextIconLogo.src}
           alt="logo with text"
@@ -56,8 +56,8 @@ export default function Header() {
       </div>
 
       <div
-        className={` bg-black h-fit w-full duration-300 absolute z-0 flex flex-col text-center ${
-          isMobileMenuOpen ? "-top-[100%]" : "top-[100%]"
+        className={` bg-black h-fit w-full duration-300 sm:hidden absolute z-0 flex flex-col text-center ${
+          !isMobileMenuOpen ? "-top-[100%]" : "top-[100%]"
         }`}
       >
         {headerButtons.map((item, index) => {
