@@ -16,7 +16,7 @@ export default function Header() {
 
   return (
     <div className="w-full  z-40 relative bg-black  ">
-      <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
+      <div className=" z-40 font-raleWay m-auto absolute bg-black top-0  text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
         <Image
           src={whiteTextIconLogo.src}
           alt="logo with text"

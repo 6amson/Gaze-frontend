@@ -5,7 +5,7 @@ import Header from "./components/globals/Header";
 export default function Index() {
   return (
     <div className=" h-screen bg-black   text-4xl">
-      <div className="fixed w-full z-40">
+      <div className="fixed w-full z-40 ">
         <Header></Header>
       </div>
       <Hero></Hero>
