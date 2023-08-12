@@ -1,10 +1,20 @@
 @import "../globals.scss";
 
+*{
+    overflow: hidden;
+}
+
+.mainDiv{
+    overflow: hidden;
+    height: max-content;
+}
 
 .subMainDiv{
     height: calc(100vh - 79px);
     display: grid;
     grid-template-columns: 600px 1fr;
+    overflow: hidden;
+    
 }
 
 .subMainDiv1{
@@ -14,19 +24,19 @@
 }
 
 .subMainDiv2{
-
     .subMainDiv2Form{
-        margin-top: 75px;
-        margin-left: 100px;
+        margin-top: 55px;
+        width: fit-content;
 
         .signupDiv{
-            margin-bottom: 64px;
+            margin-bottom: 40px;
             font-size: 64px;
             font-weight: 700;
         }
 
         label{
             font-weight: 500;
+            font-size: 12px;
         }
 
         form{
@@ -60,26 +70,21 @@
 
 .passwordIcon{
     position: absolute;
-    top: 49px;
+    top: 50px;
     margin-left: 15px;
 }
 
 .submitButton{
-  font-size: 20px;
   display: block;
   padding: 10px;
-  font-family: '$mainFont';
+  font-family: $mainFont;
   border-radius: 12px;
   background-color: $mainColor;
-  width: 30rem;
+  width: 25rem;
   margin-top: 8px;
   margin-bottom: 24px;
   position: relative;
-  padding-left: 45px;
-  border: solid rgb(184, 184, 184) 1px;
-  position: relative;
-  font-family: $mainFont;
-  font-weight: 700;
+  font-weight: 600;
   color: white;
 }
 
@@ -95,5 +100,6 @@
     p:nth-child(2){
         color: $mainColor;
         font-weight: 500;
+        cursor: pointer;
     }
 }
