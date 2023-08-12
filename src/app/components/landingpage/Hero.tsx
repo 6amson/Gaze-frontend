@@ -12,7 +12,7 @@ import Header from "../globals/Header";
 
 export default function Hero() {
   return (
-    <div className="h-full w-full overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black ">
+    <div className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black ">
       <Image
         width={"100"}
         height={"100"}

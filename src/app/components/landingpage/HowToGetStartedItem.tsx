@@ -7,7 +7,7 @@ export default function HowToGetStartedItem() {
           <div className="text-[1rem] font-bold leading-tight sm:text-[1.5rem]">
             CHECK YOUR FAVORITE NFT COLLECTION
           </div>
-          <div className="text-[0.8rem] leading-tight mt-[10px] sm:mt-[20px] sm:text-[1rem]">
+          <div className="text-[0.8rem] font-normal leading-tight mt-[10px] sm:mt-[20px] sm:text-[1rem]">
             For the nft users to connect to their collections to the app, they
             must do something
           </div>
