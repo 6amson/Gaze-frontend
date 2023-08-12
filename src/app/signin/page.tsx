@@ -8,7 +8,7 @@ import passwordIcon from "../../../public/passwordIcon.svg";
 export default function Signin() {
 
 
-    return(
+    return (
         <div>
             <div className="mainDiv">
                 <Header></Header>
@@ -17,7 +17,7 @@ export default function Signin() {
                     </div>
                     <div className="subMainDiv2">
                         <div className="subMainDiv2Form">
-                            <p className="signupDiv">SIGN IN</p>
+                            <p className="signupDiv">SIGN UP</p>
                             <form>
                                 <div className="inputDiv">
                                     <label htmlFor="email">EMAIL</label>
@@ -52,10 +52,10 @@ export default function Signin() {
                                         required
                                     />
                                 </div>
-                                <button className="submitButton" type="submit">SIGN IN</button>
+                                <button className="submitButton" type="submit">SIGN UP</button>
                                 <div className="alternateSignin">
-                                    <p>I don't have an account,</p>
-                                    <p>SIGN UP</p>
+                                    <p>I already have an account,</p>
+                                    <p>SIGN IN</p>
                                 </div>
                             </form>
                         </div>
