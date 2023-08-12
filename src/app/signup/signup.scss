@@ -1,17 +1,17 @@
 @import "../globals.scss";
 
-* {
-    overflow: hidden;
-}
+// * {
+//     overflow: hidden;
+// }
 
 .mainDiv {
-    overflow: hidden;
-    height: max-content;
+    // overflow: hidden;
 }
 
 .subMainDiv {
     height: calc(100vh - 79px);
     display: grid;
+    overflow: hidden;
     grid-template-columns: 600px 1fr;
 }
 
@@ -131,5 +131,9 @@
 
     .subMainDiv2 {
         margin-top: -150px;
+
+        .signupDiv {
+            font-size: 48px;
+        }
     }
 }
