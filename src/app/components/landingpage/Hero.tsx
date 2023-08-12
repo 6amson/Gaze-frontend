@@ -25,7 +25,7 @@ export default function Hero() {
         height={100}
         alt={"falling nft coins"}
         src={heroMainMobile.src}
-        className="mt-[1rem] p-2 sm:hidden mt-[45px]"
+        className="pt-[60px] p-2 sm:hidden"
       ></Image>
       <Image
         src={heroMainLp.src}

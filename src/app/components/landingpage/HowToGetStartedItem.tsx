@@ -1,7 +1,7 @@
 export default function HowToGetStartedItem() {
   return (
     <div className=" relative font-raleWay    w-[85vw]  h-[250px] sm:w-[36vw] sm:h-[300px] sm:max-w-[450px] 2xl:max-w-[470px]">
-      <div className="w-[78vw] sm:w-[33vw] sm:max-w-[400px] xl:max-w-[420px] min-h-[220px]  sm:min-h-[250px]  z-30  absolute mx-auto  bg-white right-0 top-0 rounded-[33px] border-2 border-black">
+      <div className="w-[78vw] sm:w-[33vw] sm:max-w-[400px] xl:max-w-[420px] min-h-[220px]  sm:min-h-[250px]  z-30  absolute mx-auto  bg-white right-0 top-0 rounded-[33px] border-2 border-black sm:border-4">
         <div className="p-[38px] md:p-[41px]">
           {" "}
           <div className="text-[1rem] font-bold leading-tight sm:text-[1.5rem]">
