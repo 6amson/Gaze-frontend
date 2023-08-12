@@ -15,9 +15,9 @@ export default function HowToGetStarted() {
             width={100}
             height={300}
           ></Image>
-          <div>HOW TO GET STARTED</div>
+          <div className="leading-none pt-[1px]">HOW TO GET STARTED</div>
         </div>
-        <div className="hidden sm:flex  text-[2.5rem] mb-[41px] mt-[47px] gap-x-[10px]">
+        <div className="hidden sm:flex  text-[2.3rem] mb-[41px] mt-[47px] gap-x-[10px]">
           {" "}
           <div className="leading-none">
             {" "}
@@ -27,7 +27,7 @@ export default function HowToGetStarted() {
             <Image
               src={hWTGSTHeader.src}
               alt="planet with stars"
-              width={100}
+              width={75}
               height={300}
             ></Image>
           </div>

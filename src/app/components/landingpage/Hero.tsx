@@ -1,4 +1,4 @@
-import heroMainLp from "../../../../public/svgs/landing-page/hero-main-lp.svg";
+import heroMainLp from "../../../../public/svgs/landing-page/hero-main-lp2.svg";
 import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg";
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import whiteTextLogo from "../../../../public/svgs/globals/white-text-logo.svg";

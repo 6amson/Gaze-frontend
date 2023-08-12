@@ -2,6 +2,7 @@ import Hero from "./components/landingpage/Hero";
 import HowToGetStarted from "./components/landingpage/HowToGetStarted";
 import Header from "./components/globals/Header";
 import FAQ from "./components/landingpage/FAQ";
+import Footer from "./components/landingpage/Footer";
 
 export default function Index() {
   return (
@@ -13,6 +14,7 @@ export default function Index() {
       <Hero></Hero>
       <HowToGetStarted></HowToGetStarted>
       <FAQ></FAQ>
+      <Footer></Footer>
     </div>
   );
 }
