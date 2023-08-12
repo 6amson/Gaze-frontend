@@ -1,6 +1,9 @@
+"use client";
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import mobileMenuIcon from "../../../../public/svgs/header/mobile-menu-icon.svg";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Header() {
   const headerButtons = [
@@ -9,9 +12,11 @@ export default function Header() {
     { name: "Connect with Metamask", isConnect: true },
   ];
 
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="w-full bg-black z-40 relative top-0 ">
-      <div className="font-raleWay m-auto  text-white w-full max-w-[1440px] sm:h-[80px] h-[45px]  flex items-center relative">
+      <div className=" z-40 font-raleWay m-auto absolute bg-black  text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
         <Image
           src={whiteTextIconLogo.src}
           alt="logo with text"
@@ -35,7 +40,12 @@ export default function Header() {
             );
           })}
         </div>
-        <button className="absolute right-[16px] sm:hidden">
+        <button
+          onClick={() => {
+            setMobileMenuOpen((prev) => !prev);
+          }}
+          className="absolute right-[16px] sm:hidden"
+        >
           <Image
             src={mobileMenuIcon.src}
             alt="mobile menu btn icon"
@@ -43,6 +53,25 @@ export default function Header() {
             height={16}
           ></Image>
         </button>
+      </div>
+
+      <div
+        className={` bg-black h-fit w-full duration-300 absolute z-0 flex flex-col text-center ${
+          isMobileMenuOpen ? "-top-[100%]" : "top-[100%]"
+        }`}
+      >
+        {headerButtons.map((item, index) => {
+          if (!item.isConnect) {
+            return (
+              <button
+                className="text-[0.7rem] text-white border-y border-gray-800"
+                key={index}
+              >
+                {item.name}
+              </button>
+            );
+          }
+        })}
       </div>
     </div>
   );
