@@ -13,14 +13,12 @@
     height: calc(100vh - 79px);
     display: grid;
     grid-template-columns: 600px 1fr;
-    overflow: hidden;
 }
 
 .subMainDiv1 {
     background: url("../../../public/signupImage.svg");
     background-size: contain;
     background-repeat: no-repeat;
-    height: 100vh;
 }
 
 .subMainDiv2 {
@@ -124,5 +122,14 @@
 
     .submitButton{
         width: 350px;
+    }
+
+    
+.subMainDiv {
+    height: calc(100vh - 79px);
+}
+
+    .subMainDiv2 {
+        margin-top: -150px;
     }
 }
