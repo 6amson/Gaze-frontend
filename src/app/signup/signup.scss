@@ -1,53 +1,52 @@
 @import "../globals.scss";
 
-*{
+* {
     overflow: hidden;
 }
 
-.mainDiv{
+.mainDiv {
     overflow: hidden;
     height: max-content;
 }
 
-.subMainDiv{
+.subMainDiv {
     height: calc(100vh - 79px);
     display: grid;
     grid-template-columns: 600px 1fr;
     overflow: hidden;
-    
 }
 
-.subMainDiv1{
-    background: url('../../../public/signupImage.svg');
+.subMainDiv1 {
+    background: url("../../../public/signupImage.svg");
     background-size: contain;
     background-repeat: no-repeat;
     height: 100vh;
 }
 
-.subMainDiv2{
-    .subMainDiv2Form{
+.subMainDiv2 {
+    .subMainDiv2Form {
         margin-top: 55px;
         width: fit-content;
 
-        .signupDiv{
+        .signupDiv {
             margin-bottom: 40px;
             font-size: 64px;
             font-weight: 700;
         }
 
-        label{
+        label {
             font-weight: 500;
             font-size: 12px;
         }
 
-        form{
+        form {
             width: fit-content;
-            .inputDiv{
+            .inputDiv {
                 position: relative;
             }
         }
 
-        input::placeholder{
+        input::placeholder {
             position: inherit;
             width: fit-content;
             font-weight: 200;
@@ -57,50 +56,73 @@
     }
 }
 
-.usernameIcon{
+.usernameIcon {
     position: absolute;
     top: 40px;
     margin-left: 15px;
 }
 
-.emailIcon{
+.emailIcon {
     position: absolute;
     top: 43px;
     margin-left: 15px;
 }
 
-.passwordIcon{
+.passwordIcon {
     position: absolute;
     top: 46px;
     margin-left: 15px;
 }
 
-.submitButton{
-  display: block;
-  padding: 10px;
-  font-family: $mainFont;
-  border-radius: 12px;
-  background-color: $mainColor;
-  width: 25rem;
-  margin-top: 8px;
-  margin-bottom: 24px;
-  position: relative;
-  font-weight: 600;
-  color: white;
+.submitButton {
+    display: block;
+    padding: 10px;
+    font-family: $mainFont;
+    border-radius: 12px;
+    background-color: $mainColor;
+    width: 25rem;
+    margin-top: 8px;
+    margin-bottom: 24px;
+    position: relative;
+    font-weight: 600;
+    color: white;
 }
 
-.alternateSignin{
+.alternateSignin {
     display: flex;
     justify-content: center;
     font-family: $mainFont;
 
-    p:first-child{
+    p:first-child {
         margin-right: 5px;
     }
 
-    p:nth-child(2){
+    p:nth-child(2) {
         color: $mainColor;
         font-weight: 500;
         cursor: pointer;
+    }
+}
+
+/***********************MEDIA QUERY************************************/
+
+@media (max-width: 1050px) {
+    .subMainDiv {
+        grid-template-columns: 1fr;
+        place-items: center;
+    }
+
+    .subMainDiv1 {
+        display: none;
+    }
+}
+
+@media (max-width: 510px) {
+    input {
+        width: 350px;
+    }
+
+    .submitButton{
+        width: 350px;
     }
 }
