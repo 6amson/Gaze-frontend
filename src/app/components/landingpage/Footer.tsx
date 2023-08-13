@@ -3,7 +3,7 @@ import footerStarsMobile from "../../../../public/svgs/landing-page/footer-stars
 import footerStarsLp from "../../../../public/svgs/landing-page/footer-stars-lp.svg";
 import footerSaturnMobile from "../../../../public/svgs/landing-page/footer-saturn-mobile.svg";
 import footerEarthMobile from "../../../../public/svgs/landing-page/footer-earth-mobile.svg";
-import footerPlanetsLp from "../../../../public/svgs/landing-page/footer-planets-lp2.svg";
+import footerPlanetsLp from "../../../../public/svgs/landing-page/footer-planets-lp3.svg";
 import purpleTextLogo from "../../../../public/svgs/globals/purple-text-logo.svg";
 import Image from "next/image";
 import { useState } from "react";

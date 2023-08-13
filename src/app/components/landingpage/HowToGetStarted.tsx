@@ -41,7 +41,12 @@ export default function HowToGetStarted() {
         ></Image>
         <div className="w-full h-fit flex flex-col items-center sm:flex-row sm:flex-wrap sm:pb-[5vw] pb-[23vw]  sm:justify-between sm:items-start sm:gap-x-[60px] sm:gap-y-[60px]">
           {[1, 2, 3, 4].map((item, index) => {
-            return <HowToGetStartedItem key={index}></HowToGetStartedItem>;
+            return (
+              <HowToGetStartedItem
+                index={index}
+                key={index}
+              ></HowToGetStartedItem>
+            );
           })}
         </div>
       </div>
