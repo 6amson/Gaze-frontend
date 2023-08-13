@@ -15,9 +15,9 @@ export default function FAQItem(props: FAQItemProps) {
       <div className="leading-tight pr-[20px]">
         {props.question}
         <div className={`${props.isOpen ? "" : "hidden"}`}>
-          answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          answer:Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Possimus eum debitis excepturi nobis quasi! Facilis voluptatum totam
-          nostrum rem sequi",
+          nostrum rem sequi,
         </div>
       </div>
       <button

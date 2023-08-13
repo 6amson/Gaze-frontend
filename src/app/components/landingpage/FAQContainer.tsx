@@ -61,6 +61,7 @@ export default function FAQContainer() {
           {FAQs.map((item, index) => {
             return (
               <FAQItem
+                key={index}
                 handleArrowClick={handleArrowClick}
                 isOpen={item.isOpen}
                 question={item.question}
