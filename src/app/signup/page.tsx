@@ -1,11 +1,77 @@
+'use client'
+
 import Image from "next/image";
 import Header from "../components/globals/Header";
 import "./signup.scss";
 import usernameIcon from "../../../public/usernameIcon.svg";
 import emailIcon from "../../../public/emailIcon.svg";
 import passwordIcon from "../../../public/passwordIcon.svg";
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import { useRouter, usePathname} from 'next/navigation';
+import Cookies from 'js-cookie';
+// import path from 'path';
 
 export default function Signup() {
+
+    const [error, setError] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const handlePasswordChange = (e: any) => {
+        setPassword(e.target.value);
+    };
+
+    const handleUsernameChange = (e: any) => {
+        setUsername(e.target.value);
+    }
+
+    const handleEmailChange = (e: any) => {
+        setEmail(e.target.value);
+    };
+
+    const datum = {
+        username: username,
+        email: email,
+        password: password,
+    }
+
+    const data = JSON.stringify(datum);
+
+    const handleAuth = async(): Promise<any> => {
+        const accesstoken = localStorage.getItem('token');
+        const refreshtoken = Cookies.get('Gaze_userAccess_AT');
+
+        if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
+            // console.log(accesstoken);
+            axios.get('http://localhost:3005/user/verify', {
+                headers: {
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            }).then((res) => {
+
+                if (res.status == 200) {
+                    Cookies.set('Gaze_userAccess_AT', res.data);
+                    const { userId } = res.data;
+                    const encodedString = encodeURIComponent(userId);
+                    router.push(`${pathname}`);
+                }
+
+            }).catch((err) => {
+                console.log(err);
+                // router.push('/signin');
+            });
+
+        } else if (!accesstoken && !refreshtoken) {
+            // router.push('/signin');
+        }
+    }
 
 
     return (
