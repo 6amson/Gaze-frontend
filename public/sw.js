@@ -1,10 +1,10 @@
 const urlsToCache = ['./fallback.tsx',];
-const cacheName = "gaze_userv001";
+const cacheName = "gaze_userv000";
 
-// const addResourcesToCache = async (resources) => {
-//   const cache = await caches.open(cacheName);
-//   await cache.addAll(resources);
-// };
+const addResourcesToCache = async (resources) => {
+  const cache = await caches.open(cacheName);
+  await cache.addAll(resources);
+};
 
 // const putInCache = async (request, response) => {
 //   const cache = await caches.open(cacheName);
@@ -57,7 +57,7 @@ const cacheName = "gaze_userv001";
 // };
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(enableNavigationPreload());
+  // event.waitUntil(enableNavigationPreload());
 });
 
 self.addEventListener('install', (event) => {

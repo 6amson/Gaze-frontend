@@ -45,7 +45,7 @@ export default function Signup() {
     const data = JSON.stringify(datum);
 
     const handleAuth = async(): Promise<any> => {
-        const accesstoken = localStorage.getItem('token');
+        const accesstoken = localStorage.getItem('Gaze_userAccess_RT');
         const refreshtoken = Cookies.get('Gaze_userAccess_AT');
 
         if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
