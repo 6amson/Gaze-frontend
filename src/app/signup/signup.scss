@@ -99,26 +99,33 @@
     }
 }
 
+Form {
+    position: relative;
+}
+
+
 input[type="checkbox"] {
     -webkit-appearance: none;
-    appearance: none;
-    background-color: rgb(33, 145, 236);
-    margin: 0;
     position: absolute;
   }
   
   
   
   input[type="checkbox"] {
-    appearance: none;
-    background-color: $mainColor;
-    margin: 0;
+    -webkit-appearance: none;
     position: absolute;
-    top: 20px;
-    color: $subMainColor;
-    width: 5px;
-    height: 20px;
+    top: 40px;
+    right: 10px;
+    background-color: $mainColor;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
     /*border: 0.15em solid currentColor;*/
+    border-radius: 5px;
     transform: translateY(-0.075em);
     display: grid;
     place-content: center;
@@ -131,7 +138,7 @@ input[type="checkbox"] {
     height: 0.65em;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 0.5em 0.5em $subMainColor;
+    box-shadow: inset 0.5em 0.5em rgb(255, 255, 255);
     transform-origin: bottom left;
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
     background-color: rgb(0, 0, 0);
@@ -142,8 +149,7 @@ input[type="checkbox"] {
   }
   
 
-
-.dna-wrapper{
+.dna-wrapper {
     position: absolute;
     top: 280px;
 }
@@ -181,5 +187,10 @@ input[type="checkbox"] {
                 font-size: 48px;
             }
         }
+    }
+
+    .dna-wrapper {
+        position: absolute;
+        top: 10px;
     }
 }

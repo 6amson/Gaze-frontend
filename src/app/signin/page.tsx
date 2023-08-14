@@ -4,12 +4,37 @@ import Header from "../components/globals/Header";
 import "./signin.scss";
 import emailIcon from "../../../public/emailIcon.svg";
 import passwordIcon from "../../../public/passwordIcon.svg";
+import { useState, useEffect } from "react";
+
 
 
 export default function Signin() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
+    
+    const handlePasswordChange = (e: any) => {
+        setPassword(e.target.value);
+    };
+
+    const handleEmailChange = (e: any) => {
+        setEmail(e.target.value);
+    };
+
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const datum = {
+        email: email,
+        password: password,
+    }
+
+    const data = JSON.stringify(datum);
 
     return (
+        // eslint-disable react/no-unescaped-entities
         <div>
             <div className="mainDiv">
                 <Header></Header>
@@ -50,6 +75,7 @@ export default function Signin() {
                                         id="password"
                                         name="password"
                                         placeholder="Password"
+                                        type={showPassword ? "text" : "password"} 
                                         required
                                     />
                                 </div>

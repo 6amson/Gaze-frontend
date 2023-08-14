@@ -232,6 +232,7 @@ export default function Signup() {
                                         name="password"
                                         placeholder="Password"
                                         required
+                                        type={showPassword ? "text" : "password"} 
                                         onChange={handlePasswordChange}
                                     />
                                     <input
