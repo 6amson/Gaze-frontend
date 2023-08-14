@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link"
 import Header from "../components/globals/Header";
 import "./signin.scss";
 import emailIcon from "../../../public/emailIcon.svg";
@@ -54,8 +55,8 @@ export default function Signin() {
                                 </div>
                                 <button className="submitButton" type="submit">SIGN IN</button>
                                 <div className="alternateSignin">
-                                    <p>I already have an account,</p>
-                                    <p>SIGN UP</p>
+                                    <p>I don't have an account,</p>
+                                    <Link href={'/signup'}><p>SIGN UP</p></Link>
                                 </div>
                             </form>
                         </div>

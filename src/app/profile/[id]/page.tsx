@@ -3,6 +3,7 @@
 
 import Profile from './profileMethods';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 export default function profileMethods() {
@@ -90,10 +91,36 @@ export default function profileMethods() {
         }
     }
 
-    const handleArrowClick = (questionIndex: number) => {
-        console.log(`Number is ${questionIndex}`);
-        return (`Number is ${questionIndex}`)
-    };
+    const handleAuth = async(): Promise<any> => {
+        const accesstoken = localStorage.getItem('Gaze_userAccess_RT');
+        const refreshtoken = Cookies.get('Gaze_userAccess_AT');
+
+        if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
+            // console.log(accesstoken);
+            axios.post('http://localhost:3005/user/verify', {
+                headers: {
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            }).then((res) => {
+
+                if (res.status == 200) {
+                    Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
+                    const { userId } = res.data;
+                    const encodedString = encodeURIComponent(userId);
+                    return { isValidUser: true, encodedString: encodedString }
+                }
+
+            }).catch((err) => {
+                console.log(err);
+                // router.push('/signin');
+                return {isValidUser: false}
+            });
+
+        } else if (!accesstoken && !refreshtoken) {
+            // router.push('/signin');
+            return {isValidUser: false}
+        }
+    }
 
     return (
         <div>
