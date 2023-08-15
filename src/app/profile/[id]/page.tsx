@@ -110,13 +110,10 @@ export default function profileMethods() {
                 askPermission={askPermission}
             /> */}
 
-      <div className="mx-auto max-w-[83%]">
+      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
         <ProfileWithSub></ProfileWithSub>
         <ProfileNoSubs></ProfileNoSubs>
       </div>
-      <div className="w-full bg-yellow-500 h-screen"></div>
-      <div className="w-full bg-yellow-300 h-screen"></div>
-      <div className="w-full bg-yellow-100 h-screen"></div>
     </div>
   );
 }

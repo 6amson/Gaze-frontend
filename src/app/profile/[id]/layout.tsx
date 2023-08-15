@@ -9,11 +9,11 @@ export default function ProfileLayout({
   return (
     <section className="w-full h-screen">
       <div className="flex">
-        <div className="w-[100%] max-w-[220px] relative h-screen z-30 bg-red-500 border ">
+        <div className="w-[100%] max-w-[54px] xl:max-w-[220px] relative h-screen z-30  border ">
           <ProfileSideBar></ProfileSideBar>
         </div>
-        <div className="w-full">
-          <div className="w-full h-[75px] max-h-[75px] relative border">
+        <div className="w-[100%]">
+          <div className="w-full h-full xl:max-h-[60px] max-h-[45px] relative border z-20">
             {" "}
             <ProfileHeader></ProfileHeader>
           </div>
