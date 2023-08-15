@@ -214,6 +214,7 @@ export default function Signup() {
                                         name="email"
                                         placeholder="Email"
                                         required
+                                        type={email}
                                         onChange={handleEmailChange}
                                     />
                                 </div>
@@ -249,8 +250,8 @@ export default function Signup() {
                                     <ToastContainer />
                                     <Dna
                                         visible={loading}
-                                        height="200"
-                                        width="200"
+                                        height="150"
+                                        width="150"
                                         ariaLabel="dna-loading"
                                         wrapperStyle={{}}
                                         wrapperClass="dna-wrapper"

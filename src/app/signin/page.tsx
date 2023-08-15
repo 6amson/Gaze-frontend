@@ -15,7 +15,7 @@ export default function Signin() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    
+
     const handlePasswordChange = (e: any) => {
         setPassword(e.target.value);
     };
@@ -61,6 +61,7 @@ export default function Signin() {
                                         name="email"
                                         placeholder="Email"
                                         required
+                                        type={email}
                                     />
                                 </div>
 
@@ -77,8 +78,14 @@ export default function Signin() {
                                         id="password"
                                         name="password"
                                         placeholder="Password"
-                                        type={showPassword ? "text" : "password"} 
+                                        type={showPassword ? "text" : "password"}
                                         required
+                                    />
+                                    <input
+                                        id='showP'
+                                        type="checkbox"
+                                        checked={showPassword}
+                                        onChange={handleTogglePassword}
                                     />
                                 </div>
                                 <button className="submitButton" type="submit">SIGN IN</button>
