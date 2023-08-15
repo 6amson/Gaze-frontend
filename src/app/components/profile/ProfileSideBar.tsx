@@ -40,7 +40,7 @@ export default function ProfileSideBar() {
           <Link
             className={`${
               item.location === pathName ? "bg-spacePurple" : "bg-[#441185]"
-            } p-[5px] xl:px-[22px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
+            } p-[5px] xl:px-[12px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
             href={item.location}
           >
             <Image
@@ -58,7 +58,7 @@ export default function ProfileSideBar() {
       })}
 
       <button
-        className={`p-[5px] absolute bottom-[10%] xl:px-[22px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
+        className={`p-[5px] absolute bottom-[10%] xl:px-[12px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
       >
         <Image
           width={25}
