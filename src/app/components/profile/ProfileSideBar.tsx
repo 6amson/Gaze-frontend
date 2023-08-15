@@ -50,7 +50,7 @@ export default function ProfileSideBar() {
               className={"xl:w-[18px]"}
               alt={`${item.name} sidebar icon`}
             ></Image>
-            <span className="text-white xl:block leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-semibold">
+            <span className="text-white xl:block tracking-wider leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-semibold">
               {item.name}
             </span>
           </Link>
@@ -67,7 +67,7 @@ export default function ProfileSideBar() {
           className={"xl:w-[18px]"}
           alt={`logout sidebar icon`}
         ></Image>
-        <span className="text-white xl:block leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-semibold">
+        <span className="text-white xl:block tracking-wider leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-semibold">
           LOGOUT
         </span>
       </button>

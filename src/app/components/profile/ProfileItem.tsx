@@ -12,8 +12,8 @@ interface ProfileItemProps {
 export default function ProfileItem(props: ProfileItemProps) {
   const bothNewlyMintedAndTransfered = props.newlyMinted && props.newlyTransfer;
   return (
-    <div className="w-full bg-[#F5F5F5] sm:max-w-[35vw] lg:max-w-[21vw] xl:max-w-[18vw] 2xl:max-w-[16vw]  border p-[14px] xl:p-[19px] rounded-[2px] border-gray-800 font-raleWay">
-      <div className="mx-auto border border-gray-500 overflow-hidden relative rounded-[2px] xl:h-[220px] ">
+    <div className="w-full bg-[#F5F5F5] sm:max-w-[35vw] lg:max-w-[21vw] xl:max-w-[20vw] 2xl:max-w-[16vw]  border p-[14px] xl:p-[19px] rounded-[10px] border-gray-800 font-raleWay">
+      <div className="mx-auto border border-gray-500 overflow-hidden relative rounded-[10px] xl:h-[220px] ">
         <div className={`${bothNewlyMintedAndTransfered ? "hidden" : "block"}`}>
           {" "}
           <Image
