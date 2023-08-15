@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import Image from "next/image";
 import Header from "../components/globals/Header";
 import "./signup.scss";
@@ -8,9 +9,14 @@ import emailIcon from "../../../public/emailIcon.svg";
 import passwordIcon from "../../../public/passwordIcon.svg";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { useRouter, usePathname} from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
-// import path from 'path';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
+import { Dna } from 'react-loader-spinner'
+
+
 
 export default function Signup() {
 
@@ -20,6 +26,7 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const url = "http://localhost:3005/"
 
     const router = useRouter();
     const pathname = usePathname();
@@ -36,6 +43,10 @@ export default function Signup() {
         setEmail(e.target.value);
     };
 
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    }
+
     const datum = {
         username: username,
         email: email,
@@ -44,34 +55,119 @@ export default function Signup() {
 
     const data = JSON.stringify(datum);
 
-    const handleAuth = async(): Promise<any> => {
+
+    const handleSignup = async (e: any) => {
+        e.preventDefault();
+
+        try {
+            setLoading(true);
+            const res = await axios.post(`${url}user/signup`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(res.data.id)
+            const { refreshToken } = res.data;
+            const { accessToken } = res.data;
+            const { id } = res.data;
+            localStorage.setItem('Gaze_userAccess_AT', accessToken);
+            Cookies.set('Gaze_userAccess_RT', refreshToken, { secure: true, sameSite: 'lax' });
+            const encodedString = encodeURIComponent(id);
+
+            if (res.status == 201) {
+                // console.log(res);
+                router.push(`/profile/${encodedString}`);
+            }
+
+        } catch (err: any) {
+            console.info("this is the error:", err);
+            if (err.response.data.statusCode == 409) {
+                toast.error('User already exist.', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            } else if (err.response.data.statusCode == 400) {
+                toast.error('Please, flll the form appropriately.', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            } else if (err.response.data.statusCode == 500) {
+                toast.error('This is from our end, please try again', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            }
+
+
+        } finally {
+            setLoading(false)
+        }
+
+        // axios.post(`${url}user/signup`, data, {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     }
+        // }).then((res) => {
+        //     Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
+        //     const { userId } = res.data.id;
+        //     const encodedString = encodeURIComponent(userId);
+
+        //     if (res.status == 201) {
+        //         // console.log(res);
+        //         router.push(`/profile/${encodedString}`);
+        //     }
+
+        // }).catch((err) => {
+        //     // console.log(err.response.data);
+        //     if (err.response.data.statusCode == 400) {
+        //         toast.error(err.response.data.message, {
+        //             position: toast.POSITION.TOP_RIGHT
+        //         });
+        //     } else {
+        //         setError(err.response.data.message);
+        //     }
+
+        // });
+
+    };
+
+
+
+
+    const handleAuth = async (): Promise<any> => {
         const accesstoken = localStorage.getItem('Gaze_userAccess_RT');
         const refreshtoken = Cookies.get('Gaze_userAccess_AT');
 
         if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
             // console.log(accesstoken);
-            axios.get('http://localhost:3005/user/verify', {
+            axios.post('http://localhost:3005/user/verify', {
                 headers: {
                     'Authorization': `Bearer ${accesstoken}`
                 }
             }).then((res) => {
 
                 if (res.status == 200) {
-                    Cookies.set('Gaze_userAccess_AT', res.data);
-                    const { userId } = res.data;
-                    const encodedString = encodeURIComponent(userId);
-                    router.push(`${pathname}`);
+                    Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
+                    const { id } = res.data;
+                    const encodedString = encodeURIComponent(id);
+                    return { isValidUser: true, encodedString: encodedString }
                 }
 
             }).catch((err) => {
                 console.log(err);
                 // router.push('/signin');
+                return { isValidUser: false }
             });
 
         } else if (!accesstoken && !refreshtoken) {
             // router.push('/signin');
+            return { isValidUser: false }
         }
     }
+
 
 
     return (
@@ -99,6 +195,7 @@ export default function Signup() {
                                         name="username"
                                         placeholder="Username"
                                         required
+                                        onChange={handleUsernameChange}
                                     />
                                 </div>
 
@@ -110,12 +207,15 @@ export default function Signup() {
                                         width={20}
                                         className="emailIcon"
                                         height={15}
+
                                     ></Image>
                                     <input
                                         id="email"
                                         name="email"
                                         placeholder="Email"
                                         required
+                                        type={email}
+                                        onChange={handleEmailChange}
                                     />
                                 </div>
 
@@ -133,12 +233,29 @@ export default function Signup() {
                                         name="password"
                                         placeholder="Password"
                                         required
+                                        type={showPassword ? "text" : "password"} 
+                                        onChange={handlePasswordChange}
+                                    />
+                                    <input
+                                        id='showP'
+                                        type="checkbox"
+                                        checked={showPassword}
+                                        onChange={handleTogglePassword}
                                     />
                                 </div>
-                                <button className="submitButton" type="submit">SIGN UP</button>
+                                <button className="submitButton" onClick={handleSignup} disabled={loading}>SIGN UP</button>
                                 <div className="alternateSignin">
                                     <p>I already have an account,</p>
-                                    <p>SIGN IN</p>
+                                    <Link href={'/signin'}><p>SIGN IN</p></Link>
+                                    <ToastContainer />
+                                    <Dna
+                                        visible={loading}
+                                        height="150"
+                                        width="150"
+                                        ariaLabel="dna-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClass="dna-wrapper"
+                                    />
                                 </div>
                             </form>
                         </div>
@@ -147,4 +264,6 @@ export default function Signup() {
             </div>
         </div>
     )
+
 }
+
