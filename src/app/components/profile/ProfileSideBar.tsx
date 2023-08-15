@@ -1,6 +1,7 @@
 "use client";
 import sideBarSubs from "../../../../public/svgs/profile/sidebar-subs.svg";
 import sideBarNotifs from "../../../../public/svgs/profile/sidebar-notifs.svg";
+import sideBarLogout from "../../../../public/svgs/profile/sidebar-logout.svg";
 import sideBarLogoMobile from "../../../../public/svgs/profile/sidebar-logo-mobile.svg";
 import sideBarLogoLaptop from "../../../../public/svgs/profile/sidebar-logo-lp.svg";
 import Link from "next/link";
@@ -49,12 +50,27 @@ export default function ProfileSideBar() {
               className={"xl:w-[18px]"}
               alt={`${item.name} sidebar icon`}
             ></Image>
-            <span className="text-white xl:block leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-bold">
+            <span className="text-white xl:block leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-semibold">
               {item.name}
             </span>
           </Link>
         );
       })}
+
+      <button
+        className={`p-[5px] absolute bottom-[10%] xl:px-[22px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
+      >
+        <Image
+          width={25}
+          height={25}
+          src={sideBarLogout.src}
+          className={"xl:w-[18px]"}
+          alt={`logout sidebar icon`}
+        ></Image>
+        <span className="text-white xl:block leading-none hidden font-raleWay text-[0.8rem] xl:text-[0.73rem] font-semibold">
+          LOGOUT
+        </span>
+      </button>
     </div>
   );
 }

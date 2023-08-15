@@ -4,17 +4,59 @@ import newlyTransferSticker from "../../../../public/svgs/profile/newly-transfer
 import fileIcon from "../../../../public/svgs/profile/file-icon.svg";
 import Image from "next/image";
 
-export default function ProfileItem() {
+interface ProfileItemProps {
+  newlyMinted: boolean;
+  newlyTransfer: boolean;
+}
+
+export default function ProfileItem(props: ProfileItemProps) {
+  const bothNewlyMintedAndTransfered = props.newlyMinted && props.newlyTransfer;
   return (
-    <div className="w-full bg-[#F5F5F5] sm:max-w-[35vw] lg:max-w-[21vw] xl:max-w-[18vw] 2xl:max-w-[16vw]  border p-[14px] xl:p-[19px] rounded-[2px] border-gray-300 font-raleWay">
+    <div className="w-full bg-[#F5F5F5] sm:max-w-[35vw] lg:max-w-[21vw] xl:max-w-[18vw] 2xl:max-w-[16vw]  border p-[14px] xl:p-[19px] rounded-[2px] border-gray-800 font-raleWay">
       <div className="mx-auto border border-gray-500 overflow-hidden relative rounded-[2px] xl:h-[220px] ">
-        <Image
-          alt="newly minted sticker"
-          className="absolute top-0 right-0"
-          width={100}
-          height={100}
-          src={newlyMintedSticker.src}
-        ></Image>
+        <div className={`${bothNewlyMintedAndTransfered ? "hidden" : "block"}`}>
+          {" "}
+          <Image
+            alt="newly minted sticker"
+            className={`${
+              props.newlyMinted ? "block" : "hidden"
+            }  absolute top-0 right-0`}
+            width={100}
+            height={100}
+            src={newlyMintedSticker.src}
+          ></Image>
+          <Image
+            alt="newly minted sticker"
+            className={`${
+              props.newlyTransfer ? "block" : "hidden"
+            }  absolute top-0 right-0`}
+            width={100}
+            height={100}
+            src={newlyTransferSticker.src}
+          ></Image>
+        </div>
+
+        <div className={`${bothNewlyMintedAndTransfered ? "block" : "hidden"}`}>
+          <Image
+            alt="newly minted sticker"
+            className={`${
+              props.newlyMinted ? "block" : "hidden"
+            }  absolute top-0 right-12`}
+            width={100}
+            height={100}
+            src={newlyMintedSticker.src}
+          ></Image>
+          <Image
+            alt="newly minted sticker"
+            className={`${
+              props.newlyTransfer ? "block" : "hidden"
+            }  absolute top-0 right-0`}
+            width={100}
+            height={100}
+            src={newlyTransferSticker.src}
+          ></Image>
+        </div>
+
         <Image
           src={demoNftImage.src}
           width={250}

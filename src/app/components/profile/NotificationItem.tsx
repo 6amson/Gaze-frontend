@@ -6,7 +6,7 @@ interface NotificationItemProps {
   newlyMinted: boolean;
 }
 
-export default function NotificationItem() {
+export default function NotificationItem(props: NotificationItemProps) {
   return (
     <div className="font-raleWay border border-black p-[12px] rounded-[10px] lg:flex lg:gap-x-[15px]">
       {/*      <Image
@@ -16,7 +16,9 @@ export default function NotificationItem() {
         alt={"notification icon for newly transferred"}
       ></Image> */}
       <Image
-        src={notifsNewlyMinted.src}
+        src={
+          props.newlyMinted ? notifsNewlyMinted.src : notifsNewlyTransfer.src
+        }
         width={140}
         className={"lg:w-[150px]"}
         height={100}

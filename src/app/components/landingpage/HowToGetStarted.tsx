@@ -39,7 +39,7 @@ export default function HowToGetStarted() {
           alt="circular wavy illustration"
           className="absolute right-[0%] top-[35%] w-[20vw] hidden sm:block z-30"
         ></Image>
-        <div className="w-full h-fit flex flex-col items-center sm:flex-row sm:flex-wrap sm:pb-[5vw] pb-[23vw]  sm:justify-between sm:items-start sm:gap-x-[60px] sm:gap-y-[60px]">
+        <div className="w-full h-fit flex flex-col items-center sm:flex-row sm:flex-wrap sm:pb-[5vw] pb-[23vw]  sm:justify-between sm:items-start sm:gap-x-[60px] sm:gap-y-[60px] gap-y-[20px]">
           {[1, 2, 3, 4].map((item, index) => {
             return (
               <HowToGetStartedItem
