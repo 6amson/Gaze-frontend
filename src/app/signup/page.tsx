@@ -66,7 +66,6 @@ export default function Signup() {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(res.data.id)
             const { refreshToken } = res.data;
             const { accessToken } = res.data;
             const { id } = res.data;
@@ -99,39 +98,18 @@ export default function Signup() {
                     autoClose: 2500,
                     theme: "dark",
                 })
+            }else {
+                toast.error('This is from our end, please try again', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
             }
 
 
         } finally {
             setLoading(false)
         }
-
-        // axios.post(`${url}user/signup`, data, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     }
-        // }).then((res) => {
-        //     Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
-        //     const { userId } = res.data.id;
-        //     const encodedString = encodeURIComponent(userId);
-
-        //     if (res.status == 201) {
-        //         // console.log(res);
-        //         router.push(`/profile/${encodedString}`);
-        //     }
-
-        // }).catch((err) => {
-        //     // console.log(err.response.data);
-        //     if (err.response.data.statusCode == 400) {
-        //         toast.error(err.response.data.message, {
-        //             position: toast.POSITION.TOP_RIGHT
-        //         });
-        //     } else {
-        //         setError(err.response.data.message);
-        //     }
-
-        // });
-
     };
 
 
@@ -150,7 +128,7 @@ export default function Signup() {
             }).then((res) => {
 
                 if (res.status == 200) {
-                    Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
+                    Cookies.set('Gaze_userAccess_RT', res.data.refreshToken);
                     const { id } = res.data;
                     const encodedString = encodeURIComponent(id);
                     return { isValidUser: true, encodedString: encodedString }

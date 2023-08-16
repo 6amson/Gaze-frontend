@@ -7,6 +7,13 @@ import "./signin.scss";
 import emailIcon from "../../../public/emailIcon.svg";
 import passwordIcon from "../../../public/passwordIcon.svg";
 import { useState, useEffect } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
+import { Dna } from 'react-loader-spinner';
 
 
 
@@ -14,6 +21,10 @@ export default function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const url = "http://localhost:3005/"
+
+    const router = useRouter();
 
 
     const handlePasswordChange = (e: any) => {
@@ -34,6 +45,65 @@ export default function Signin() {
     }
 
     const data = JSON.stringify(datum);
+
+    const handleSignin = async (e: any) => {
+        e.preventDefault();
+
+        try {
+            setLoading(true);
+            const res = await axios.post(`${url}user/signin`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            
+            const { refreshToken } = res.data;
+            const { accessToken } = res.data;
+            const { id } = res.data;
+            localStorage.setItem('Gaze_userAccess_AT', accessToken);
+            Cookies.set('Gaze_userAccess_RT', refreshToken, { secure: true, sameSite: 'lax' });
+            const encodedString = encodeURIComponent(id);
+            router.push(`/profile/${encodedString}`);
+
+            if (res.status == 201) {
+                console.log('here:', res.data.id);
+                // console.log(res);
+              
+            }
+
+        } catch (err: any) {
+            console.info("this is the error:", err);
+            if (err.response.data.statusCode == 409) {
+                toast.error('User already exist.', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            } else if (err.response.data.statusCode == 400) {
+                toast.error('Please, flll the form appropriately.', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            } else if (err.response.data.statusCode == 401) {
+                toast.error('Invalid email or password', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            } else if (err.response.data.statusCode == 500) {
+                toast.error('This is from our end, please try again', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            }
+
+
+        } finally {
+            setLoading(false)
+        }
+    };
 
     return (
         // eslint-disable react/no-unescaped-entities
@@ -62,6 +132,7 @@ export default function Signin() {
                                         placeholder="Email"
                                         required
                                         type={email}
+                                        onChange={handleEmailChange}
                                     />
                                 </div>
 
@@ -78,6 +149,7 @@ export default function Signin() {
                                         id="password"
                                         name="password"
                                         placeholder="Password"
+                                        onChange={handlePasswordChange}
                                         type={showPassword ? "text" : "password"}
                                         required
                                     />
@@ -88,10 +160,20 @@ export default function Signin() {
                                         onChange={handleTogglePassword}
                                     />
                                 </div>
-                                <button className="submitButton" type="submit">SIGN IN</button>
+                                <button className="submitButton" onClick={handleSignin} type="submit">SIGN IN</button>
                                 <div className="alternateSignin">
                                     <p>I don't have an account,</p>
                                     <Link href={'/signup'}><p>SIGN UP</p></Link>
+
+                                    <ToastContainer />
+                                    <Dna
+                                        visible={loading}
+                                        height="150"
+                                        width="150"
+                                        ariaLabel="dna-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClass="dna-wrapper"
+                                    />
                                 </div>
                             </form>
                         </div>
