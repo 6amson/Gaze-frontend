@@ -6,7 +6,7 @@ import ProfileWithSub from "@/app/components/profile/ProfileWithSub";
 import ProfileNoSubs from "@/app/components/profile/ProfileNoSubs";
 
 export default function profileMethods() {
-  const vapidKeys = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
+  const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
 
   async function askPermission(): Promise<any> {
     console.log("clicked!!");
@@ -25,7 +25,7 @@ export default function profileMethods() {
               );
               const subscribeOptions = {
                 userVisibleOnly: true,
-                applicationServerKey: vapidKeys,
+                applicationServerKey: vapidControl,
               };
 
               const pushSubscription =
@@ -55,8 +55,6 @@ export default function profileMethods() {
   }
 
   async function subscribe(): Promise<any> {
-    const accesstoken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiNjRjOTAxZWFlZjI5ODBmMWI5YzVmNGZlIiwiaWF0IjoxNjkwODk0ODI3LCJleHAiOjE2OTg2NzA4Mjd9.9YAIT3jn4AbBJwoObL4Auw0vyH69t4xbyRd8y66bsRM";
     // const accesstoken = localStorage.getItem('Gaze_userAccess_RT');
     axios
       .post(
@@ -64,7 +62,7 @@ export default function profileMethods() {
         {},
         {
           headers: {
-            Authorization: `Bearer ${accesstoken}`,
+            Authorization: `Bearer `,
           },
         }
       )
