@@ -105,33 +105,6 @@ export default function Signup() {
         } finally {
             setLoading(false)
         }
-
-        // axios.post(`${url}user/signup`, data, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     }
-        // }).then((res) => {
-        //     Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
-        //     const { userId } = res.data.id;
-        //     const encodedString = encodeURIComponent(userId);
-
-        //     if (res.status == 201) {
-        //         // console.log(res);
-        //         router.push(`/profile/${encodedString}`);
-        //     }
-
-        // }).catch((err) => {
-        //     // console.log(err.response.data);
-        //     if (err.response.data.statusCode == 400) {
-        //         toast.error(err.response.data.message, {
-        //             position: toast.POSITION.TOP_RIGHT
-        //         });
-        //     } else {
-        //         setError(err.response.data.message);
-        //     }
-
-        // });
-
     };
 
 
