@@ -152,6 +152,11 @@ input[type="checkbox"] {
     transform: scale(1);
   }
 
+  .dna-wrapper {
+    position: absolute;
+    top: 80px;
+}
+
 /***********************MEDIA QUERY************************************/
 
 @media (max-width: 1050px) {
@@ -186,5 +191,10 @@ input[type="checkbox"] {
                 font-size: 48px;
             }
         }
+    }
+
+    .dna-wrapper {
+        position: absolute;
+        top: 10px;
     }
 }

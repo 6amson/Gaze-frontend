@@ -123,7 +123,7 @@ export default function Signup() {
             }).then((res) => {
 
                 if (res.status == 200) {
-                    Cookies.set('Gaze_userAccess_AT', res.data.refreshToken);
+                    Cookies.set('Gaze_userAccess_RT', res.data.refreshToken);
                     const { id } = res.data;
                     const encodedString = encodeURIComponent(id);
                     return { isValidUser: true, encodedString: encodedString }
