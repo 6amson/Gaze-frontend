@@ -23,7 +23,7 @@ export default function profileMethods() {
               );
               const subscribeOptions = {
                 userVisibleOnly: true,
-                applicationServerKey: "replace with vapicControl",
+                applicationServerString: "replace with vapicControl",
               };
 
               const pushSubscription =
