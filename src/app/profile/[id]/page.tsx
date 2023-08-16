@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 export default function profileMethods() {
 
-    const vapidKeys = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
+    const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
 
     async function askPermission(): Promise<any> {
         console.log('clicked!!')
@@ -25,7 +25,7 @@ export default function profileMethods() {
                             const registration = await navigator.serviceWorker.register('/sw.js');
                             const subscribeOptions = {
                                 userVisibleOnly: true,
-                                applicationServerKey: vapidKeys,
+                                applicationServerKey: vapidControl,
                             };
 
                             const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
