@@ -10,7 +10,6 @@ export default function profileMethods() {
     console.log("clicked!!");
     try {
       const permissionResult = await Notification.requestPermission();
-      const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
 
       if (permissionResult !== "granted") {
         throw new Error("We weren't granted permission.");
@@ -24,7 +23,7 @@ export default function profileMethods() {
               );
               const subscribeOptions = {
                 userVisibleOnly: true,
-                applicationServerKey: vapidControl,
+                applicationServerKey: "replace with vapicControl",
               };
 
               const pushSubscription =
