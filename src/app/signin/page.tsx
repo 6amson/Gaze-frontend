@@ -49,8 +49,6 @@ export default function Signin() {
     const handleSignin = async (e: any) => {
         e.preventDefault();
 
-        console.log(data)
-
         try {
             setLoading(true);
             const res = await axios.post(`${url}user/signin`, data, {
@@ -58,17 +56,19 @@ export default function Signin() {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(res.data.id)
+            
             const { refreshToken } = res.data;
             const { accessToken } = res.data;
             const { id } = res.data;
             localStorage.setItem('Gaze_userAccess_AT', accessToken);
             Cookies.set('Gaze_userAccess_RT', refreshToken, { secure: true, sameSite: 'lax' });
             const encodedString = encodeURIComponent(id);
+            router.push(`/profile/${encodedString}`);
 
             if (res.status == 201) {
+                console.log('here:', res.data.id);
                 // console.log(res);
-                router.push(`/profile/${encodedString}`);
+              
             }
 
         } catch (err: any) {

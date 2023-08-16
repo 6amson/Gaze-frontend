@@ -66,7 +66,6 @@ export default function Signup() {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(res.data.id)
             const { refreshToken } = res.data;
             const { accessToken } = res.data;
             const { id } = res.data;
@@ -94,6 +93,12 @@ export default function Signup() {
                     theme: "dark",
                 })
             } else if (err.response.data.statusCode == 500) {
+                toast.error('This is from our end, please try again', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            }else {
                 toast.error('This is from our end, please try again', {
                     position: "top-center",
                     autoClose: 2500,
