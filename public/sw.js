@@ -1,5 +1,5 @@
 const urlsToCache = ['./fallback.tsx',];
-const cacheName = "gaze_userv000";
+const cacheName = "gaze_userv001";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);
@@ -77,15 +77,16 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-//   self.addEventListener('fetch', (event) => {
-//     event.respondWith(
-//       cacheFirst({
-//         request: event.request,
-//         preloadResponsePromise: event.preloadResponse,
-//         fallbackUrl: 'https://www.google.com',
-//       })
-//     );
-//   });
+  // self.addEventListener('fetch', (event) => {
+  //   event.respondWith(
+  //     fetch(event.request)
+  //     // cacheFirst({
+  //     //   request: event.request,
+  //     //   preloadResponsePromise: event.preloadResponse,
+  //     //   fallbackUrl: 'www.facebook.com',
+  //     // })
+  //   );
+  // });
 
 function verifySubscription() {
   return self.registration.pushManager.getSubscription()
