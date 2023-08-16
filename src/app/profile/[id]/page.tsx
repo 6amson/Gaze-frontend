@@ -6,7 +6,7 @@ import ProfileWithSub from "@/app/components/profile/ProfileWithSub";
 import ProfileNoSubs from "@/app/components/profile/ProfileNoSubs";
 
 export default function profileMethods() {
-  const vapidKeys = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
+  /*   const vapidKeys = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS; */
 
   async function askPermission(): Promise<any> {
     console.log("clicked!!");
@@ -26,7 +26,7 @@ export default function profileMethods() {
               );
               const subscribeOptions = {
                 userVisibleOnly: true,
-                applicationServerKey: vapidKeys,
+                applicationServerKey: vapidControl,
               };
 
               const pushSubscription =
