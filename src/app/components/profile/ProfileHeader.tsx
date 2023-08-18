@@ -6,7 +6,7 @@ export default function ProfileHeader() {
     <div className="w-full h-full  xl:max-h-[60px] max-h-[45px] backdrop-blur-sm border-b border-black fixed top-0 right-0 fixed-cont flex items-center">
       <div className="w-full h-full relative flex items-center">
         {" "}
-        <div className="left-[70px] xl:left-[20vw] xxl:left-[17vw] absolute ">
+        <div className="left-[70px] absolute xl:left-[250px] ">
           <Image
             src={profileHeaderAvatar.src}
             alt="profile header avatar"

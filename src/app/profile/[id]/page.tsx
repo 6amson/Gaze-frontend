@@ -136,7 +136,7 @@ export default function profileMethods() {
             /> */}
 
       <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
-        <ProfileWithSub></ProfileWithSub>
+        {/* <ProfileWithSub></ProfileWithSub> */}
         <ProfileNoSubs></ProfileNoSubs>
       </div>
     </div>
