@@ -1,5 +1,7 @@
 import ProfileSideBar from "@/app/components/profile/ProfileSideBar";
 import ProfileHeader from "@/app/components/profile/ProfileHeader";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export default function ProfileLayout({
   children,
@@ -17,6 +19,7 @@ export default function ProfileLayout({
             {" "}
             <ProfileHeader></ProfileHeader>
           </div>
+          <ToastContainer/>
           {children}
         </div>
       </div>

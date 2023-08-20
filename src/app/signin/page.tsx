@@ -64,12 +64,7 @@ export default function Signin() {
             Cookies.set('Gaze_userAccess_RT', refreshToken, { secure: true, sameSite: 'lax' });
             const encodedString = encodeURIComponent(id);
             router.push(`/profile/${encodedString}`);
-
-            if (res.status == 201) {
-                console.log('here:', res.data.id);
-                // console.log(res);
-              
-            }
+            // console.log('here:', res.data);
 
         } catch (err: any) {
             console.info("this is the error:", err);
