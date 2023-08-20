@@ -1,3 +1,5 @@
+'use client'
+
 import heroMainLp from "../../../../public/svgs/landing-page/hero-main-lp2.svg";
 import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg";
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
@@ -8,9 +10,49 @@ import heroMainMobile from "../../../../public/svgs/landing-page/hero-main-mobil
 import heroMainMobile2 from "../../../../public/svgs/landing-page/hero-main-mobile.svg";
 
 import Image from "next/image";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from 'next/navigation'
 import Header from "../globals/Header";
 
+
 export default function Hero() {
+
+
+  const router = useRouter();
+
+  const handleAuth = async (): Promise<any> => {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_AT");
+
+    if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
+      // console.log(accesstoken);
+      axios
+        .post("http://localhost:3005/user/verify", {
+          headers: {
+            Authorization: `Bearer ${accesstoken}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            Cookies.set("Gaze_userAccess_AT", res.data.refreshToken);
+            const { userId } = res.data;
+            const { contractAddress } = res.data;
+            const encodedString = encodeURIComponent(userId);
+            return { isValid: true, encodedString: encodedString, contractAddress };
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          router.push('/signin');
+          return { isValid: false };
+        });
+    } else if (!accesstoken && !refreshtoken) {
+      router.push('/signin');
+      return { isValid: false };
+    }
+  };
+
   return (
     <div className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black ">
       <Image
@@ -46,7 +88,7 @@ export default function Hero() {
       </div>
       {/* Mobile Section */}
       <div className="absolute bottom-[10%] text-center sm:hidden">
-        <button className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black">
+        <button onClick={handleAuth} className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black">
           get started
         </button>
         <div className="text-[1rem] font-bold mb-[11px] uppercase leading-tight">

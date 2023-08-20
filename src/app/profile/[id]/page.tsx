@@ -15,6 +15,7 @@ export default function profileMethods() {
 
 
     const [isSubscribed, setIsSubscribe] = useState(false);
+    const [isValidated, setIsValidated] = useState(false);
     const [loading, setLoading] = useState(false);
     const [address, setAddress] = useState('');
 
@@ -52,44 +53,18 @@ export default function profileMethods() {
                         const rawData = { contractAddress: address, subscriptionId: subscriptionObject };
                         const data = JSON.stringify(rawData);
                         // `${url}user/updateuser`,
+                        setLoading(true);
+                        const res = await axios.post(`${url}user/updateuser`, data, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+                        console.log('here:', res.data);
 
-
-                        try {
-                            setLoading(true);
-                            const res = await axios.post(`${url}user/updateuser`, data, {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                            });
-                            console.log('here:', res.data);
-
-                            const { contractAddress } = res.data;
-
-                            //most likely wrap this in useContext as they are neceessary for the state of the entire profile page
-                            setAddress(address);
-                            setIsSubscribe(true);
-
-                        } catch (err: any) {
-                            console.info("this is the error:", err);
-                            if (err.response.data.statusCode == 406) {
-                                toast.error('Wrong address format, confirm the address is correct and retry.', {
-                                    position: "top-center",
-                                    autoClose: 2500,
-                                    theme: "dark",
-                                })
-                            } else if (err.response.data.statusCode == 500) {
-                                toast.error('This is from our end, please try again', {
-                                    position: "top-center",
-                                    autoClose: 2500,
-                                    theme: "dark",
-                                })
-                            }
-
-
-                        } finally {
-                            setLoading(false)
-                        }
-
+                        //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
+                        setAddress(address);
+                        setIsSubscribe(true);
+                        setIsValidated(true);
 
                     } else {
                         console.log("No service-worker on this browser");
@@ -98,10 +73,27 @@ export default function profileMethods() {
             }
 
             console.log(permissionResult);
-        } catch (error) {
-            console.info("Permission request failed: " + error);
-            return error;
+
+        } catch (err: any) {
+            console.info("Permission request failed: " + err);
+            if (err.response.data.statusCode == 406) {
+                toast.error('Wrong address format, confirm the address is correct and retry.', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            } else if (err.response.data.statusCode == 500) {
+                toast.error('This is from our end, please try again', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                })
+            }
+            return err;
+        } finally {
+            setLoading(false)
         }
+
     }
 
     async function verifySubscription(): Promise<any> {
@@ -112,7 +104,8 @@ export default function profileMethods() {
                 const subscription = await registration.pushManager.getSubscription();
 
                 if (subscription) {
-                    return { isSubscribed: true };
+                    const {contractAddress, isValid } = await handleAuth();
+                    return { isSubscribed: true, contractAddress, isValid };
                 } else {
                     return { isSubscribed: false };
                 }
@@ -121,6 +114,7 @@ export default function profileMethods() {
             throw new Error("No service worker or push notification not supported");
         }
     }
+    
 
     const handleAuth = async (): Promise<any> => {
         const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
@@ -138,18 +132,19 @@ export default function profileMethods() {
                     if (res.status == 200) {
                         Cookies.set("Gaze_userAccess_AT", res.data.refreshToken);
                         const { userId } = res.data;
+                        const {contractAddress} = res.data;
                         const encodedString = encodeURIComponent(userId);
-                        return { isValidUser: true, encodedString: encodedString };
+                        return { isValid: true, encodedString: encodedString, contractAddress };
                     }
                 })
                 .catch((err) => {
                     console.log(err);
                     // router.push('/signin');
-                    return { isValidUser: false };
+                    return { isValid: false };
                 });
         } else if (!accesstoken && !refreshtoken) {
             // router.push('/signin');
-            return { isValidUser: false };
+            return { isValid: false };
         }
     };
 
@@ -160,8 +155,8 @@ export default function profileMethods() {
                 askPermission={askPermissionAndUpdate}
             /> */}
 
-            <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]">
-                <ProfileWithSub></ProfileWithSub>
+            <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
+                {/* <ProfileWithSub></ProfileWithSub> */}
                 <ProfileNoSubs></ProfileNoSubs>
             </div>
         </div>
