@@ -64,7 +64,7 @@ export default function Header() {
           if (!item.isConnect) {
             return (
               <button
-                className="text-[0.7rem] text-white border-y border-gray-800"
+                className="text-[0.7rem] text-white border-t border-gray-800 leading-[0rem] h-[35px] font-raleWay"
                 key={index}
               >
                 {item.name}
