@@ -22,7 +22,7 @@ export default function Signin() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const url = "http://localhost:3005/"
+    const url = "https://gazebackend.cyclic.cloud/"
 
     const router = useRouter();
 

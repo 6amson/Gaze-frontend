@@ -25,8 +25,10 @@ export default function Hero() {
     const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
     const refreshtoken = Cookies.get("Gaze_userAccess_AT");
 
+    console.info({RT: refreshtoken, AT: accesstoken});
+
     if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
-      // console.log(accesstoken);
+
       axios
         .post("http://localhost:3005/user/verify", {
           headers: {
@@ -44,11 +46,11 @@ export default function Hero() {
         })
         .catch((err) => {
           console.log(err);
-          router.push('/signin');
+          router.push('/signup');
           return { isValid: false };
         });
     } else if (!accesstoken && !refreshtoken) {
-      router.push('/signin');
+      router.push('/signup');
       return { isValid: false };
     }
   };

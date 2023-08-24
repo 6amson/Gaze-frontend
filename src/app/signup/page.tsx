@@ -26,7 +26,7 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const url = "http://localhost:3005/"
+    const url = "https://gazebackend.cyclic.cloud/"
 
     const router = useRouter();
     const pathname = usePathname();
@@ -111,40 +111,6 @@ export default function Signup() {
             setLoading(false)
         }
     };
-
-
-
-
-    const handleAuth = async (): Promise<any> => {
-        const accesstoken = localStorage.getItem('Gaze_userAccess_RT');
-        const refreshtoken = Cookies.get('Gaze_userAccess_AT');
-
-        if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
-            // console.log(accesstoken);
-            axios.post('http://localhost:3005/user/verify', {
-                headers: {
-                    'Authorization': `Bearer ${accesstoken}`
-                }
-            }).then((res) => {
-
-                if (res.status == 200) {
-                    Cookies.set('Gaze_userAccess_RT', res.data.refreshToken);
-                    const { id } = res.data;
-                    const encodedString = encodeURIComponent(id);
-                    return { isValidUser: true, encodedString: encodedString }
-                }
-
-            }).catch((err) => {
-                console.log(err);
-                // router.push('/signin');
-                return { isValidUser: false }
-            });
-
-        } else if (!accesstoken && !refreshtoken) {
-            // router.push('/signin');
-            return { isValidUser: false }
-        }
-    }
 
 
 
