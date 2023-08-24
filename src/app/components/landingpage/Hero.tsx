@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import heroMainLp from "../../../../public/svgs/landing-page/hero-main-lp2.svg";
 import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg";
@@ -12,13 +12,10 @@ import heroMainMobile2 from "../../../../public/svgs/landing-page/hero-main-mobi
 import Image from "next/image";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import Header from "../globals/Header";
 
-
 export default function Hero() {
-
-
   const router = useRouter();
 
   const handleAuth = async (): Promise<any> => {
@@ -41,7 +38,11 @@ export default function Hero() {
             const { userId } = res.data;
             const { contractAddress } = res.data;
             const encodedString = encodeURIComponent(userId);
-            return { isValid: true, encodedString: encodedString, contractAddress };
+            return {
+              isValid: true,
+              encodedString: encodedString,
+              contractAddress,
+            };
           }
         })
         .catch((err) => {
@@ -84,13 +85,19 @@ export default function Hero() {
           Track your favorite <span className="text-spacePurple">NFT</span>
           <div>Collection</div>
         </div>
-        <button className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.7rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]">
+        <button
+          onClick={handleAuth}
+          className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.7rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
+        >
           Get Started
         </button>
       </div>
       {/* Mobile Section */}
       <div className="absolute bottom-[10%] text-center sm:hidden">
-        <button onClick={handleAuth} className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black">
+        <button
+          onClick={handleAuth}
+          className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black"
+        >
           get started
         </button>
         <div className="text-[1rem] font-bold mb-[11px] uppercase leading-tight">

@@ -1,196 +1,223 @@
 @import "../globals.scss";
 
+@import "../globals.scss";
+
 .mainDiv {
-    // overflow: hidden;
+  // overflow: hidden;
+}
+
+.headerCont {
+  width: 100%;
+  height: 79px;
+  .headerDiv {
+    position: fixed;
+    width: 100%;
+  }
 }
 
 .subMainDiv {
-    height: calc(100vh - 79px);
-    display: grid;
-    overflow: hidden;
-    grid-template-columns: 600px 1fr;
+  height: calc(100vh - 79px);
+  display: flex;
+  overflow: hidden;
+
+  grid-template-columns: 600px 1fr;
 }
 
 .subMainDiv1 {
-    background: url("../../../public/signupImage.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
+  width: 50vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  background-color: black;
+  max-width: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  position: relative;
 }
 
 .subMainDiv2 {
-    .subMainDiv2Form {
-        margin-top: 55px;
-        width: fit-content;
+  display: flex;
+  margin-left: 10vw;
 
-        .signupDiv {
-            margin-bottom: 40px;
-            font-size: 64px;
-            font-weight: 700;
-        }
+  .subMainDiv2Form {
+    margin-top: 55px;
 
-        label {
-            font-weight: 500;
-            font-size: 12px;
-        }
-
-        form {
-            width: fit-content;
-            .inputDiv {
-                position: relative;
-            }
-        }
-
-        input::placeholder {
-            position: inherit;
-            width: fit-content;
-            font-weight: 200;
-            font-family: $mainFont;
-            font-size: 14px;
-        }
+    .signupDiv {
+      margin-bottom: 40px;
+      line-height: 50%;
+      font-size: 48px;
+      font-weight: 700;
     }
+
+    label {
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    form {
+      width: fit-content;
+      .inputDiv {
+        position: relative;
+      }
+    }
+
+    input::placeholder {
+      position: inherit;
+      width: fit-content;
+      font-weight: 200;
+      font-family: $mainFont;
+      font-size: 14px;
+    }
+  }
 }
 
 .usernameIcon {
-    position: absolute;
-    top: 40px;
-    margin-left: 15px;
+  position: absolute;
+  top: 40px;
+  margin-left: 15px;
 }
 
 .emailIcon {
-    position: absolute;
-    top: 43px;
-    margin-left: 15px;
+  position: absolute;
+  top: 43px;
+  margin-left: 15px;
 }
 
 .passwordIcon {
-    position: absolute;
-    top: 46px;
-    margin-left: 15px;
+  position: absolute;
+  top: 46px;
+  margin-left: 15px;
 }
 
 .submitButton {
-    display: block;
-    padding: 10px;
-    font-family: $mainFont;
-    border-radius: 12px;
-    background-color: $mainColor;
-    width: 25rem;
-    margin-top: 32px;
-    margin-bottom: 24px;
-    position: relative;
-    font-weight: 600;
-    color: white;
-    box-shadow: 5px 5px 1px 0 black;
+  display: block;
+  padding: 10px;
+  font-family: $mainFont;
+  border-radius: 12px;
+  background-color: $mainColor;
+  width: 25rem;
+  margin-top: 32px;
+  margin-bottom: 24px;
+  position: relative;
+  font-weight: 600;
+  color: white;
+  box-shadow: 5px 5px 1px 0 black;
 }
 
 .alternateSignin {
-    display: flex;
-    justify-content: center;
-    font-family: $mainFont;
+  display: flex;
+  justify-content: center;
+  font-family: $mainFont;
 
-    p:first-child {
-        margin-right: 5px;
-    }
+  p:first-child {
+    margin-right: 5px;
+  }
 
-    a {
-        color: $mainColor;
-        font-weight: 500;
-        cursor: pointer;
-    }
+  a {
+    color: $mainColor;
+    font-weight: 500;
+    cursor: pointer;
+  }
 }
 
 Form {
-    position: relative;
+  position: relative;
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: absolute;
+}
 
 input[type="checkbox"] {
-    -webkit-appearance: none;
-    position: absolute;
-  }
-  
-  
-  
-  input[type="checkbox"] {
-    -webkit-appearance: none;
-    position: absolute;
-    top: 40px;
-    right: 10px;
-    background-color: $mainColor;
-    padding-left: 0;
-    padding-right: 0;
-    margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    /*border: 0.15em solid currentColor;*/
-    border-radius: 2px;
-    transform: translateY(-0.075em);
-    display: grid;
-    place-content: center;
-    box-shadow: 1.8px 2.9px 0 0 black;
-  }
-  
-  input[type="checkbox"]::before {
-    content: "";
-    width: 0.65em;
-    height: 0.65em;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 0.5em 0.5em rgb(255, 255, 255);
-    transform-origin: bottom left;
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-    background-color: rgb(0, 0, 0);
-  }
-  
-  input[type="checkbox"]:checked::before {
-    transform: scale(1);
-  }
-  
+  -webkit-appearance: none;
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  background-color: $mainColor;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  /*border: 0.15em solid currentColor;*/
+  border-radius: 2px;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  box-shadow: 1.8px 2.9px 0 0 black;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 0.5em 0.5em rgb(255, 255, 255);
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background-color: rgb(0, 0, 0);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
 
 .dna-wrapper {
-    position: absolute;
-    top: 80px;
+  position: absolute;
+  top: 80px;
 }
 /***********************MEDIA QUERY************************************/
 
 @media (max-width: 1050px) {
-    .subMainDiv {
-        grid-template-columns: 1fr;
-        place-items: center;
-    }
+  .subMainDiv {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
 
-    .subMainDiv1 {
-        display: none;
-    }
+  .subMainDiv1 {
+    display: none;
+  }
+
+  .subMainDiv2 {
+    margin: 0;
+  }
 }
 
 @media (max-width: 510px) {
-    input {
-        width: 350px;
-    }
+  .submitButton {
+    width: 300px;
+  }
 
-    .submitButton {
-        width: 350px;
-    }
+  .subMainDiv2 {
+    margin-top: -45px;
+    max-width: 300px;
+    width: 300px;
+    .subMainDiv2Form {
+      .inputDiv {
+        width: 300px;
 
-    .subMainDiv {
-        height: calc(100vh - 79px);
-    }
-
-    .subMainDiv2 {
-        margin-top: -150px;
-
-        .subMainDiv2Form {
-            .signupDiv {
-                font-size: 48px;
-            }
+        input {
+          width: 100%;
         }
+        .showPassword {
+          width: 20px;
+        }
+      }
+      .signupDiv {
+        font-size: 32px;
+      }
     }
+  }
 
-    .dna-wrapper {
-        position: absolute;
-        top: 10px;
-    }
+  .dna-wrapper {
+    position: absolute;
+    top: 10px;
+  }
 }
