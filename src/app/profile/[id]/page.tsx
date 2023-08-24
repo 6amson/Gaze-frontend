@@ -190,10 +190,10 @@ export default function profileMethods() {
     <div>
       <Profile askPermission={getNftListing} />
 
-      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
-        {/*   <ProfileWithSub></ProfileWithSub> */}
+      {/*   <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
+        <ProfileWithSub></ProfileWithSub>
         <ProfileNoSubs></ProfileNoSubs>
-      </div>
+      </div> */}
     </div>
   );
 }
