@@ -36,6 +36,11 @@ const settings = {
 
 const alchemy = new Alchemy(settings);
 
+
+
+    //A function that requests permission from user to send them notification and updates the their profile
+    //It sets stste
+    //To be attached to the subscribe button with ProfileWithNoSub
     async function askPermissionAndUpdate(address: string): Promise<any> {
 
         const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -65,7 +70,7 @@ const alchemy = new Alchemy(settings);
                         );
                         const subscriptionObject = await pushSubscription;
                         console.info(subscriptionObject.toJSON());
-                        return subscriptionObject.toJSON();
+                        // return subscriptionObject.toJSON();
                         // console.log(address, subscriptionObject.toJSON())
                         // return subscriptionObject;
                         const rawData = { contractAddress: address, subscriptionId: subscriptionObject };
@@ -89,9 +94,6 @@ const alchemy = new Alchemy(settings);
                     }
                 })();
             }
-
-            // console.log(permissionResult);
-
         } catch (err: any) {
             console.info("Permission request failed: " + err);
             if (err.response.data.statusCode == 406) {
@@ -116,6 +118,9 @@ const alchemy = new Alchemy(settings);
 
 
 
+    //A function that verifies the subscription status and validity of users. 
+    //To be called in useEffect in this page.
+    //Sets the states
     async function verifyValidAndSusbscribe(): Promise<any> {
         try {
             if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -132,7 +137,6 @@ const alchemy = new Alchemy(settings);
                     } else {
                         setIsSubscribed(false);
                         setIsValidated(isValid);
-                        // return { isSubscribed: false };
                     }
                 });
             } else {
@@ -144,9 +148,11 @@ const alchemy = new Alchemy(settings);
 
         }
     }
-    
+
 
     
+    //Unsubscribe function. 
+    //To be attached to the "unsubscribe" button in ProfileWithSubs page.                                      
     async function unsubscribe(): Promise<any> {
         const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
 
@@ -154,8 +160,6 @@ const alchemy = new Alchemy(settings);
             if ("serviceWorker" in navigator && "PushManager" in window) {
                 navigator.serviceWorker.ready.then(async (registration) => {
                     const subscription = await registration.pushManager.getSubscription();
-
-                    const { isValid } = await handleAuth();
 
                     if (subscription) {
                         const susbscriptionState = await subscription.unsubscribe();
@@ -171,7 +175,6 @@ const alchemy = new Alchemy(settings);
                         console.info(res.data);
                     } else {
                         setIsSubscribed(false);
-                        setIsValidated(isValid);
                     }
                 });
             } else {
@@ -183,6 +186,7 @@ const alchemy = new Alchemy(settings);
 
         }
     }
+
 
     async function getNftListing (): Promise<any>{
         const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
@@ -196,6 +200,8 @@ const alchemy = new Alchemy(settings);
     }
 
 
+    //A METHOD. 
+    //Handles the validity of the users. Returns an object, doesn't set any state.
     const handleAuth = async (): Promise<any> => {
         const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
         const refreshtoken = Cookies.get("Gaze_userAccess_AT");
@@ -235,12 +241,12 @@ const alchemy = new Alchemy(settings);
     return (
         <div>
             <Profile
-                askPermission={unsubscribe}
+                askPermission={getNftListing}
             />
 
             <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
                 <ProfileWithSub></ProfileWithSub>
-                <ProfileNoSubs></ProfileNoSubs>
+                {/* <ProfileNoSubs></ProfileNoSubs> */}
             </div>
         </div>
     );
