@@ -20,7 +20,7 @@ export default function profileMethods() {
   const [address, setAddress] = useState("");
 
   const settings = {
-    apiKey: "UPVHDe_ZySIpaOCwjWeF4n2ktkjpJxGg",
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
     network: Network.ETH_MAINNET,
   };
 
@@ -136,7 +136,7 @@ export default function profileMethods() {
   }
 
   async function getNftListing(): Promise<any> {
-    const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
+    const addr: any = process.env.NEXT_PUBLIC_ADDR;
 
     try {
       const response = await alchemy.nft.getNftsForContract(addr);
