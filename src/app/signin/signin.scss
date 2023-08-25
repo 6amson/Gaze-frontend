@@ -192,6 +192,10 @@ input[type="checkbox"]:checked::before {
 
   .subMainDiv2 {
     margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: -75px;
   }
 }
 
@@ -201,9 +205,13 @@ input[type="checkbox"]:checked::before {
   }
 
   .subMainDiv2 {
-    margin-top: -45px;
+    margin-top: -75px;
     max-width: 300px;
     width: 300px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     .subMainDiv2Form {
       .inputDiv {
         width: 300px;

@@ -3,20 +3,16 @@
 import Profile from "./profileMethods";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ProfileWithSub from "@/app/components/profile/ProfileWithSub";
 import ProfileNoSubs from "@/app/components/profile/ProfileNoSubs";
 import { useState, useEffect } from "react";
-import { Network, Alchemy } from 'alchemy-sdk';
-
-
-
+import { Network, Alchemy } from "alchemy-sdk";
 
 export default function profileMethods() {
     const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-    const url = "https://gazebackend.cyclic.cloud/"
-
+    const url = "https://gazebackend.cyclic.cloud/";
 
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [isValidated, setIsValidated] = useState(false);
@@ -29,12 +25,12 @@ export default function profileMethods() {
     const [subDataTokenId, setSubDataTokenId] = useState([]);
 
 
-const settings = {
-    apiKey: process.env.NEXT_PUBLIC_ALCHEMYAPI,
-    network: Network.ETH_MAINNET,
-};
+    const settings = {
+        apiKey: process.env.NEXT_PUBLIC_ALCHEMYAPI,
+        network: Network.ETH_MAINNET,
+    };
 
-const alchemy = new Alchemy(settings);
+    const alchemy = new Alchemy(settings);
 
 
 
@@ -42,8 +38,6 @@ const alchemy = new Alchemy(settings);
     //It sets stste
     //To be attached to the subscribe button with ProfileWithNoSub
     async function askPermissionAndUpdate(address: string): Promise<any> {
-
-        const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
 
         try {
             const permissionResult = await Notification.requestPermission();
@@ -69,58 +63,62 @@ const alchemy = new Alchemy(settings);
                             registration.scope
                         );
                         const subscriptionObject = await pushSubscription;
-                        console.info(subscriptionObject.toJSON());
                         // return subscriptionObject.toJSON();
                         // console.log(address, subscriptionObject.toJSON())
                         // return subscriptionObject;
-                        const rawData = { contractAddress: address, subscriptionId: subscriptionObject };
+                        const rawData = {
+                            contractAddress: address,
+                            subscriptionId: subscriptionObject,
+                        };
                         const data = JSON.stringify(rawData);
                         // `${url}user/updateuser`,
                         setLoading(true);
                         const res = await axios.post(`${url}user/updateuser`, data, {
                             headers: {
-                                'Content-Type': 'application/json',
+                                "Content-Type": "application/json",
                             },
                         });
-                        console.log('here:', res.data);
+                        console.log("here:", res.data);
 
                         //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
                         setAddress(address);
                         setIsSubscribed(true);
                         setIsValidated(true);
-
                     } else {
                         console.log("No service-worker on this browser");
                     }
                 })();
             }
+
+            // console.log(permissionResult);
         } catch (err: any) {
             console.info("Permission request failed: " + err);
             if (err.response.data.statusCode == 406) {
-                toast.error('Wrong address format, confirm the address is correct and retry.', {
-                    position: "top-center",
-                    autoClose: 2500,
-                    theme: "dark",
-                })
+                toast.error(
+                    "Wrong address format, confirm the address is correct and retry.",
+                    {
+                        position: "top-center",
+                        autoClose: 2500,
+                        theme: "dark",
+                    }
+                );
             } else if (err.response.data.statusCode == 500) {
-                toast.error('This is from our end, please try again', {
+                toast.error("This is from our end, please try again", {
                     position: "top-center",
                     autoClose: 2500,
                     theme: "dark",
-                })
+                });
             }
             return err;
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-
     }
-
 
 
     //A function that verifies the subscription status and validity of users. 
     //To be called in useEffect in this page.
-    //Sets the states
+    //Set states
     async function verifyValidAndSusbscribe(): Promise<any> {
         try {
             if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -134,23 +132,24 @@ const alchemy = new Alchemy(settings);
                         setIsSubscribed(true);
                         setIsValidated(isValid);
 
+                        // return { isSubscribed: true, contractAddress, isValid };
                     } else {
                         setIsSubscribed(false);
                         setIsValidated(isValid);
+                        // return { isSubscribed: false };
                     }
                 });
             } else {
                 throw new Error("No service worker or push notification not supported");
             }
         } catch (err: any) {
-            console.log(err)
+            console.log(err);
         } finally {
-
         }
     }
 
 
-    
+
     //Unsubscribe function. 
     //To be attached to the "unsubscribe" button in ProfileWithSubs page.                                      
     async function unsubscribe(): Promise<any> {
@@ -163,7 +162,7 @@ const alchemy = new Alchemy(settings);
 
                     if (subscription) {
                         const susbscriptionState = await subscription.unsubscribe();
-                         setIsSubscribed(!susbscriptionState)
+                        setIsSubscribed(!susbscriptionState)
                         //  console.info(susbscriptionState);
 
                         const res = await axios.post(`${url}user/unsubscribe`, {
@@ -186,19 +185,6 @@ const alchemy = new Alchemy(settings);
 
         }
     }
-
-
-    async function getNftListing (): Promise<any>{
-        const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
-
-        try{
-            const response = await alchemy.nft.getNftsForContract(addr);
-            console.log(response.nfts)
-        }catch(err){
-            throw err;
-        }
-    }
-
 
     //A METHOD. 
     //Handles the validity of the users. Returns an object, doesn't set any state.
@@ -232,11 +218,24 @@ const alchemy = new Alchemy(settings);
             // router.push('/signin');
             return { isValid: false };
         }
-    };
 
-    // useEffect(() => {
-    //     verifyValidAndSusbscribe();
-    // })
+
+    }
+
+
+    async function getNftListing(): Promise<any> {
+        const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
+
+        try {
+            const response = await alchemy.nft.getNftsForContract(addr);
+            console.log(response.nfts)
+        } catch (err) {
+            throw err;
+        }
+    }
+
+
+
 
     return (
         <div>
@@ -251,3 +250,8 @@ const alchemy = new Alchemy(settings);
         </div>
     );
 }
+
+
+
+
+
