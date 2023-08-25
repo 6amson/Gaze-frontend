@@ -22,10 +22,15 @@ export default function profileMethods() {
     const [isValidated, setIsValidated] = useState(false);
     const [loading, setLoading] = useState(false);
     const [address, setAddress] = useState('');
+    const [totalNft, setTotalNft] = useState('');
+    const [collectionName, setCollectionName] = useState('');
+    const [subDataImage, setSubDataImage] = useState([]);
+    const [subDataName, setSubDataName] = useState([]);
+    const [subDataTokenId, setSubDataTokenId] = useState([]);
 
 
 const settings = {
-    apiKey: "UPVHDe_ZySIpaOCwjWeF4n2ktkjpJxGg",
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMYAPI,
     network: Network.ETH_MAINNET,
 };
 
@@ -59,7 +64,8 @@ const alchemy = new Alchemy(settings);
                             registration.scope
                         );
                         const subscriptionObject = await pushSubscription;
-                        // return subscriptionObject.toJSON();
+                        console.info(subscriptionObject.toJSON());
+                        return subscriptionObject.toJSON();
                         // console.log(address, subscriptionObject.toJSON())
                         // return subscriptionObject;
                         const rawData = { contractAddress: address, subscriptionId: subscriptionObject };
@@ -123,11 +129,49 @@ const alchemy = new Alchemy(settings);
                         setIsSubscribed(true);
                         setIsValidated(isValid);
 
-                        // return { isSubscribed: true, contractAddress, isValid };
                     } else {
                         setIsSubscribed(false);
                         setIsValidated(isValid);
                         // return { isSubscribed: false };
+                    }
+                });
+            } else {
+                throw new Error("No service worker or push notification not supported");
+            }
+        } catch (err: any) {
+            console.log(err)
+        } finally {
+
+        }
+    }
+    
+
+    
+    async function unsubscribe(): Promise<any> {
+        const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+
+        try {
+            if ("serviceWorker" in navigator && "PushManager" in window) {
+                navigator.serviceWorker.ready.then(async (registration) => {
+                    const subscription = await registration.pushManager.getSubscription();
+
+                    const { isValid } = await handleAuth();
+
+                    if (subscription) {
+                        const susbscriptionState = await subscription.unsubscribe();
+                         setIsSubscribed(!susbscriptionState)
+                        //  console.info(susbscriptionState);
+
+                        const res = await axios.post(`${url}user/unsubscribe`, {
+                            headers: {
+                                Authorization: `Bearer ${accesstoken}`,
+                            },
+                        });
+
+                        console.info(res.data);
+                    } else {
+                        setIsSubscribed(false);
+                        setIsValidated(isValid);
                     }
                 });
             } else {
@@ -145,7 +189,7 @@ const alchemy = new Alchemy(settings);
 
         try{
             const response = await alchemy.nft.getNftsForContract(addr);
-            console.log(response)
+            console.log(response.nfts)
         }catch(err){
             throw err;
         }
@@ -159,7 +203,7 @@ const alchemy = new Alchemy(settings);
         if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
             // console.log(accesstoken);
             axios
-                .post("http://localhost:3005/user/verify", {
+                .post(`${url}/user/verify`, {
                     headers: {
                         Authorization: `Bearer ${accesstoken}`,
                     },
@@ -191,13 +235,13 @@ const alchemy = new Alchemy(settings);
     return (
         <div>
             <Profile
-                askPermission={getNftListing}
+                askPermission={unsubscribe}
             />
 
-            {/* <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
+            <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
                 <ProfileWithSub></ProfileWithSub>
                 <ProfileNoSubs></ProfileNoSubs>
-            </div> */}
+            </div>
         </div>
     );
 }
