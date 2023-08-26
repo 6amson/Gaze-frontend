@@ -18,15 +18,16 @@ export default function profileMethods() {
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
+  
 
   const settings = {
-    apiKey: process.env.NEXT_PUBLIC_API_NO,
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
     network: Network.ETH_MAINNET,
   };
 
   const alchemy = new Alchemy(settings);
 
-  async function askPermissionAndUpdate(address: string): Promise<any> {
+  async function askPermissionAndUpdate(): Promise<any> {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
 
     try {
@@ -189,11 +190,18 @@ export default function profileMethods() {
   return (
     <div>
       <Profile askPermission={getNftListing} />
+      <button
+        onClick={() => {
+          askPermissionAndUpdate();
+        }}
+      >
+        dfdf
+      </button>
 
-      {/*   <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
+      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
         <ProfileWithSub></ProfileWithSub>
         <ProfileNoSubs></ProfileNoSubs>
-      </div> */}
+      </div>
     </div>
   );
 }
