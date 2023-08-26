@@ -9,6 +9,8 @@ import ProfileWithSub from "@/app/components/profile/ProfileWithSub";
 import ProfileNoSubs from "@/app/components/profile/ProfileNoSubs";
 import { useState, useEffect } from "react";
 import { Network, Alchemy } from "alchemy-sdk";
+import NftListingItemType from "@/app/types/Nftlisting";
+import { id } from "alchemy-sdk/dist/src/api/utils";
 
 export default function profileMethods() {
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
@@ -18,18 +20,33 @@ export default function profileMethods() {
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
-  
+  const [totalNft, setTotalNft] = useState("");
+  const [collectionName, setCollectionName] = useState("");
+  /* Added Nft listing item type */
+  const [nftCollectionListing, setNftCollectionListing] = useState<
+    NftListingItemType[]
+  >([]);
+
+  const [collectionContractAddress, setCollectionContractAddress] =
+    useState("");
 
   const settings = {
-    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMYAPI,
     network: Network.ETH_MAINNET,
   };
 
   const alchemy = new Alchemy(settings);
 
-  async function askPermissionAndUpdate(): Promise<any> {
-    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+  useEffect(() => {
+    verifyValidAndSusbscribe();
+    return;
+    getNftListing();
+  }, []);
 
+  //A function that requests permission from user to send them notification and updates the their profile
+  //It sets stste
+  //To be attached to the subscribe button with ProfileWithNoSub
+  async function askPermissionAndUpdate(address: string): Promise<any> {
     try {
       const permissionResult = await Notification.requestPermission();
 
@@ -107,6 +124,9 @@ export default function profileMethods() {
     }
   }
 
+  //A function that verifies the subscription status and validity of users.
+  //To be called in useEffect in this page.
+  //Set states
   async function verifyValidAndSusbscribe(): Promise<any> {
     try {
       if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -136,17 +156,43 @@ export default function profileMethods() {
     }
   }
 
-  async function getNftListing(): Promise<any> {
-    const addr: any = process.env.NEXT_PUBLIC_ADDR;
+  //Unsubscribe function.
+  //To be attached to the "unsubscribe" button in ProfileWithSubs page.
+  async function unsubscribe(): Promise<any> {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
 
     try {
-      const response = await alchemy.nft.getNftsForContract(addr);
-      console.log(response);
-    } catch (err) {
-      throw err;
+      if ("serviceWorker" in navigator && "PushManager" in window) {
+        navigator.serviceWorker.ready.then(async (registration) => {
+          const subscription = await registration.pushManager.getSubscription();
+
+          if (subscription) {
+            const susbscriptionState = await subscription.unsubscribe();
+            setIsSubscribed(!susbscriptionState);
+            //  console.info(susbscriptionState);
+
+            const res = await axios.post(`${url}user/unsubscribe`, {
+              headers: {
+                Authorization: `Bearer ${accesstoken}`,
+              },
+            });
+
+            console.info(res.data);
+          } else {
+            setIsSubscribed(false);
+          }
+        });
+      } else {
+        throw new Error("No service worker or push notification not supported");
+      }
+    } catch (err: any) {
+      console.log(err);
+    } finally {
     }
   }
 
+  //A METHOD.
+  //Handles the validity of the users. Returns an object, doesn't set any state.
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
     const refreshtoken = Cookies.get("Gaze_userAccess_AT");
@@ -154,7 +200,7 @@ export default function profileMethods() {
     if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
       // console.log(accesstoken);
       axios
-        .post("http://localhost:3005/user/verify", {
+        .post(`${url}/user/verify`, {
           headers: {
             Authorization: `Bearer ${accesstoken}`,
           },
@@ -183,24 +229,58 @@ export default function profileMethods() {
     }
   };
 
-  // useEffect(() => {
-  //     verifyValidAndSusbscribe();
-  // })
+  async function getNftListing(): Promise<any> {
+    const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
+
+    try {
+      const response: any = await alchemy.nft.getNftsForContract(addr);
+      const nftResponse: NftListingItemType[] = response.nfts;
+      console.log(nftResponse);
+      if (nftResponse[0].contract) {
+        setTotalNft(nftResponse[0].contract.totalSupply);
+        setCollectionName(nftResponse[0].contract.name);
+      }
+      setNftCollectionListing(nftResponse);
+    } catch (err) {
+      throw err;
+    }
+  }
 
   return (
     <div>
       <Profile askPermission={getNftListing} />
-      <button
-        onClick={() => {
-          askPermissionAndUpdate();
-        }}
-      >
-        dfdf
-      </button>
 
-      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
-        <ProfileWithSub></ProfileWithSub>
-        <ProfileNoSubs></ProfileNoSubs>
+      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
+        <ProfileWithSub
+          isSubscribed={isSubscribed}
+          isValidated={isValidated}
+          address={address}
+          unSubscribe={unsubscribe}
+          nftListingArray={nftCollectionListing}
+          collectionName={collectionName}
+          totalNft={totalNft}
+        ></ProfileWithSub>
+        {isValidated ? (
+          isSubscribed ? (
+            <ProfileWithSub
+              isSubscribed={isSubscribed}
+              isValidated={isValidated}
+              address={address}
+              unSubscribe={unsubscribe}
+              nftListingArray={nftCollectionListing}
+              collectionName={collectionName}
+              totalNft={totalNft}
+            ></ProfileWithSub>
+          ) : (
+            <ProfileNoSubs
+              askPermissionAndUpdate={askPermissionAndUpdate}
+              collectionContractAddress={collectionContractAddress}
+              setCollectionContractAddress={setCollectionContractAddress}
+            ></ProfileNoSubs>
+          )
+        ) : (
+          <div>Unauthorized</div>
+        )}
       </div>
     </div>
   );

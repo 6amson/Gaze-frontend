@@ -85,7 +85,7 @@ export default function Signup() {
       console.info("this is the error:", err);
 
       if (err.code === "ERR_NETWORK") {
-        toast.error("Network Error.", {
+        toast.error("This is from our end, please retry.", {
           position: "top-center",
           autoClose: 2500,
           theme: "dark",
@@ -121,36 +121,6 @@ export default function Signup() {
     }
   };
 
-  const handleAuth = async (): Promise<any> => {
-    const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
-    const refreshtoken = Cookies.get("Gaze_userAccess_AT");
-
-    if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
-      // console.log(accesstoken);
-      axios
-        .post("http://localhost:3005/user/verify", {
-          headers: {
-            Authorization: `Bearer ${accesstoken}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
-            const { id } = res.data;
-            const encodedString = encodeURIComponent(id);
-            return { isValidUser: true, encodedString: encodedString };
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          // router.push('/signin');
-          return { isValidUser: false };
-        });
-    } else if (!accesstoken && !refreshtoken) {
-      // router.push('/signin');
-      return { isValidUser: false };
-    }
-  };
 
   return (
     <div className="">
