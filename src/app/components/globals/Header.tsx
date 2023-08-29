@@ -1,14 +1,17 @@
 "use client";
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import mobileMenuIcon from "../../../../public/svgs/header/mobile-menu-icon.svg";
+import Router from "next/router";
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const headerButtons = [
-    { name: "Home" },
-    { name: "FAQ" },
+    { name: "Home", link: "/" },
+    { name: "FAQ", link: "/" },
     { name: "Connect with Metamask", isConnect: true },
   ];
 
@@ -28,6 +31,9 @@ export default function Header() {
           {headerButtons.map((item, index) => {
             return (
               <button
+                onClick={() => {
+                  router.push("/");
+                }}
                 className={`${
                   item.isConnect
                     ? "border border-neonGreen p-[10px] sm:p-[14px] rounded-[10px] "
@@ -64,6 +70,9 @@ export default function Header() {
           if (!item.isConnect) {
             return (
               <button
+                onClick={() => {
+                  router.push("/");
+                }}
                 className="text-[0.7rem] text-white border-t border-gray-800 leading-[0rem] h-[35px] font-raleWay"
                 key={index}
               >

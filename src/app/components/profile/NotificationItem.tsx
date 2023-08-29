@@ -4,6 +4,8 @@ import Image from "next/image";
 
 interface NotificationItemProps {
   newlyMinted: boolean;
+  tokenId?: string;
+  transactionHash?: string;
 }
 
 export default function NotificationItem(props: NotificationItemProps) {

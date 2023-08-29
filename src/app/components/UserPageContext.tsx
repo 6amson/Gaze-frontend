@@ -6,6 +6,7 @@ import React from "react";
 import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
+import NotificationObjType from "../types/NotificationObjType";
 
 export interface UserPageContextTypes {
   isSubscribed: boolean;
@@ -19,8 +20,10 @@ export interface UserPageContextTypes {
   collectionName: string;
   totalNft: string;
   nftCollectionListing: NftListingItemType[];
+  nftNotificationList: NotificationObjType[];
   collectionContractAddress: string;
   setCollectionContractAddress: Dispatch<SetStateAction<string>>;
+  handleNotificationList: (data: NotificationObjType[]) => void;
 }
 
 export const UserPageContext = React.createContext<
@@ -45,13 +48,19 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [nftCollectionListing, setNftCollectionListing] = useState<
     NftListingItemType[]
   >([]);
-
+  const [nftNotificationList, setNftNotificationList] = useState<
+    NotificationObjType[]
+  >([]);
   const [collectionContractAddress, setCollectionContractAddress] =
     useState("");
 
   const settings = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMYAPI,
     network: Network.ETH_MAINNET,
+  };
+
+  const handleNotificationList = (data: NotificationObjType[]) => {
+    setNftNotificationList(data);
   };
 
   const alchemy = new Alchemy(settings);
@@ -269,6 +278,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     <UserPageContext.Provider
       value={{
         isSubscribed,
+        handleNotificationList,
+        nftNotificationList,
         isValidated,
         nftCollectionListing,
         getNftListing,
