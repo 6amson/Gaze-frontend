@@ -3,7 +3,12 @@ import profileHeaderLaptopExtra from "../../../../public/svgs/profile/profile-ti
 import demoTitleNftImage from "../../../../public/svgs/profile/demo-title-nft-image.png";
 import Image from "next/image";
 
-export default function ProfileTitle() {
+interface ProfileTitleProps {
+  collectionName: string;
+  totalNft: string;
+}
+
+export default function ProfileTitle(props: ProfileTitleProps) {
   return (
     <div className="w-full relative z-0">
       <div className="w-full relative z-20">
@@ -39,7 +44,7 @@ export default function ProfileTitle() {
           ></Image>
           <div className="font-black leading-tight text-[1.1rem] sm:text-[1.2rem] md:text-[1.3rem] lg:text-[1.5rem] z-30 xl:text-[1.5rem] 2xl:text-[1.6rem]  sm:w-[40%] ">
             You are subscribed to the{" "}
-            <span className="text-spacePurple">Bored Ape Yatch club</span> NFT
+            <span className="text-spacePurple">{props.collectionName}</span> NFT
             collection.
           </div>
           {/* Mobile NFT information */}
@@ -48,13 +53,13 @@ export default function ProfileTitle() {
               Subscribed
             </div>
             <div className="bg-spacePurple rounded-full font-bold border-2 px-[10px] py-[6px] text-[0.8rem] border-black">
-              407 Nfts
+              {props.totalNft} Nfts
             </div>
           </div>
           {/* laptop NFT information */}
 
           <div className="bg-spacePurple leading-none hidden sm:block lg:right-[40px] sm:right-[30px] sm:bottom-[30px] lg:bottom-[30px] absolute rounded-full w-fit font-bold border sm:px-[30px] xl:px-[20px] xl:py-[10px] sm:py-[10px] px-[10px] py-[6px] text-[0.8rem] sm:text-[1rem] border-black">
-            407 Nfts
+            {props.totalNft} Nfts
           </div>
         </div>
       </div>

@@ -21,11 +21,11 @@ import React from "react";
 import { Dna } from "react-loader-spinner";
 
 export default function Signin() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const url = "https://gazebackend.cyclic.cloud/"
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const url = "https://gazebackend.cyclic.cloud/";
 
   const router = useRouter();
 
@@ -221,6 +221,12 @@ export default function Signin() {
                     wrapperStyle={{}}
                     wrapperClass="dna-wrapper"
                   />
+                </div>
+                <div className="text-center text-spacePurple">
+                  {" "}
+                  <button className="uppercase mt-4 text-[0.8rem] font-bold">
+                    Forgot Password?
+                  </button>
                 </div>
               </form>
             </div>

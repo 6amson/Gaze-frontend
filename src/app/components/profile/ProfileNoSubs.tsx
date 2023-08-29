@@ -1,7 +1,18 @@
 import noSubFormIcon from "../../../../public/svgs/profile/nosub-form.svg";
 import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
 
-export default function ProfileNoSubs() {
+interface ProfileNoSubsProps {
+  collectionContractAddress: string;
+  setCollectionContractAddress: Dispatch<SetStateAction<string>>;
+  askPermissionAndUpdate: (address: string) => void;
+}
+
+export default function ProfileNoSubs(props: ProfileNoSubsProps) {
+  const handleInput = (input: string) => {
+    props.setCollectionContractAddress(input);
+  };
+
   return (
     <div className="w-full h-full flex items-center justify-center overflow-hidden font-raleWay ">
       <div className="sm:border sm:border-black sm:bg-[#EBEBEB] sm:mt-[90px] mt-[30px]  overflow-hidden relative flex items-center justify-center ">
@@ -13,8 +24,19 @@ export default function ProfileNoSubs() {
             enter a collection address to begin
           </div>
           <div className="flex border border-black rounded-[3px] overflow-hidden sm:w-fit w-full">
-            <input className="px-[10px] w-full sm:w-fit "></input>
-            <button className="text-[0.8rem] bg-neonGreen  p-[10px] font-bold border-l border-black">
+            <input
+              onChange={(e) => {
+                handleInput(e.target.value);
+              }}
+              className="px-[10px] w-full sm:w-fit "
+            ></input>
+            <button
+              onClick={() => {
+                /* PlaceHolder Address */
+                props.askPermissionAndUpdate("random");
+              }}
+              className="text-[0.8rem] bg-neonGreen  p-[10px] font-bold border-l border-black"
+            >
               Subscribe
             </button>
           </div>
