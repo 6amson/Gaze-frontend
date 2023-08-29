@@ -1,4 +1,4 @@
-export interface NotificationObjType {
+export default interface NotificationObjType {
   status: string;
   addrFrom: string;
   addrTo: string;
