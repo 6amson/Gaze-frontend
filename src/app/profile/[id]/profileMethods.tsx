@@ -8,7 +8,7 @@ import axios from "axios";
 
 
 interface ProfileMethodsProps {
-  askPermission: () => Promise<any>;
+  askPermission: (addr: string) => Promise<any>;
 }
 
 export default function Profile(props: ProfileMethodsProps) {
@@ -28,7 +28,7 @@ export default function Profile(props: ProfileMethodsProps) {
 
   return (
     <div>
-      <button onClick={() => { askPermission() }}>Request Notifis Permission</button>
+      <button onClick={() => { askPermission("0xF0910bf7C66d70E20b81ac31d7806474ECe1e710") }}>Request Notifis Permission</button>
       <ToastContainer/>
     </div>
 

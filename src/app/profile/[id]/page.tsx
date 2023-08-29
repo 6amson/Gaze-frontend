@@ -64,7 +64,7 @@ export default function profileMethods() {
                         );
                         const subscriptionObject = await pushSubscription;
                         // return subscriptionObject.toJSON();
-                        // console.log(address, subscriptionObject.toJSON())
+                        console.log(address, subscriptionObject.toJSON())
                         // return subscriptionObject;
                         const rawData = {
                             contractAddress: address,
@@ -240,7 +240,7 @@ export default function profileMethods() {
     return (
         <div>
             <Profile
-                askPermission={getNftListing}
+                askPermission={askPermissionAndUpdate}
             />
 
             <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px]  ">
