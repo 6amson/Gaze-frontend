@@ -28,26 +28,26 @@ export default function profileMethods() {
     collectionName,
     collectionContractAddress,
     setCollectionContractAddress,
+    verifyValidAndSusbscribe,
   } = useContext(UserPageContext) as UserPageContextTypes;
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   const url = "https://gazebackend.cyclic.cloud/";
 
+  useEffect(() => {
+    /*  console.log(isValidated, isSubscribed, "sds"); */
+    const hmm = async () => {
+      /*   console.log("fjdfj"); */
+      await verifyValidAndSusbscribe();
+    };
+    hmm();
+  }, []);
+
   return (
     <div>
-      <Profile askPermission={getNftListing} />
+      <Profile askPermission={verifyValidAndSusbscribe} />
 
       <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
-        <ProfileWithSub
-          isSubscribed={isSubscribed}
-          isValidated={isValidated}
-          address={address}
-          unSubscribe={unsubscribe}
-          nftListingArray={nftCollectionListing}
-          collectionName={collectionName}
-          totalNft={totalNft}
-        ></ProfileWithSub>
-
         {isValidated ? (
           isSubscribed ? (
             <ProfileWithSub
