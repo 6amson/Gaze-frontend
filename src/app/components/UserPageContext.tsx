@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
+import Header from "./globals/Header";
 import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
@@ -197,7 +198,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //To be called in useEffect in this page.
   //Set states
   async function verifyValidAndSusbscribe(): Promise<any> {
-    console.log("hhfhdf");
+    /*  console.log("hhfhdf"); */
     try {
       if ("serviceWorker" in navigator && "PushManager" in window) {
         navigator.serviceWorker.ready.then(async (registration) => {
@@ -300,6 +301,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         address,
       }}
     >
+      {" "}
       {props.children}
     </UserPageContext.Provider>
   );

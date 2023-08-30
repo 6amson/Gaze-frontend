@@ -5,9 +5,10 @@ import Router from "next/router";
 
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathName = usePathname();
   const router = useRouter();
   const headerButtons = [
     { name: "Home", link: "/" },
@@ -18,7 +19,11 @@ export default function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="w-full  z-40 relative bg-black  ">
+    <div
+      className={`${
+        pathName.includes("profile") && "hidden"
+      } w-full  z-40 relative bg-black  `}
+    >
       <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
         <Image
           src={whiteTextIconLogo.src}

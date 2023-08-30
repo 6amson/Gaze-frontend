@@ -1,4 +1,3 @@
-"use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Manrope, Poppins, Raleway } from "next/font/google";
@@ -23,19 +22,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const path = usePathname();
+  /*  const path = usePathname(); */
 
   return (
     <html lang="en">
       <UserPageProvider>
-        <div
-          className={`${
-            path.includes("profile") && "hidden"
-          } fixed w-full z-40 top-0`}
-        >
-          <Header></Header>
-        </div>
-        <body>{children}</body>
+        <body>
+          <div className={` fixed w-full z-40 top-0`}>
+            <Header></Header>
+          </div>
+          {children}
+        </body>
       </UserPageProvider>
     </html>
   );
