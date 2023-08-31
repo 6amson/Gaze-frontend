@@ -231,17 +231,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-
-
-
-
-
-
-  //A function that verifies the subscription status and validity of users.
-  //To be called in useEffect in this page.
-  //Set states
-
-
   //Unsubscribe function.
   //To be attached to the "unsubscribe" button in ProfileWithSubs page.
   async function unsubscribe(): Promise<any> {
@@ -283,7 +272,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-
   async function getNftListing(): Promise<any> {
     // const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
 
@@ -324,6 +312,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         address,
       }}
     >
+      {" "}
       {props.children}
     </UserPageContext.Provider>
   );
