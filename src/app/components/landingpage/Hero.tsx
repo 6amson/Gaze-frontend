@@ -1,11 +1,12 @@
 "use client";
 
+import Marquee from "react-fast-marquee";
 import heroMainLp from "../../../../public/svgs/landing-page/hero-main-lp2.svg";
 import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg";
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import whiteTextLogo from "../../../../public/svgs/globals/white-text-logo.svg";
 import blackTextLogo from "../../../../public/svgs/globals/black-text-logo.svg";
-
+import { motion } from "framer-motion";
 import heroMainMobile from "../../../../public/svgs/landing-page/hero-main-mobile2.png";
 import heroMainMobile2 from "../../../../public/svgs/landing-page/hero-main-mobile.svg";
 
@@ -17,27 +18,38 @@ import Header from "../globals/Header";
 
 export default function Hero() {
   const router = useRouter();
+  
+  // const url = "https://gazebackend.cyclic.cloud/";
+  const url = "http://localhost:4000/"
+
+
 
   const handleAuth = async (): Promise<any> => {
-    const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
-    const refreshtoken = Cookies.get("Gaze_userAccess_AT");
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
-    console.info({RT: refreshtoken, AT: accesstoken});
 
-    if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
+
+    if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
+
+      const data = {};
 
       axios
-        .post("http://localhost:3005/user/verify", {
+          .get(`${url}user/verify`, {
           headers: {
-            Authorization: `Bearer ${accesstoken}`,
+            // "Content-Type": "application/json",
+            "Authorization": `Bearer ${accesstoken}`,
           },
         })
         .then((res) => {
+          console.info({ RT: refreshtoken, AT: accesstoken, res });
+
           if (res.status == 200) {
-            Cookies.set("Gaze_userAccess_AT", res.data.refreshToken);
+            Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
             const { userId } = res.data;
             const { contractAddress } = res.data;
             const encodedString = encodeURIComponent(userId);
+            router.push(`/profile/${encodedString}`);
             return {
               isValid: true,
               encodedString: encodedString,
@@ -47,38 +59,60 @@ export default function Hero() {
         })
         .catch((err) => {
           console.log(err);
-          router.push('/signup');
+          router.push("/signup");
           return { isValid: false };
         });
     } else if (!accesstoken && !refreshtoken) {
-      router.push('/signup');
+      router.push("/signup");
       return { isValid: false };
     }
   };
 
   return (
     <div className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black ">
-      <Image
-        width={"100"}
-        height={"100"}
-        className={"w-screen max-w-[1440px] absolute sm:block hidden"}
-        alt={"green stars "}
-        src={heroStarsLp.src}
-      ></Image>
+      <Marquee
+        autoFill={true}
+        delay={0}
+        speed={150}
+        className="absolute z-0 relative overflow-hidden  min-w-full text-white text-6xl  h-full "
+      >
+        <Image
+          width={"100"}
+          height={"100"}
+          className={"w-screen   sm:block hidden "}
+          alt={"green stars "}
+          src={heroStarsLp.src}
+        ></Image>
+      </Marquee>
+
       <Image
         width={400}
         height={100}
         alt={"falling nft coins"}
         src={heroMainMobile.src}
-        className="pt-[60px] p-2 sm:hidden"
+        className="pt-[60px] p-2 sm:hidden absolute "
       ></Image>
-      <Image
+
+      <motion.img
+        animate={{
+          y: [-12, 12],
+          x: [-5, 5],
+          rotate: 0,
+          transition: {
+            delay: 0.3,
+            duration: 2,
+            repeat: Infinity,
+            // repeatDelay: 0.2,
+            repeatType: "reverse",
+          },
+        }}
         src={heroMainLp.src}
         width={"700"}
         className={"w-[47vw] absolute top-[130px] 2xl:w-[45vw] sm:block hidden"}
         height={"400"}
         alt={"man floating in space"}
-      ></Image>
+      ></motion.img>
+
       {/* Laptop Section */}
       <div className="absolute bottom-[10%] text-center hidden sm:block">
         <div className="uppercase leading-tight text-white font-black 2xl:text-[3.3rem] xl:text-[3.3rem] lg:text-[3rem] text-center ">
