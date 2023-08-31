@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
@@ -37,6 +38,7 @@ interface UserPageProviderProps {
 
 export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
+  const path = usePathname();
 
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
@@ -76,7 +78,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
-
+    console.log('working')
     async function verifyValidAndSusbscribe(): Promise<any> {
       try {
         if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -104,6 +106,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
                   if (contractAddress == null || contractAddress == '') {
                     setIsSubscribed(false);
+                    // setAddress('random');
+
                   } else if (contractAddress != null || contractAddress != '') {
                     setIsSubscribed(true);
                     setAddress(contractAddress);
@@ -139,7 +143,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   }, []);
 
-  console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
+  // console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
 
 
   //A function that requests permission from user to send them notification and updates the their profile
@@ -214,6 +218,13 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           autoClose: 2500,
           theme: "dark",
         });
+      } else if (err.code === "ERR_BAD_RESPONSE") {
+        toast.error("This is from our end, please retry.", {
+          position: "top-center",
+          autoClose: 2500,
+          theme: "dark",
+        });
+        return;
       }
       return err;
     } finally {
@@ -245,7 +256,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           setAddress('');
           setCollectionContractAddress('');
           setNftNotificationList([]);
-          console.info(res.data, isSubscribed);
+          // router.push(`${path}`);
+          console.log(path)
+
+          // console.info(res.data, isSubscribed);
 
 
 
@@ -267,6 +281,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       setLoading(false);
     }
   }
+
+
 
   async function getNftListing(): Promise<any> {
     // const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
