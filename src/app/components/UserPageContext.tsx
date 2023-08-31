@@ -71,10 +71,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
   const alchemy = new Alchemy(settings);
-  const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-  const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
   useEffect(() => {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
 
     async function verifyValidAndSusbscribe(): Promise<any> {
@@ -106,7 +106,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
                   if (contractAddress == null || contractAddress == '') {
                     setIsSubscribed(false);
-                  } else if (contractAddress != null || contractAddress != ''){
+                  } else if (contractAddress != null || contractAddress != '') {
                     setIsSubscribed(true);
                     setAddress(contractAddress);
                     console.log(subscription, contractAddress)
@@ -144,13 +144,15 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   }, []);
 
-  console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
+  // console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
 
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
   //To be attached to the subscribe button with ProfileWithNoSub
   async function askPermissionAndUpdate(): Promise<any> {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
     try {
       setLoading(true);
@@ -186,18 +188,17 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               subscriptionId: subscriptionObject,
             };
             const data = JSON.stringify(rawData);
-            // `${url}user/updateuser`,
             const res = await axios.post(`${url}user/updateuser`, data, {
               headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${accesstoken}`,
-
-
               },
             });
 
+            const {contractAddress} = res.data;
+
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
-            setAddress(address);
+            setAddress(contractAddress);
             setIsSubscribed(true);
             setIsValidated(true);
           } else {
