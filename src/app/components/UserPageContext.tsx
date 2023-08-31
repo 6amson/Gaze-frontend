@@ -152,7 +152,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //To be attached to the subscribe button with ProfileWithNoSub
   async function askPermissionAndUpdate(): Promise<any> {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
     try {
       setLoading(true);
@@ -174,15 +173,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             };
 
             const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
-            // console.log((await pushSubscription).toJSON());
             console.log(
               "ServiceWorker registration successful with scope:",
               registration.scope
             );
             const subscriptionObject = await pushSubscription;
-            // return subscriptionObject.toJSON();
-            // console.log(address, subscriptionObject.toJSON())
-            // return subscriptionObject;
             const rawData = {
               contractAddress: collectionContractAddress,
               subscriptionId: subscriptionObject,
@@ -200,7 +195,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
             setAddress(contractAddress);
             setIsSubscribed(true);
-            setIsValidated(true);
           } else {
             console.log("No service-worker on this browser");
           }
