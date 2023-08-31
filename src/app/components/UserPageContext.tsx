@@ -109,8 +109,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                   } else if (contractAddress != null || contractAddress != '') {
                     setIsSubscribed(true);
                     setAddress(contractAddress);
-                    console.log(subscription, contractAddress)
-
                   }
                 }
 
