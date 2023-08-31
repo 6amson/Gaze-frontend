@@ -9,6 +9,8 @@ import blackTextLogo from "../../../../public/svgs/globals/black-text-logo.svg";
 import { motion } from "framer-motion";
 import heroMainMobile from "../../../../public/svgs/landing-page/hero-main-mobile2.png";
 import heroMainMobile2 from "../../../../public/svgs/landing-page/hero-main-mobile.svg";
+import heroMonitor from "../../../../public/svgs/landing-page/hero-monitor.svg";
+import spaceMan from "../../../../public/svgs/landing-page/space-man.svg";
 
 import Image from "next/image";
 import axios from "axios";
@@ -61,7 +63,7 @@ export default function Hero() {
       <Marquee
         autoFill={true}
         delay={0}
-        speed={150}
+        speed={100}
         className="absolute z-0 relative overflow-hidden  min-w-full text-white text-6xl  h-full "
       >
         <Image
@@ -83,20 +85,45 @@ export default function Hero() {
 
       <motion.img
         animate={{
-          y: [-12, 12],
-          x: [-5, 5],
-          rotate: 0,
+          y: [-8, 10],
+          x: [-10, 10],
+          rotate: 4,
+
           transition: {
-            delay: 0.3,
+            delay: 0,
             duration: 2,
+            repeat: Infinity,
+            // repeatDelay: 0.2,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          },
+        }}
+        src={spaceMan.src}
+        width={"700"}
+        className={
+          "w-[16vw]  2xl:w-[15vw] sm:block hidden absolute top-[180px] mr-[27vw]"
+        }
+        height={"400"}
+        alt={"man floating in space"}
+      ></motion.img>
+      <motion.img
+        animate={{
+          y: [-15, 12],
+          x: [-5, 8],
+          rotate: 6,
+          transition: {
+            delay: 0.2,
+            duration: 3,
             repeat: Infinity,
             // repeatDelay: 0.2,
             repeatType: "reverse",
           },
         }}
-        src={heroMainLp.src}
+        src={heroMonitor.src}
         width={"700"}
-        className={"w-[47vw] absolute top-[130px] 2xl:w-[45vw] sm:block hidden"}
+        className={
+          "w-[22vw]  2xl:w-[22vw] sm:block hidden absolute top-[130px] ml-[27vw]"
+        }
         height={"400"}
         alt={"man floating in space"}
       ></motion.img>
