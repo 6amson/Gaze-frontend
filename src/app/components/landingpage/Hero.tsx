@@ -42,7 +42,7 @@ export default function Hero() {
           },
         })
         .then((res) => {
-          console.info({ RT: refreshtoken, AT: accesstoken, res });
+          // console.info({ RT: refreshtoken, AT: accesstoken, res });
 
           if (res.status == 200) {
             Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);

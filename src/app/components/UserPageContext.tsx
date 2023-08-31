@@ -83,8 +83,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           navigator.serviceWorker.ready.then(async (registration) => {
             // Get the current subscription status
             const subscription = await registration.pushManager.getSubscription();
-
-
             if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
               try {
 
@@ -138,11 +136,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
 
     verifyValidAndSusbscribe();
-    getNftListing();
 
   }, []);
 
-  // console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
+  console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
 
 
   //A function that requests permission from user to send them notification and updates the their profile
@@ -188,7 +185,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               },
             });
 
-            const {contractAddress} = res.data;
+            const { contractAddress } = res.data;
 
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
             setAddress(contractAddress);
@@ -236,29 +233,35 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         navigator.serviceWorker.ready.then(async (registration) => {
           const subscription = await registration.pushManager.getSubscription();
 
-          if (subscription) {
-            const susbscriptionState = await subscription.unsubscribe();
-            setIsSubscribed(!susbscriptionState);
-            setAddress('');
-            setCollectionContractAddress('');
-            setNftNotificationList([]);
-            //  console.info(susbscriptionState);
 
-            const res = await axios.post(`${url}user/unsubscribe`, {
-              headers: {
-                Authorization: `Bearer ${accesstoken}`,
-              },
-            });
+          const res = await axios.get(`http://localhost:4000/user/unsubscribe`, {
+            headers: {
+              Authorization: `Bearer ${accesstoken}`,
+            },
+          });
 
-            console.info(res.data);
-          } else {
-            setIsSubscribed(false);
-          }
+
+          setIsSubscribed(false);
+          setAddress('');
+          setCollectionContractAddress('');
+          setNftNotificationList([]);
+          console.info(res.data, isSubscribed);
+
+
+
+          // if (subscription) {
+          //   const susbscriptionState = await subscription.unsubscribe();
+
+          // } else {
+          //   setIsSubscribed(false);
+          // }
         });
       } else {
+        setIsSubscribed(false);
         throw new Error("No service worker or push notification not supported");
       }
     } catch (err: any) {
+      setIsSubscribed(false);
       console.log(err);
     } finally {
       setLoading(false);
