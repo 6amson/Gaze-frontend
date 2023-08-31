@@ -6,16 +6,19 @@ import sideBarLogoMobile from "../../../../public/svgs/profile/sidebar-logo-mobi
 import sideBarLogoLaptop from "../../../../public/svgs/profile/sidebar-logo-lp.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useParams } from "next/navigation";
 
 export default function ProfileSideBar() {
   const pathName = usePathname();
 
+  const { id } = useParams();
+  /*   console.log(id, "dfdf"); */
+
   const sideBarLinks = [
-    { name: "SUBSCRIPTIONS", location: "/profile/1", icon: sideBarSubs },
+    { name: "SUBSCRIPTIONS", location: `/profile/${id}`, icon: sideBarSubs },
     {
       name: "NOTIFICATIONS",
-      location: "/profile/1/notifications",
+      location: `/profile/${id}/notifications`,
       icon: sideBarNotifs,
     },
   ];

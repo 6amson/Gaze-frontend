@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
+import Header from "./globals/Header";
 import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
@@ -70,6 +71,47 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     return;
     getNftListing();
   }, []);
+
+  //A METHOD.
+  //Handles the validity of the users. Returns an object, doesn't set any state.
+  const handleAuth = async (): Promise<any> => {
+    console.log("handle auth is running");
+    const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_AT");
+    /*     console.log("access refers", accesstoken, refreshtoken); */
+
+    if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
+      console.log("duncti");
+      // console.log(accesstoken);
+      axios
+        .post(`${url}/user/verify`, {
+          headers: {
+            Authorization: `Bearer ${accesstoken}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            Cookies.set("Gaze_userAccess_AT", res.data.refreshToken);
+            const { userId } = res.data;
+            const { contractAddress } = res.data;
+            const encodedString = encodeURIComponent(userId);
+            return {
+              isValid: true,
+              encodedString: encodedString,
+              contractAddress,
+            };
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // router.push('/signin');
+          return { isValid: false };
+        });
+    } else if (!accesstoken && !refreshtoken) {
+      // router.push('/signin');
+      return { isValid: false };
+    }
+  };
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
@@ -156,13 +198,16 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //To be called in useEffect in this page.
   //Set states
   async function verifyValidAndSusbscribe(): Promise<any> {
+    /*  console.log("hhfhdf"); */
     try {
       if ("serviceWorker" in navigator && "PushManager" in window) {
         navigator.serviceWorker.ready.then(async (registration) => {
           // Get the current subscription status
+          /* console.log("service worker"); */
           const subscription = await registration.pushManager.getSubscription();
 
           const { contractAddress, isValid } = await handleAuth();
+          /*         console.log("hhhhhh", subscription, contractAddress, isValid); */
           if (subscription) {
             setAddress(contractAddress);
             setIsSubscribed(true);
@@ -219,44 +264,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-  //A METHOD.
-  //Handles the validity of the users. Returns an object, doesn't set any state.
-  const handleAuth = async (): Promise<any> => {
-    const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
-    const refreshtoken = Cookies.get("Gaze_userAccess_AT");
-
-    if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
-      // console.log(accesstoken);
-      axios
-        .post(`${url}/user/verify`, {
-          headers: {
-            Authorization: `Bearer ${accesstoken}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            Cookies.set("Gaze_userAccess_AT", res.data.refreshToken);
-            const { userId } = res.data;
-            const { contractAddress } = res.data;
-            const encodedString = encodeURIComponent(userId);
-            return {
-              isValid: true,
-              encodedString: encodedString,
-              contractAddress,
-            };
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          // router.push('/signin');
-          return { isValid: false };
-        });
-    } else if (!accesstoken && !refreshtoken) {
-      // router.push('/signin');
-      return { isValid: false };
-    }
-  };
-
   async function getNftListing(): Promise<any> {
     const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
 
@@ -294,6 +301,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         address,
       }}
     >
+      {" "}
       {props.children}
     </UserPageContext.Provider>
   );
