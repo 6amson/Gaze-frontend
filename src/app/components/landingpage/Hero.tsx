@@ -18,9 +18,9 @@ import Header from "../globals/Header";
 
 export default function Hero() {
   const router = useRouter();
-  
-  // const url = "https://gazebackend.cyclic.cloud/";
-  const url = "http://localhost:4000/"
+
+  const url = "https://gazebackend.cyclic.cloud/";
+  // const url = "http://localhost:4000/"
 
 
 
@@ -31,8 +31,6 @@ export default function Hero() {
 
 
     if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
-
-      const data = {};
 
       axios
           .get(`${url}user/verify`, {
@@ -62,7 +60,7 @@ export default function Hero() {
           router.push("/signup");
           return { isValid: false };
         });
-    } else if (!accesstoken && !refreshtoken) {
+    } else if (accesstoken == null) {
       router.push("/signup");
       return { isValid: false };
     }

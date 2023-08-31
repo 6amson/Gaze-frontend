@@ -40,8 +40,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  // const url = "https://gazebackend.cyclic.cloud/";
-  const url = "http://localhost:4000/"
+  const url = "https://gazebackend.cyclic.cloud/";
+  // const url = "http://localhost:4000/"
 
 
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -71,10 +71,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
   const alchemy = new Alchemy(settings);
+  const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+  const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
   useEffect(() => {
-    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
 
     async function verifyValidAndSusbscribe(): Promise<any> {
@@ -83,6 +83,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           navigator.serviceWorker.ready.then(async (registration) => {
             // Get the current subscription status
             const subscription = await registration.pushManager.getSubscription();
+
 
             if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
               try {
@@ -103,24 +104,26 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                   setUsername(username);
                   setIsValidated(true);
 
-                  if (subscription) {
-                    setAddress(contractAddress);
-                    setIsSubscribed(true);
-
-                  } else {
+                  if (contractAddress == null || contractAddress == '') {
                     setIsSubscribed(false);
+                  } else if (contractAddress != null || contractAddress != ''){
+                    setIsSubscribed(true);
+                    setAddress(contractAddress);
+                    console.log(subscription, contractAddress)
+
                   }
                 }
 
 
               } catch (err) {
                 router.push('/signin');
+                setIsSubscribed(false);
                 return err;
               } finally {
                 setLoading(false);
               }
 
-            } else if (!accesstoken && !refreshtoken) {
+            } else if (accesstoken == null) {
               router.push('/signin');
             }
 
@@ -139,7 +142,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     verifyValidAndSusbscribe();
     getNftListing();
 
-  }, [isValidated, isSubscribed]);
+  }, []);
 
   console.info({ isSubscribed: isValidated, address: address, isValidated: isValidated, username: username });
 
@@ -187,9 +190,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             const res = await axios.post(`${url}user/updateuser`, data, {
               headers: {
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${accesstoken}`,
+
+
               },
             });
-            console.log("here:", res.data);
 
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
             setAddress(address);
@@ -294,7 +299,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       setNftCollectionListing(nftResponse);
     } catch (err) {
       return err;
-    }finally{
+    } finally {
       setLoading(false)
     }
   }
