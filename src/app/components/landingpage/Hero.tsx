@@ -24,21 +24,16 @@ export default function Hero() {
   const url = "https://gazebackend.cyclic.cloud/";
   // const url = "http://localhost:4000/"
 
-
-
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
-
-
-    if (accesstoken && refreshtoken || accesstoken && !refreshtoken) {
-
+    if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
       axios
-          .get(`${url}user/verify`, {
+        .get(`${url}user/verify`, {
           headers: {
             // "Content-Type": "application/json",
-            "Authorization": `Bearer ${accesstoken}`,
+            Authorization: `Bearer ${accesstoken}`,
           },
         })
         .then((res) => {
