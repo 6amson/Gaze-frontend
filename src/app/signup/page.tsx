@@ -22,16 +22,15 @@ import React from "react";
 import { Dna } from "react-loader-spinner";
 
 export default function Signup() {
+  const [error, setError] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const url = "https://gazebackend.cyclic.cloud/";
 
-    const [error, setError] = useState('');
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const url = "https://gazebackend.cyclic.cloud/"
-
-    const router = useRouter();
+  const router = useRouter();
 
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
@@ -120,7 +119,6 @@ export default function Signup() {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="">
