@@ -16,12 +16,20 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
   return (
     <div className="w-full h-full flex items-center justify-center overflow-hidden font-raleWay ">
       <div className="sm:border sm:border-black sm:bg-[#EBEBEB] sm:mt-[90px] mt-[30px]  overflow-hidden relative flex items-center justify-center ">
-        <div className="h-fit w-fit sm:py-[15px] sm:px-[66px] py-[13px] px-[10px] bg-white sm:absolute border border-black flex flex-col items-center">
-          <div className="text-center mb-[8px] font-bold text-[0.8rem] sm:text-[1rem]">
+        <div className="h-fit sm:bg-white z-20 w-fit sm:py-[15px] sm:px-[66px] py-[13px] px-[10px]  sm:absolute border border-black flex flex-col items-center">
+          <div className="text-center mb-[8px] font-bold text-[0.8rem] sm:text-[1rem] hidden sm:block ">
             YOU ARE NOT SUBSCRIBED TO ANY COLLECTION
           </div>
-          <div className="text-center text-[0.75rem] sm:text-[0.8rem] mb-[10px]">
+          <div className="text-center text-[0.75rem] sm:text-[0.8rem] mb-[10px] hidden sm:block ">
             enter a collection address to begin
+          </div>
+          <div className="bg-white sm:hidden">
+            <div className="text-center mb-[8px] font-bold text-[0.8rem] sm:text-[1rem]">
+              YOU ARE NOT SUBSCRIBED TO ANY COLLECTION
+            </div>
+            <div className="text-center text-[0.75rem] sm:text-[0.8rem] mb-[10px]">
+              enter a collection address to begin
+            </div>
           </div>
           <div className="flex border border-black rounded-[3px] overflow-hidden sm:w-fit w-full h-fit">
             <input
@@ -41,6 +49,13 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
             </button>
           </div>
         </div>
+        <Image
+          src={noSubFormIcon.src}
+          width={600}
+          className={"sm:hidden absolute block"}
+          height={400}
+          alt={"arrows"}
+        ></Image>
         <Image
           src={noSubFormIcon.src}
           width={600}

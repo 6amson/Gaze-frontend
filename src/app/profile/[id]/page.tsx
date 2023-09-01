@@ -30,6 +30,7 @@ export default function profileMethods() {
     collectionName,
     collectionContractAddress,
     setCollectionContractAddress,
+    loading,
   } = useContext(UserPageContext) as UserPageContextTypes;
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
@@ -38,32 +39,31 @@ export default function profileMethods() {
   return (
     <div>
       <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
-        <ProfileNoSubs
-          askPermissionAndUpdate={askPermissionAndUpdate}
-          collectionContractAddress={collectionContractAddress}
-          setCollectionContractAddress={setCollectionContractAddress}
-        ></ProfileNoSubs>
-        {isValidated ? (
-          isSubscribed ? (
-            <ProfileWithSub
-              isSubscribed={isSubscribed}
-              isValidated={isValidated}
-              address={address}
-              unSubscribe={unsubscribe}
-              nftListingArray={nftCollectionListing}
-              collectionName={collectionName}
-              totalNft={totalNft}
-            ></ProfileWithSub>
+        {!loading ? (
+          isValidated ? (
+            isSubscribed ? (
+              <ProfileWithSub
+                isSubscribed={isSubscribed}
+                isValidated={isValidated}
+                address={address}
+                unSubscribe={unsubscribe}
+                nftListingArray={nftCollectionListing}
+                collectionName={collectionName}
+                totalNft={totalNft}
+              ></ProfileWithSub>
+            ) : (
+              <ProfileNoSubs
+                askPermissionAndUpdate={askPermissionAndUpdate}
+                collectionContractAddress={collectionContractAddress}
+                setCollectionContractAddress={setCollectionContractAddress}
+              ></ProfileNoSubs>
+            )
           ) : (
-            <ProfileNoSubs
-              askPermissionAndUpdate={askPermissionAndUpdate}
-              collectionContractAddress={collectionContractAddress}
-              setCollectionContractAddress={setCollectionContractAddress}
-            ></ProfileNoSubs>
+            <div>No authorization but this should redirect to signup page</div>
+            // router.push('./')
           )
         ) : (
-          <div>No authorization but this should redirect to signup page</div>
-          // router.push('./')
+          <>Loading</>
         )}
       </div>
     </div>
