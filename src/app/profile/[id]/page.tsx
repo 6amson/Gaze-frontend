@@ -17,51 +17,55 @@ import { UserPageContextTypes } from "@/app/components/UserPageContext";
 import { useRouter } from "next/navigation";
 
 export default function profileMethods() {
+  const router = useRouter();
+  const {
+    isSubscribed,
+    isValidated,
+    askPermissionAndUpdate,
+    getNftListing,
+    address,
+    unsubscribe,
+    totalNft,
+    nftCollectionListing,
+    collectionName,
+    collectionContractAddress,
+    setCollectionContractAddress,
+  } = useContext(UserPageContext) as UserPageContextTypes;
 
-    const router = useRouter();
-    const {
-        isSubscribed,
-        isValidated,
-        askPermissionAndUpdate,
-        getNftListing,
-        address,
-        unsubscribe,
-        totalNft,
-        nftCollectionListing,
-        collectionName,
-        collectionContractAddress,
-        setCollectionContractAddress,
-    } = useContext(UserPageContext) as UserPageContextTypes;
+  const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
+  const url = "https://gazebackend.cyclic.cloud/";
 
-    const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-    const url = "https://gazebackend.cyclic.cloud/";
-
-    return (
-        <div>
-            <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
-                {isValidated ? (
-                    isSubscribed ? (
-                        <ProfileWithSub
-                            isSubscribed={isSubscribed}
-                            isValidated={isValidated}
-                            address={address}
-                            unSubscribe={unsubscribe}
-                            nftListingArray={nftCollectionListing}
-                            collectionName={collectionName}
-                            totalNft={totalNft}
-                        ></ProfileWithSub>
-                    ) : (
-                        <ProfileNoSubs
-                            askPermissionAndUpdate={askPermissionAndUpdate}
-                            collectionContractAddress={collectionContractAddress}
-                            setCollectionContractAddress={setCollectionContractAddress}
-                        ></ProfileNoSubs>
-                    )
-                ) : (
-                    <div>No authorization but this should redirect to signup page</div>
-                    // router.push('./')
-                )}
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
+        <ProfileNoSubs
+          askPermissionAndUpdate={askPermissionAndUpdate}
+          collectionContractAddress={collectionContractAddress}
+          setCollectionContractAddress={setCollectionContractAddress}
+        ></ProfileNoSubs>
+        {isValidated ? (
+          isSubscribed ? (
+            <ProfileWithSub
+              isSubscribed={isSubscribed}
+              isValidated={isValidated}
+              address={address}
+              unSubscribe={unsubscribe}
+              nftListingArray={nftCollectionListing}
+              collectionName={collectionName}
+              totalNft={totalNft}
+            ></ProfileWithSub>
+          ) : (
+            <ProfileNoSubs
+              askPermissionAndUpdate={askPermissionAndUpdate}
+              collectionContractAddress={collectionContractAddress}
+              setCollectionContractAddress={setCollectionContractAddress}
+            ></ProfileNoSubs>
+          )
+        ) : (
+          <div>No authorization but this should redirect to signup page</div>
+          // router.push('./')
+        )}
+      </div>
+    </div>
+  );
 }

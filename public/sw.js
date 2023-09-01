@@ -1,4 +1,4 @@
-const urlsToCache = ['./fallback.tsx',];
+const urlsToCache = ["./fallback.tsx"];
 const cacheName = "gaze_userv001";
 
 const addResourcesToCache = async (resources) => {
@@ -56,18 +56,18 @@ const addResourcesToCache = async (resources) => {
 //   }
 // };
 
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
   // event.waitUntil(enableNavigationPreload());
 });
 
-self.addEventListener('install', (event) => {
-  caches.keys().then(names => {
-    names.forEach(name => {
+self.addEventListener("install", (event) => {
+  caches.keys().then((names) => {
+    names.forEach((name) => {
       if (name !== cacheName) {
         caches.delete(name);
       }
-    })
-  })
+    });
+  });
 
   event.waitUntil(
     addResourcesToCache(urlsToCache),
@@ -77,30 +77,30 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-  // self.addEventListener('fetch', (event) => {
-  //   event.respondWith(
-  //     fetch(event.request)
-  //     // cacheFirst({
-  //     //   request: event.request,
-  //     //   preloadResponsePromise: event.preloadResponse,
-  //     //   fallbackUrl: 'www.facebook.com',
-  //     // })
-  //   );
-  // });
+// self.addEventListener('fetch', (event) => {
+//   event.respondWith(
+//     fetch(event.request)
+//     // cacheFirst({
+//     //   request: event.request,
+//     //   preloadResponsePromise: event.preloadResponse,
+//     //   fallbackUrl: 'www.facebook.com',
+//     // })
+//   );
+// });
 
 function verifySubscription() {
-  return self.registration.pushManager.getSubscription()
-  .then(function(subscription) {
-    if (subscription) {
-      return true;
-    }
+  return self.registration.pushManager
+    .getSubscription()
+    .then(function (subscription) {
+      if (subscription) {
+        return true;
+      }
 
-    throw new Error('User not subscribed');
-  });
+      throw new Error("User not subscribed");
+    });
 }
 
-
-self.addEventListener('push', function(event) {
+self.addEventListener("push", function (event) {
   const notificationData = event.data.json();
 
   const title = notificationData.title;
@@ -114,31 +114,19 @@ self.addEventListener('push', function(event) {
       500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
       40, 500,
     ],
-  }
+  };
 
   // console.log(event);
 
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener("notificationclick", function (event) {
   event.notification.close(); // Close the notification
 
   // Open a new window/tab with the desired URL
-  event.waitUntil(
-    clients.openWindow('https://nounz.netlify.app')
-  );
+  event.waitUntil(clients.openWindow("https://nounz.netlify.app"));
 });
-
-
-
-
-
-
-
-
-
-
 
 // self.addEventListener('push', function (event) {
 //   const title = event.data.json().title;
@@ -146,7 +134,6 @@ self.addEventListener('notificationclick', function(event) {
 //   const image = event.data.json().icon;
 
 //   const payload = event.data.text();
-  
 
 //   console.info('here is it', event.data.json());
 

@@ -23,12 +23,12 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
           <div className="text-center text-[0.75rem] sm:text-[0.8rem] mb-[10px]">
             enter a collection address to begin
           </div>
-          <div className="flex border border-black rounded-[3px] overflow-hidden sm:w-fit w-full">
+          <div className="flex border border-black rounded-[3px] overflow-hidden sm:w-fit w-full h-fit">
             <input
               onChange={(e) => {
                 handleInput(e.target.value);
               }}
-              className="px-[10px] w-full sm:w-fit "
+              className="px-[10px] w-full sm:w-fit outline-none "
             ></input>
             <button
               onClick={() => {

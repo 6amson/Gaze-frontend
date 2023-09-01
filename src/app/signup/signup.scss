@@ -126,6 +126,25 @@ Form {
   position: relative;
 }
 
+.inputDiv {
+  input {
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    padding-right: 40px;
+    border-radius: 12px;
+    background-color: transparent;
+    width: 25rem;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    position: relative;
+    padding-left: 45px;
+    border: solid rgb(184, 184, 184) 1px;
+    position: relative;
+    font-family: $mainFont;
+  }
+}
+
 input[type="checkbox"] {
   -webkit-appearance: none;
   position: absolute;
