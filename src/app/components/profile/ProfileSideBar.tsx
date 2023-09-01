@@ -14,7 +14,7 @@ import { useRouter, usePathname, useParams } from "next/navigation";
 export default function ProfileSideBar() {
   const {
     isSubscribed,
-    isValidated,
+    isValid,
     askPermissionAndUpdate,
     getNftListing,
     address,
