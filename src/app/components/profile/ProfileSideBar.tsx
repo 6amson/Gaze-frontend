@@ -6,9 +6,25 @@ import sideBarLogoMobile from "../../../../public/svgs/profile/sidebar-logo-mobi
 import sideBarLogoLaptop from "../../../../public/svgs/profile/sidebar-logo-lp.svg";
 import Link from "next/link";
 import Image from "next/image";
+import { UserPageContext } from "../UserPageContext";
+import { useContext } from "react";
+import { UserPageContextTypes } from "../UserPageContext";
 import { useRouter, usePathname, useParams } from "next/navigation";
 
 export default function ProfileSideBar() {
+  const {
+    isSubscribed,
+    isValid,
+    askPermissionAndUpdate,
+    getNftListing,
+    address,
+    unsubscribe,
+    totalNft,
+    nftCollectionListing,
+    collectionName,
+    collectionContractAddress,
+    setCollectionContractAddress,
+  } = useContext(UserPageContext) as UserPageContextTypes;
   const pathName = usePathname();
 
   const { id } = useParams();
