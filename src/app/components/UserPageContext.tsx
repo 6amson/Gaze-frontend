@@ -76,12 +76,12 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
-
     async function verifyValidAndSusbscribe(): Promise<any> {
       if ("serviceWorker" in navigator && "PushManager" in window) {
-
         navigator.serviceWorker.register("/sw.js").then(() => {
+          toast.info("registered service worker", { autoClose: false });
           navigator.serviceWorker.ready.then(async (registration) => {
+            toast.info("runining serviceWorker ready", { autoClose: false });
             // Get the current subscription status
             const subscription =
               await registration.pushManager.getSubscription();
@@ -130,7 +130,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
 
     verifyValidAndSusbscribe();
-  }, [isValid, isSubscribed]);
+  }, []);
 
   // console.info({
   //   isSubscribed: isSubscribed,
@@ -139,14 +139,12 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //   username: username,
   // });
 
-
-
   //logout function
   const handleLogout = (): void => {
     localStorage.removeItem("Gaze_userAccess_AT");
     Cookies.remove("Gaze_userAccess_RT");
-    router.push('/');
-  }
+    router.push("/");
+  };
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
@@ -192,7 +190,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               },
             });
 
-            const { contractAddress, } = res.data;
+            const { contractAddress } = res.data;
 
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
             setAddress(contractAddress);
@@ -269,8 +267,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       setLoading(false);
     }
   }
-
-   
 
   async function getNftListing(): Promise<any> {
     // const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
