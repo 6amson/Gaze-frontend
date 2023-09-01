@@ -201,7 +201,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
 
     verifyValidAndSusbscribes();
-    getNftListing();
+    /*  getNftListing(); */
   }, []);
 
   console.info({
