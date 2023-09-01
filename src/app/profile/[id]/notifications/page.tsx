@@ -6,7 +6,7 @@ import { UserPageContextTypes } from "@/app/components/UserPageContext";
 export default function Notifications() {
   const {
     isSubscribed,
-    isValidated,
+    isValid,
     askPermissionAndUpdate,
     nftNotificationList,
     handleNotificationList,
