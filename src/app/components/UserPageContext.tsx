@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
+// import { useRouter } from 'next/router';
 import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,9 +13,10 @@ import NotificationObjType from "../types/NotificationObjType";
 export interface UserPageContextTypes {
   username: string;
   isSubscribed: boolean;
-  isValidated: boolean;
+  isValid: boolean;
   getNftListing: () => Promise<any>;
   unsubscribe: () => void;
+  handleLogout: () => void;
   askPermissionAndUpdate: () => Promise<any>;
   loading: boolean;
   address: string;
@@ -40,10 +42,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   const url = "https://gazebackend.cyclic.cloud/";
-  // const url = "http://localhost:4000/"
 
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isValidated, setIsValidated] = useState(false);
+  // const [isValidated, setIsValidated] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
   const [totalNft, setTotalNft] = useState("");
@@ -74,77 +76,12 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
+
     async function verifyValidAndSusbscribe(): Promise<any> {
-      console.log("dfdfsddfdfdf");
-      try {
-        if ("serviceWorker" in navigator && "PushManager" in window) {
-          navigator.serviceWorker.ready.then(async (registration) => {
-            // Get the current subscription status
-            const subscription =
-              await registration.pushManager.getSubscription();
-
-            if (
-              (accesstoken && refreshtoken) ||
-              (accesstoken && !refreshtoken)
-            ) {
-              try {
-                setLoading(true);
-
-                const res = await axios.get(`${url}user/verify`, {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${accesstoken}`,
-                  },
-                });
-
-                if (res.status === 200) {
-                  Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
-                  const { contractAddress, username } = res.data;
-                  setUsername(username);
-                  setIsValidated(true);
-
-                  if (contractAddress === null || contractAddress === "") {
-                    setIsSubscribed(false);
-                  } else if (contractAddress != null || contractAddress != "") {
-                    setIsSubscribed(true);
-                    setAddress(contractAddress);
-                  }
-                }
-              } catch (err) {
-                router.push("/signin");
-                setIsSubscribed(false);
-                return err;
-              } finally {
-                setLoading(false);
-              }
-            } else if (accesstoken === null) {
-              router.push("/signin");
-            }
-          });
-        } else {
-          throw new Error(
-            "No service worker or push notification not supported"
-          );
-        }
-      } catch (err: any) {
-        console.log(err);
-      } finally {
-      }
-    }
-
-    async function verifyValidAndSusbscribes(): Promise<any> {
-      console.log("dfdfsddfdfdf");
       if ("serviceWorker" in navigator && "PushManager" in window) {
-        console.log("function is working");
-        console.log("ww", navigator);
 
         navigator.serviceWorker.register("/sw.js").then(() => {
           navigator.serviceWorker.ready.then(async (registration) => {
-            console.log(
-              "datats",
-              accesstoken && refreshtoken,
-              accesstoken && !refreshtoken
-            );
             // Get the current subscription status
             const subscription =
               await registration.pushManager.getSubscription();
@@ -153,7 +90,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               (accesstoken && refreshtoken) ||
               (accesstoken && !refreshtoken)
             ) {
-              console.log("function is working goo");
               try {
                 setLoading(true);
 
@@ -163,12 +99,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                     Authorization: `Bearer ${accesstoken}`,
                   },
                 });
-                console.log("responseObj", res);
                 if (res.status === 200) {
                   Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
                   const { contractAddress, username } = res.data;
                   setUsername(username);
-                  setIsValidated(true);
+                  setIsValid(true);
 
                   if (contractAddress === null || contractAddress === "") {
                     setIsSubscribed(false);
@@ -192,24 +127,26 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       } else {
         throw new Error("No service worker or push notification not supported");
       }
-      /*    try {
-    
-      } catch (err: any) {
-        console.log(err);
-      } finally {
-      } */
     }
 
-    verifyValidAndSusbscribes();
-    /*  getNftListing(); */
-  }, []);
+    verifyValidAndSusbscribe();
+  }, [isValid, isSubscribed]);
 
-  console.info({
-    isSubscribed: isValidated,
-    address: address,
-    isValidated: isValidated,
-    username: username,
-  });
+  // console.info({
+  //   isSubscribed: isSubscribed,
+  //   address: address,
+  //   isValid: isValid,
+  //   username: username,
+  // });
+
+
+
+  //logout function
+  const handleLogout = (): void => {
+    localStorage.removeItem("Gaze_userAccess_AT");
+    Cookies.remove("Gaze_userAccess_RT");
+    router.push('/');
+  }
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
@@ -255,11 +192,12 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               },
             });
 
-            const { contractAddress } = res.data;
+            const { contractAddress, } = res.data;
 
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
             setAddress(contractAddress);
             setIsSubscribed(true);
+            // router.push('path');
           } else {
             console.log("No service-worker on this browser");
           }
@@ -269,7 +207,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       // console.log(permissionResult);
     } catch (err: any) {
       console.info("Permission request failed: " + err);
-      if (err.response.data.statusCode == 406) {
+      if (err.response.data.statusCode == 422) {
         toast.error(
           "Wrong address format, confirm the address is correct and retry.",
           {
@@ -303,20 +241,20 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         navigator.serviceWorker.ready.then(async (registration) => {
           const subscription = await registration.pushManager.getSubscription();
 
+          const res = await axios.get(`${url}user/unsubscribe`, {
+            headers: {
+              Authorization: `Bearer ${accesstoken}`,
+            },
+          });
+
+          setIsSubscribed(false);
+          setAddress("");
+          setCollectionContractAddress("");
+          setNftNotificationList([]);
+
           if (subscription) {
             const susbscriptionState = await subscription.unsubscribe();
-            setIsSubscribed(!susbscriptionState);
-            setAddress("");
-            setCollectionContractAddress("");
-            setNftNotificationList([]);
             //  console.info(susbscriptionState);
-
-            const res = await axios.post(`${url}user/unsubscribe`, {
-              headers: {
-                Authorization: `Bearer ${accesstoken}`,
-              },
-            });
-
             console.info(res.data);
           } else {
             setIsSubscribed(false);
@@ -331,6 +269,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       setLoading(false);
     }
   }
+
+   
 
   async function getNftListing(): Promise<any> {
     // const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
@@ -357,9 +297,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       value={{
         username,
         isSubscribed,
+        handleLogout,
         handleNotificationList,
         nftNotificationList,
-        isValidated,
+        isValid,
         nftCollectionListing,
         getNftListing,
         unsubscribe,

@@ -8,7 +8,7 @@ import { UserPageContextTypes } from "../UserPageContext";
 export default function ProfileHeader() {
   const {
     isSubscribed,
-    isValidated,
+    isValid,
     askPermissionAndUpdate,
     getNftListing,
     address,

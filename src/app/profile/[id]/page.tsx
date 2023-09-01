@@ -20,7 +20,7 @@ export default function profileMethods() {
   const router = useRouter();
   const {
     isSubscribed,
-    isValidated,
+    isValid,
     askPermissionAndUpdate,
     getNftListing,
     address,
@@ -40,11 +40,11 @@ export default function profileMethods() {
     <div>
       <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
         {!loading ? (
-          isValidated ? (
+          isValid? (
             isSubscribed ? (
               <ProfileWithSub
                 isSubscribed={isSubscribed}
-                isValidated={isValidated}
+                isValidated={isValid}
                 address={address}
                 unSubscribe={unsubscribe}
                 nftListingArray={nftCollectionListing}
