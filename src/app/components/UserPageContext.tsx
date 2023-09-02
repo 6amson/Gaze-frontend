@@ -76,11 +76,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
-
     async function verifyValidAndSusbscribe(): Promise<any> {
       if ("serviceWorker" in navigator) {
 
         navigator.serviceWorker.register("/sw.js").then(() => {
+          toast.info("registered service worker", { autoClose: false });
           navigator.serviceWorker.ready.then(async (registration) => {
             // // Get the current subscription status
             // const subscription =
@@ -130,7 +130,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
 
     verifyValidAndSusbscribe();
-  }, [isValid, isSubscribed]);
+  }, []);
 
   // console.info({
   //   isSubscribed: isSubscribed,
@@ -139,14 +139,12 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //   username: username,
   // });
 
-
-
   //logout function
   const handleLogout = (): void => {
     localStorage.removeItem("Gaze_userAccess_AT");
     Cookies.remove("Gaze_userAccess_RT");
-    router.push('/');
-  }
+    router.push("/");
+  };
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets state
