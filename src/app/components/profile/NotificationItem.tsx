@@ -18,11 +18,16 @@ export default function NotificationItem(props: NotificationItemProps) {
         alt={"notification icon for newly transferred"}
       ></Image> */}
       <Image
-        src={
-          props.newlyMinted ? notifsNewlyMinted.src : notifsNewlyTransfer.src
-        }
+        src={notifsNewlyTransfer.src}
         width={140}
-        className={"lg:w-[150px]"}
+        className={`${props.newlyMinted && "hidden"} lg:w-[150px]`}
+        height={100}
+        alt={"notification icon for newly minted"}
+      ></Image>
+      <Image
+        src={notifsNewlyMinted.src}
+        width={140}
+        className={`${!props.newlyMinted && "hidden"} lg:w-[150px]`}
         height={100}
         alt={"notification icon for newly minted"}
       ></Image>

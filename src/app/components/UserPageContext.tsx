@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
@@ -27,6 +27,7 @@ export interface UserPageContextTypes {
   collectionContractAddress: string;
   setCollectionContractAddress: Dispatch<SetStateAction<string>>;
   handleNotificationList: (data: NotificationObjType[]) => void;
+  verifyValidAndSusbscribeTwo: () => void;
 }
 
 export const UserPageContext = React.createContext<
@@ -73,18 +74,19 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
+    return;
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
     async function verifyValidAndSusbscribe(): Promise<any> {
-      if ("serviceWorker" in navigator) {
-
+      if ("serviceWorker" in navigator && "PushManager" in window) {
         navigator.serviceWorker.register("/sw.js").then(() => {
           toast.info("registered service worker", { autoClose: false });
           navigator.serviceWorker.ready.then(async (registration) => {
-            // // Get the current subscription status
-            // const subscription =
-            //   await registration.pushManager.getSubscription();
+            toast.info("runining serviceWorker ready", { autoClose: false });
+            // Get the current subscription status
+            const subscription =
+              await registration.pushManager.getSubscription();
 
             if (
               (accesstoken && refreshtoken) ||
@@ -130,7 +132,69 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
 
     verifyValidAndSusbscribe();
-  }, []);
+  }, [isValid, isSubscribed]);
+
+  const verifyValidAndSusbscribeTwo = () => {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
+
+    async function verifyValidAndSusbscribe(): Promise<any> {
+      if ("serviceWorker" in navigator && "PushManager" in window) {
+        navigator.serviceWorker.register("/sw.js").then(() => {
+          toast.info("registered service worker", { autoClose: false });
+          navigator.serviceWorker.ready.then(async (registration) => {
+            toast.info("runining serviceWorker ready", {
+              autoClose: false,
+            });
+            // Get the current subscription status
+            const subscription =
+              await registration.pushManager.getSubscription();
+
+            if (
+              (accesstoken && refreshtoken) ||
+              (accesstoken && !refreshtoken)
+            ) {
+              try {
+                setLoading(true);
+
+                const res = await axios.get(`${url}user/verify`, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accesstoken}`,
+                  },
+                });
+                if (res.status === 200) {
+                  Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
+                  const { contractAddress, username } = res.data;
+                  setUsername(username);
+                  setIsValid(true);
+
+                  if (contractAddress === null || contractAddress === "") {
+                    setIsSubscribed(false);
+                  } else if (contractAddress != null || contractAddress != "") {
+                    setIsSubscribed(true);
+                    setAddress(contractAddress);
+                  }
+                }
+              } catch (err) {
+                router.push("/signin");
+                setIsSubscribed(false);
+                return err;
+              } finally {
+                setLoading(false);
+              }
+            } else if (accesstoken === null) {
+              router.push("/signin");
+            }
+          });
+        });
+      } else {
+        throw new Error("No service worker or push notification not supported");
+      }
+    }
+
+    verifyValidAndSusbscribe();
+  };
 
   // console.info({
   //   isSubscribed: isSubscribed,
@@ -143,11 +207,14 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const handleLogout = (): void => {
     localStorage.removeItem("Gaze_userAccess_AT");
     Cookies.remove("Gaze_userAccess_RT");
+    setIsValid(false);
+    setIsSubscribed(false);
+    setUsername("");
     router.push("/");
   };
 
   //A function that requests permission from user to send them notification and updates the their profile
-  //It sets state
+  //It sets stste
   //To be attached to the subscribe button with ProfileWithNoSub
   async function askPermissionAndUpdate(): Promise<any> {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -158,26 +225,23 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       const permissionResult = await Notification.requestPermission();
 
       if (permissionResult !== "granted") {
-        toast.info("Permission to send notifications denied.", {
-          position: "top-center",
-          autoClose: 2500,
-          theme: "dark",
-        });
         throw new Error("We weren't granted permission.");
-      } else if (permissionResult == "granted" && "PushManager" in window) {
+      } else if (permissionResult == "granted") {
         // navigator.serviceWorker.register()
         (async function registerServiceWorker() {
-          const registration = await navigator.serviceWorker.getRegistration()
-          const subscribeOptions = {
-            userVisibleOnly: true,
-            applicationServerKey: vapidControl,
-          };
+          if ("serviceWorker" in navigator) {
+            const registration = await navigator.serviceWorker.register(
+              "/sw.js"
+            );
+            const subscribeOptions = {
+              userVisibleOnly: true,
+              applicationServerKey: vapidControl,
+            };
 
-          if (registration != undefined) {
             const pushSubscription =
               registration.pushManager.subscribe(subscribeOptions);
             console.log(
-              "ServiceWorker installed and active with scope:",
+              "ServiceWorker registration successful with scope:",
               registration.scope
             );
             const subscriptionObject = await pushSubscription;
@@ -186,60 +250,65 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               subscriptionId: subscriptionObject,
             };
             const data = JSON.stringify(rawData);
-            try {
-              const res = await axios.post(`${url}user/updateuser`, data, {
+            const res = await axios
+              .post(`${url}user/updateuser`, data, {
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${accesstoken}`,
                 },
-              });
-
-              const { contractAddress, } = res.data;
-
-              setAddress(contractAddress);
-              setIsSubscribed(true);
-
-            } catch (err: any) {
-
-              if (err.response.data.statusCode == 422) {
-                toast.error(
-                  `Wrong address format.\n` +
-                  `\nConfirm the address is correct and retry.`,
-                  {
+              })
+              .catch((err: any) => {
+                if (err.response.data.statusCode == 422) {
+                  toast.error(
+                    "Wrong address format, confirm the address is correct and retry.",
+                    {
+                      position: "top-center",
+                      autoClose: 2500,
+                      theme: "dark",
+                    }
+                  );
+                } else if (err.response.data.statusCode == 500) {
+                  toast.error("This is from our end, please try again", {
                     position: "top-center",
                     autoClose: 2500,
                     theme: "dark",
-                  }
-                );
-              } else if (err.response.data.statusCode == 400) {
-                toast.error("Please enter a valid contract address.", {
-                  position: "top-center",
-                  autoClose: 2500,
-                  theme: "dark",
-                });
-              } else if (err.response.data.statusCode == 500) {
-                toast.error("This is from our end, please try again.", {
-                  position: "top-center",
-                  autoClose: 2500,
-                  theme: "dark",
-                });
-              }
-            }
+                  });
+                }
+                return err;
+              });
+            if (!res.data) return;
+            const { contractAddress } = res.data;
+
+            //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
+            setAddress(contractAddress);
+            setIsSubscribed(true);
+            // router.push('path');
           } else {
-            toast.info("Your browser doesn't support features for subscription.", {
-              position: "top-center",
-              autoClose: 2500,
-              theme: "dark",
-            });
-            throw new Error("No service worker not installed.");
+            console.log("No service-worker on this browser");
           }
-
         })();
-
       }
+
       // console.log(permissionResult);
     } catch (err: any) {
-      throw err;
+      console.info("Permission request failed: " + err);
+      if (err.response.data.statusCode == 422) {
+        toast.error(
+          "Wrong address format, confirm the address is correct and retry.",
+          {
+            position: "top-center",
+            autoClose: 2500,
+            theme: "dark",
+          }
+        );
+      } else if (err.response.data.statusCode == 500) {
+        toast.error("This is from our end, please try again", {
+          position: "top-center",
+          autoClose: 2500,
+          theme: "dark",
+        });
+      }
+      return err;
     } finally {
       setLoading(false);
     }
@@ -253,7 +322,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     try {
       setLoading(true);
 
-      if ("serviceWorker" in navigator) {
+      if ("serviceWorker" in navigator && "PushManager" in window) {
         navigator.serviceWorker.ready.then(async (registration) => {
           const subscription = await registration.pushManager.getSubscription();
 
@@ -269,13 +338,15 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           setNftNotificationList([]);
 
           if (subscription) {
-            await subscription.unsubscribe();
+            const susbscriptionState = await subscription.unsubscribe();
+            //  console.info(susbscriptionState);
+            console.info(res.data);
           } else {
             setIsSubscribed(false);
           }
         });
       } else {
-        throw new Error("No service worker.");
+        throw new Error("No service worker or push notification not supported");
       }
     } catch (err: any) {
       console.log(err);
@@ -283,8 +354,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       setLoading(false);
     }
   }
-
-
 
   async function getNftListing(): Promise<any> {
 
@@ -344,10 +413,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         totalNft,
         loading,
         address,
+        verifyValidAndSusbscribeTwo,
       }}
     >
       {" "}
-      <div></div>
       {props.children}
     </UserPageContext.Provider>
   );
