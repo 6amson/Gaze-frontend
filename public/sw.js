@@ -1,5 +1,5 @@
 const urlsToCache = ["./fallback.tsx"];
-const cacheName = "gaze_userv001";
+const cacheName = "gaze_userv002";
 
 const addResourcesToCache = async (resources) => {
   const cache = await caches.open(cacheName);

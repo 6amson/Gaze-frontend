@@ -1,6 +1,9 @@
 import noSubFormIcon from "../../../../public/svgs/profile/nosub-form.svg";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface ProfileNoSubsProps {
   collectionContractAddress: string;
@@ -64,6 +67,7 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
           alt={"arrows"}
         ></Image>
       </div>
+      <ToastContainer />
     </div>
   );
 }
