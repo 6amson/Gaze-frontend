@@ -287,8 +287,27 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
 
   async function getNftListing(): Promise<any> {
-    // const addr = "0x52Cd55E331931F14191e1F7A068421D89aDe730b";
 
+    try {
+      setLoading(true);
+      const response: any = await alchemy.nft.getNftsForContract(address);
+      const nftResponse: NftListingItemType[] = response.nfts;
+      console.log(nftResponse);
+      if (nftResponse[0].contract) {
+        setTotalNft(nftResponse[0].contract.totalSupply);
+        setCollectionName(nftResponse[0].contract.name);
+      }
+      setNftCollectionListing(nftResponse);
+    } catch (err) {
+      return err;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+
+  async function connectMetamask(): Promise<any> {
     try {
       setLoading(true);
       const response: any = await alchemy.nft.getNftsForContract(address);
