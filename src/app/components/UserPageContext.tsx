@@ -205,7 +205,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
               if (err.response.data.statusCode == 422) {
                 toast.error(
-                  `Wrong address format.\n` + 
+                  `Wrong address format.\n` +
                   `\nConfirm the address is correct and retry.`,
                   {
                     position: "top-center",
@@ -228,17 +228,17 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               }
             }
           } else {
-            throw new Error("No service worker.");
+            toast.info("Your browser doesn't support features for subscription.", {
+              position: "top-center",
+              autoClose: 2500,
+              theme: "dark",
+            });
+            throw new Error("No service worker not installed.");
           }
 
         })();
 
       }
-      // toast.error("Your browser doesn't support features for subscription.", {
-      //   position: "top-center",
-      //   autoClose: 2500,
-      //   theme: "dark",
-      // });
       // console.log(permissionResult);
     } catch (err: any) {
       throw err;
@@ -271,9 +271,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           setNftNotificationList([]);
 
           if (subscription) {
-            const susbscriptionState = await subscription.unsubscribe();
-            //  console.info(susbscriptionState);
-            console.info(res.data);
+            await subscription.unsubscribe();
           } else {
             setIsSubscribed(false);
           }
