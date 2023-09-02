@@ -83,6 +83,7 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
           alt={"arrows"}
         ></Image>
       </div>
+      <ToastContainer />
     </div>
   );
 }
