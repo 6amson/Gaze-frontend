@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
@@ -27,6 +27,7 @@ export interface UserPageContextTypes {
   collectionContractAddress: string;
   setCollectionContractAddress: Dispatch<SetStateAction<string>>;
   handleNotificationList: (data: NotificationObjType[]) => void;
+  verifyValidAndSusbscribeTwo: () => void;
 }
 
 export const UserPageContext = React.createContext<
@@ -73,6 +74,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
+    return;
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
@@ -130,7 +132,69 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
 
     verifyValidAndSusbscribe();
-  }, []);
+  }, [isValid, isSubscribed]);
+
+  const verifyValidAndSusbscribeTwo = () => {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
+
+    async function verifyValidAndSusbscribe(): Promise<any> {
+      if ("serviceWorker" in navigator && "PushManager" in window) {
+        navigator.serviceWorker.register("/sw.js").then(() => {
+          toast.info("registered service worker", { autoClose: false });
+          navigator.serviceWorker.ready.then(async (registration) => {
+            toast.info("runining serviceWorker ready", {
+              autoClose: false,
+            });
+            // Get the current subscription status
+            const subscription =
+              await registration.pushManager.getSubscription();
+
+            if (
+              (accesstoken && refreshtoken) ||
+              (accesstoken && !refreshtoken)
+            ) {
+              try {
+                setLoading(true);
+
+                const res = await axios.get(`${url}user/verify`, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accesstoken}`,
+                  },
+                });
+                if (res.status === 200) {
+                  Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
+                  const { contractAddress, username } = res.data;
+                  setUsername(username);
+                  setIsValid(true);
+
+                  if (contractAddress === null || contractAddress === "") {
+                    setIsSubscribed(false);
+                  } else if (contractAddress != null || contractAddress != "") {
+                    setIsSubscribed(true);
+                    setAddress(contractAddress);
+                  }
+                }
+              } catch (err) {
+                router.push("/signin");
+                setIsSubscribed(false);
+                return err;
+              } finally {
+                setLoading(false);
+              }
+            } else if (accesstoken === null) {
+              router.push("/signin");
+            }
+          });
+        });
+      } else {
+        throw new Error("No service worker or push notification not supported");
+      }
+    }
+
+    verifyValidAndSusbscribe();
+  };
 
   // console.info({
   //   isSubscribed: isSubscribed,
@@ -143,6 +207,9 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const handleLogout = (): void => {
     localStorage.removeItem("Gaze_userAccess_AT");
     Cookies.remove("Gaze_userAccess_RT");
+    setIsValid(false);
+    setIsSubscribed(false);
+    setUsername("");
     router.push("/");
   };
 
@@ -183,13 +250,33 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               subscriptionId: subscriptionObject,
             };
             const data = JSON.stringify(rawData);
-            const res = await axios.post(`${url}user/updateuser`, data, {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accesstoken}`,
-              },
-            });
-
+            const res = await axios
+              .post(`${url}user/updateuser`, data, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${accesstoken}`,
+                },
+              })
+              .catch((err: any) => {
+                if (err.response.data.statusCode == 422) {
+                  toast.error(
+                    "Wrong address format, confirm the address is correct and retry.",
+                    {
+                      position: "top-center",
+                      autoClose: 2500,
+                      theme: "dark",
+                    }
+                  );
+                } else if (err.response.data.statusCode == 500) {
+                  toast.error("This is from our end, please try again", {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                  });
+                }
+                return err;
+              });
+            if (!res.data) return;
             const { contractAddress } = res.data;
 
             //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
@@ -307,10 +394,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         totalNft,
         loading,
         address,
+        verifyValidAndSusbscribeTwo,
       }}
     >
       {" "}
-      <div></div>
       {props.children}
     </UserPageContext.Provider>
   );

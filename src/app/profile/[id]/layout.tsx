@@ -1,13 +1,25 @@
+"use client";
 import ProfileSideBar from "@/app/components/profile/ProfileSideBar";
 import ProfileHeader from "@/app/components/profile/ProfileHeader";
 import { ToastContainer, toast } from "react-toastify";
 import UserPageProvider from "@/app/components/UserPageContext";
-
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { UserPageContext } from "@/app/components/UserPageContext";
+import { UserPageContextTypes } from "@/app/components/UserPageContext";
 export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { verifyValidAndSusbscribeTwo } = useContext(
+    UserPageContext
+  ) as UserPageContextTypes;
+
+  useEffect(() => {
+    verifyValidAndSusbscribeTwo();
+  }, []);
   return (
     <section className="w-full h-screen">
       <div className="flex">
@@ -19,7 +31,7 @@ export default function ProfileLayout({
             {" "}
             <ProfileHeader></ProfileHeader>
           </div>
-          <ToastContainer />
+
           {children}
         </div>
       </div>

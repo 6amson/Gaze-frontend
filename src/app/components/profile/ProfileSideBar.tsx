@@ -24,6 +24,7 @@ export default function ProfileSideBar() {
     collectionName,
     collectionContractAddress,
     setCollectionContractAddress,
+    handleLogout,
   } = useContext(UserPageContext) as UserPageContextTypes;
   const pathName = usePathname();
 
@@ -78,7 +79,10 @@ export default function ProfileSideBar() {
       })}
 
       <button
-        className={`p-[5px] absolute bottom-[10%] xl:px-[12px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
+        onClick={() => {
+          handleLogout();
+        }}
+        className={`p-[5px] absolute bottom-[20%]  sm:bottom-[10%]  xl:px-[12px] flex items-center duration-300 xl:h-[38px]  w-fit xl:w-full rounded-[13px] xl:gap-x-[10px] `}
       >
         <Image
           width={25}

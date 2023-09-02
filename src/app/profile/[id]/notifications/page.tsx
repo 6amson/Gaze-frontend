@@ -1,4 +1,5 @@
 "use client";
+import "react-toastify/dist/ReactToastify.css";
 import NotificationItem from "@/app/components/profile/NotificationItem";
 import { UserPageContext } from "@/app/components/UserPageContext";
 import { useContext } from "react";
@@ -19,7 +20,7 @@ export default function Notifications() {
         {[1, 2, 3, 4, 6, 7, 8].map((item, index) => {
           return (
             <NotificationItem
-              newlyMinted={Math.random() > 0.5}
+              newlyMinted={index % 2 === 0}
               key={index}
             ></NotificationItem>
           );
