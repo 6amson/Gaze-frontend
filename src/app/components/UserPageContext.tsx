@@ -81,6 +81,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
+    return;
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
