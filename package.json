@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@metamask/eth-sig-util": "^6.0.0",
+    "@metamask/sdk": "^0.6.0",
     "@studio-freight/lenis": "^1.0.19",
     "@types/js-cookie": "^3.0.3",
     "@types/next": "^9.0.0",

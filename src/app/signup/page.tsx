@@ -125,9 +125,9 @@ export default function Signup() {
       <div className="mainDiv">
         <div className="headerCont">
           {" "}
-          <div className="headerDiv">
+          {/* <div className="headerDiv">
             <Header></Header>
-          </div>
+          </div> */}
         </div>
         <div className="subMainDiv">
           <div className="subMainDiv1">
