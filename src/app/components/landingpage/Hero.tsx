@@ -1,6 +1,7 @@
 "use client";
 
 import Marquee from "react-fast-marquee";
+import { UserPageContext, UserPageContextTypes } from "../UserPageContext";
 import heroMainLp from "../../../../public/svgs/landing-page/hero-main-lp2.svg";
 import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg";
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
@@ -17,8 +18,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Header from "../globals/Header";
-
+import { useContext } from "react";
 export default function Hero() {
+  const { loading } = useContext(UserPageContext) as UserPageContextTypes;
   const router = useRouter();
 
   const url = "https://gazebackend.cyclic.cloud/";
@@ -79,14 +81,15 @@ export default function Hero() {
           src={heroStarsLp.src}
         ></Image>
       </Marquee>
-
-      <Image
+      <motion.img
+        initial={{ y: -40 }}
+        whileInView={{ y: 0 }}
+        transition={{ duration: 0.6, bounce: 3, mass: 1, type: "spring" }}
         width={400}
-        height={100}
         alt={"falling nft coins"}
         src={heroMainMobile.src}
         className="pt-[60px] p-2 sm:hidden absolute "
-      ></Image>
+      ></motion.img>
 
       <motion.img
         animate={{
@@ -135,13 +138,13 @@ export default function Hero() {
 
       {/* Laptop Section */}
       <div className="absolute bottom-[10%] text-center hidden sm:block">
-        <div className="uppercase leading-tight text-white font-black 2xl:text-[3.3rem] xl:text-[3.3rem] lg:text-[3rem] text-center ">
+        <div className="uppercase leading-tight text-white font-black 2xl:text-[4.3rem] xl:text-[4rem] lg:text-[3.3rem] text-center ">
           Track your favorite <span className="text-spacePurple">NFT</span>
           <div>Collection</div>
         </div>
         <button
           onClick={handleAuth}
-          className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.7rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
+          className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.8rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
         >
           Get Started
         </button>

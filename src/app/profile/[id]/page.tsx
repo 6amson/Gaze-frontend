@@ -1,5 +1,7 @@
 "use client";
 
+import { Dna, RevolvingDot } from "react-loader-spinner";
+
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
@@ -65,11 +67,23 @@ export default function profileMethods() {
               ></ProfileNoSubs>
             )
           ) : (
-            <div>No authorization but this should redirect to signup page</div>
+            <div></div>
             // router.push('./')
           )
         ) : (
-          <>Loading</>
+          <div className="flex flex-col w-full h-[80vh] relative items-center justify-center">
+            <RevolvingDot
+              radius={100}
+              strokeWidth={2}
+              color="#A157FF "
+              secondaryColor=""
+              ariaLabel="revolving-dot-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+            <div className="mt-[10px] font-raleWay">Fetching your data.</div>
+          </div>
         )}
       </div>
     </div>

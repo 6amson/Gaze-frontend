@@ -11,37 +11,36 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-
-
-
-
 export default function Header() {
-  const {
-    connectMetamask,
-    ismetaMaskConnected,
-  } = useContext(UserPageContext) as UserPageContextTypes;
+  const { connectMetamask, ismetaMaskConnected } = useContext(
+    UserPageContext
+  ) as UserPageContextTypes;
 
   const pathName = usePathname();
   const router = useRouter();
   const headerButtons = [
     { name: "Home", link: "/" },
     { name: "FAQ", link: "/" },
-    { name: "Connect with Metamask", isConnect: true }
+    { name: "Connect with Metamask", isConnect: true },
   ];
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div
-      className={`${pathName.includes("profile") && "hidden"
-        } w-full  z-40 relative bg-black  `}
+      className={`${
+        pathName.includes("profile") && "hidden"
+      } w-full  z-40 relative bg-black  `}
     >
-      <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
+      <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[60px] h-[45px]  flex items-center relative">
         <Image
+          onClick={() => {
+            router.push("/");
+          }}
           src={whiteTextIconLogo.src}
-          alt="logo with text"
+          alt="logo with text "
           width={256}
-          className="sm:ml-[37px] ml-[18px] w-[70px] xl:w-[100px]"
+          className="sm:ml-[37px] ml-[18px] w-[70px] xl:w-[100px] cursor-pointer "
           height={100}
         ></Image>
         <div className="gap-x-[79px] absolute right-[48px] sm:right-[27px] flex   ">
@@ -49,12 +48,13 @@ export default function Header() {
             return (
               <button
                 onClick={() => {
-                  router.push("/");
+                  item.isConnect ? router.push("/") : connectMetamask();
                 }}
-                className={`${item.isConnect
+                className={`${
+                  item.isConnect
                     ? "border border-neonGreen p-[10px] sm:p-[14px] rounded-[10px] "
                     : "hidden sm:block"
-                  } text-white  2xl:text-[0.875rem] text-[0.7rem] leading-none`}
+                } text-white  2xl:text-[0.875rem] text-[0.7rem] leading-none hover:text-neonGreen duration-300 `}
                 key={index}
               >
                 {item.name}
@@ -78,8 +78,9 @@ export default function Header() {
       </div>
 
       <div
-        className={` bg-black h-fit w-full duration-300 sm:hidden absolute z-0 flex flex-col text-center ${!isMobileMenuOpen ? "-top-[100%]" : "top-[100%]"
-          }`}
+        className={` bg-black h-fit w-full duration-300 sm:hidden absolute z-0 flex flex-col text-center ${
+          !isMobileMenuOpen ? "-top-[100%]" : "top-[100%]"
+        }`}
       >
         {headerButtons.map((item, index) => {
           if (!item.isConnect) {
