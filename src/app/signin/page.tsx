@@ -262,7 +262,12 @@ export default function Signin() {
                 </div>
                 <div className="text-center text-spacePurple">
                   {" "}
-                  <button className="uppercase mt-2 text-[0.8rem] font-bold">
+                  <button
+                    onClick={() => {
+                      router.push("/forgotPassword");
+                    }}
+                    className="uppercase mt-2 text-[0.8rem] font-bold"
+                  >
                     Forgot Password?
                   </button>
                 </div>
