@@ -10,7 +10,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: { neonGreen: "#7FFF52", spacePurple: "#A157FF" },
+      colors: {
+        neonGreen: "#7FFF52",
+        spacePurple: "#A157FF",
+        spacePurpleAlt: "#7F53F9",
+        spaceViolet: "#801FFF",
+      },
       fontFamily: {
         openSans: "var(--font-opensans)",
         raleWay: ["raleway", "sans"],

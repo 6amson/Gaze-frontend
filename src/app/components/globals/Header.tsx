@@ -24,12 +24,15 @@ export default function Header() {
         pathName.includes("profile") && "hidden"
       } w-full  z-40 relative bg-black  `}
     >
-      <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[80px] h-[45px]  flex items-center relative">
+      <div className=" z-40 font-raleWay m-auto absolute bg-black   text-white w-full max-w-[1440px]  sm:h-[60px] h-[45px]  flex items-center relative">
         <Image
+          onClick={() => {
+            router.push("/");
+          }}
           src={whiteTextIconLogo.src}
-          alt="logo with text"
+          alt="logo with text "
           width={256}
-          className="sm:ml-[37px] ml-[18px] w-[70px] xl:w-[100px]"
+          className="sm:ml-[37px] ml-[18px] w-[70px] xl:w-[100px] cursor-pointer "
           height={100}
         ></Image>
         <div className="gap-x-[79px] absolute right-[48px] sm:right-[27px] flex   ">
@@ -43,7 +46,7 @@ export default function Header() {
                   item.isConnect
                     ? "border border-neonGreen p-[10px] sm:p-[14px] rounded-[10px] "
                     : "hidden sm:block"
-                } text-white  2xl:text-[0.875rem] text-[0.7rem] leading-none`}
+                } text-white  2xl:text-[0.875rem] text-[0.7rem] leading-none hover:text-neonGreen duration-300 `}
                 key={index}
               >
                 {item.name}

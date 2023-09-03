@@ -16,7 +16,8 @@
 }
 
 .subMainDiv {
-  height: calc(100vh - 79px);
+  height: 100vh;
+  padding-top: 60px;
   display: flex;
   overflow: hidden;
 
@@ -47,7 +48,7 @@
     .signupDiv {
       margin-bottom: 40px;
       line-height: 50%;
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 700;
     }
 
@@ -110,6 +111,7 @@
   display: flex;
   justify-content: center;
   font-family: $mainFont;
+  font-size: 0.8rem;
 
   p:first-child {
     margin-right: 5px;
@@ -117,7 +119,7 @@
 
   a {
     color: $mainColor;
-    font-weight: 500;
+    font-weight: 800;
     cursor: pointer;
   }
 }
@@ -135,6 +137,7 @@ Form {
     border-radius: 12px;
     background-color: transparent;
     width: 25rem;
+    max-width: 320px;
     margin-top: 4px;
     margin-bottom: 16px;
     position: relative;

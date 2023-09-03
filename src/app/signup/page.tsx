@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "../components/globals/Header";
 import "./signup.scss";
+import passwordNotVisible from "../../../public/svgs/signup-in/password-not-visible.svg";
+import passwordVisible from "../../../public/svgs/signup-in/password-visible.svg";
 import usernameIcon from "../../../public/usernameIcon.svg";
 import emailIcon from "../../../public/emailIcon.svg";
 import passwordIcon from "../../../public/passwordIcon.svg";
@@ -19,7 +21,7 @@ import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import { Dna } from "react-loader-spinner";
+import { Dna, RevolvingDot } from "react-loader-spinner";
 
 export default function Signup() {
   const [error, setError] = useState("");
@@ -45,7 +47,7 @@ export default function Signup() {
   };
 
   const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   const datum = {
@@ -58,7 +60,21 @@ export default function Signup() {
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
-
+    if (!datum.username || !datum.email) {
+      toast.error("Please, flll the form appropriately.", {
+        position: "top-center",
+        autoClose: 2500,
+        theme: "dark",
+      });
+      return;
+    }
+    if (!datum.password) {
+      toast.error("Please, flll the form appropriately.", {
+        position: "top-center",
+        autoClose: 2500,
+        theme: "dark",
+      });
+    }
     try {
       setLoading(true);
       const res = await axios.post(`${url}user/signup`, data, {
@@ -123,12 +139,6 @@ export default function Signup() {
   return (
     <div className="">
       <div className="mainDiv">
-        <div className="headerCont">
-          {" "}
-          <div className="headerDiv">
-            <Header></Header>
-          </div>
-        </div>
         <div className="subMainDiv">
           <div className="subMainDiv1">
             <Image
@@ -201,13 +211,13 @@ export default function Signup() {
                   />
                 </div>
 
-                <div className="inputDiv">
+                <div className="inputDiv w-fit">
                   <label htmlFor="password">PASSWORD</label>
                   <Image
                     src={passwordIcon}
                     alt="password icon"
                     width={20}
-                    className="passwordIcon"
+                    className="passwordIcon "
                     height={15}
                   ></Image>
                   <input
@@ -218,35 +228,70 @@ export default function Signup() {
                     type={showPassword ? "text" : "password"}
                     onChange={handlePasswordChange}
                   />
-                  <input
+                  <div
+                    onClick={() => {
+                      handleTogglePassword();
+                    }}
+                    className="cursor-pointer "
+                  >
+                    <Image
+                      src={passwordNotVisible.src}
+                      width={20}
+                      height={20}
+                      className={`${
+                        showPassword ? "hidden" : ""
+                      } absolute top-[41px] right-[10px]`}
+                      alt={"password not visible"}
+                    ></Image>
+                    <Image
+                      src={passwordVisible.src}
+                      width={20}
+                      height={20}
+                      className={`${
+                        !showPassword ? "hidden" : ""
+                      } absolute top-[43px] right-[10px]`}
+                      alt={"password visible"}
+                    ></Image>
+                  </div>
+                  {/*              <input
                     id="showP"
                     type="checkbox"
                     className="showPassword"
                     checked={showPassword}
                     onChange={handleTogglePassword}
-                  />
+                  /> */}
                 </div>
                 <button
-                  className="submitButton"
+                  className=" max-w-[320px] w-full sm:w-full 2xl:w-[25vw] text-center bg-spacePurple hover:bg-spaceViolet duration-300 rounded-[10px] p-2 font-bold text-white  mt-[10px]"
                   onClick={handleSignup}
                   disabled={loading}
                 >
                   SIGN UP
                 </button>
-                <div className="alternateSignin">
+                <div className="alternateSignin mt-[14px]">
                   <p>I already have an account,</p>
                   <Link href={"/signin"}>
                     <p>SIGN IN</p>
                   </Link>
                   <ToastContainer />
-                  <Dna
+                  <RevolvingDot
+                    radius={20}
+                    strokeWidth={2}
+                    color="#A157FF "
+                    secondaryColor=""
+                    ariaLabel="revolving-dot-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="absolute mt-[50px]"
+                    visible={loading}
+                  />
+                  {/*                 <Dna
                     visible={loading}
                     height="150"
                     width="150"
                     ariaLabel="dna-loading"
                     wrapperStyle={{}}
                     wrapperClass="dna-wrapper"
-                  />
+                  /> */}
                 </div>
               </form>
             </div>

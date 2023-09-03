@@ -10,6 +10,8 @@ import gazingMan from "../../../public/svgs/signup-in/gazing-man.svg";
 import clouds from "../../../public/svgs/signup-in/clouds.svg";
 import signupInStars from "../../../public/svgs/signup-in/signup-in-stars.svg";
 import purpleTextLogo from "../../../public/svgs/globals/purple-text-logo-alone.svg";
+import passwordNotVisible from "../../../public/svgs/signup-in/password-not-visible.svg";
+import passwordVisible from "../../../public/svgs/signup-in/password-visible.svg";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -18,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import { Dna } from "react-loader-spinner";
+import { Dna, RevolvingDot } from "react-loader-spinner";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -50,6 +52,14 @@ export default function Signin() {
 
   const handleSignin = async (e: any) => {
     e.preventDefault();
+    if (!datum.password || !datum.email) {
+      toast.error("Please, flll the form appropriately.", {
+        position: "top-center",
+        autoClose: 2500,
+        theme: "dark",
+      });
+      return;
+    }
 
     try {
       setLoading(true);
@@ -114,12 +124,6 @@ export default function Signin() {
     // eslint-disable react/no-unescaped-entities
     <div>
       <div className="mainDiv font-raleWay">
-        <div className="headerCont">
-          {" "}
-          <div className="headerDiv">
-            <Header></Header>
-          </div>
-        </div>
         <div className="subMainDiv">
           <div className="subMainDiv1">
             <Image
@@ -154,7 +158,7 @@ export default function Signin() {
           <div className="subMainDiv2">
             <div className="subMainDiv2Form">
               <p className="signupDiv">SIGN IN</p>
-              <form>
+              <form className="">
                 <div className="inputDiv">
                   <label htmlFor="email">EMAIL</label>
                   <Image
@@ -174,7 +178,7 @@ export default function Signin() {
                   />
                 </div>
 
-                <div className="inputDiv">
+                <div className="inputDiv w-fit">
                   <label htmlFor="password">PASSWORD</label>
                   <Image
                     src={passwordIcon}
@@ -191,40 +195,74 @@ export default function Signin() {
                     type={showPassword ? "text" : "password"}
                     required
                   />
-                  <input
+                  <div
+                    onClick={() => {
+                      handleTogglePassword();
+                    }}
+                    className="cursor-pointer "
+                  >
+                    <Image
+                      src={passwordNotVisible.src}
+                      width={20}
+                      height={20}
+                      className={`${
+                        showPassword ? "hidden" : ""
+                      } absolute top-[41px] right-[10px]`}
+                      alt={"password not visible"}
+                    ></Image>
+                    <Image
+                      src={passwordVisible.src}
+                      width={20}
+                      height={20}
+                      className={`${
+                        !showPassword ? "hidden" : ""
+                      } absolute top-[43px] right-[10px]`}
+                      alt={"password visible"}
+                    ></Image>
+                  </div>
+                  {/*      <input
                     id="showP"
                     type="checkbox"
                     className="showPassword"
                     checked={showPassword}
                     onChange={handleTogglePassword}
-                  />
+                  /> */}
                 </div>
                 <button
-                  className="submitButton"
+                  className="max-w-[320px] w-full sm:w-full 2xl:w-[25vw] text-center bg-spacePurple hover:bg-spaceViolet duration-300 rounded-[10px] p-2 font-bold text-white  mt-[10px]"
                   onClick={handleSignin}
                   type="submit"
                 >
                   SIGN IN
                 </button>
-                <div className="alternateSignin">
+                <div className="alternateSignin mt-[14px]">
                   <p>I don't have an account,</p>
                   <Link href={"/signup"}>
-                    <p>SIGN UP</p>
+                    <p className="">SIGN UP</p>
                   </Link>
-
+                  <RevolvingDot
+                    radius={20}
+                    strokeWidth={2}
+                    color="#A157FF "
+                    secondaryColor=""
+                    ariaLabel="revolving-dot-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="absolute mt-[50px]"
+                    visible={loading}
+                  />
                   <ToastContainer />
-                  <Dna
+                  {/*      <Dna
                     visible={loading}
                     height="150"
                     width="150"
                     ariaLabel="dna-loading"
                     wrapperStyle={{}}
                     wrapperClass="dna-wrapper"
-                  />
+                  /> */}
                 </div>
                 <div className="text-center text-spacePurple">
                   {" "}
-                  <button className="uppercase mt-4 text-[0.8rem] font-bold">
+                  <button className="uppercase mt-2 text-[0.8rem] font-bold">
                     Forgot Password?
                   </button>
                 </div>
