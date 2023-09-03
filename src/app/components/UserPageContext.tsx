@@ -10,7 +10,6 @@ import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
 import { MetaMaskSDK } from "@metamask/sdk";
-import { id } from "alchemy-sdk/dist/src/api/utils";
 
 export interface UserPageContextTypes {
   connectMetamask: () => Promise<any>;
@@ -80,7 +79,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
-    return;
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
@@ -369,31 +367,29 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   async function connectMetamask(): Promise<any> {
     try {
-      let Window: any = window;
+      if (window.ethereum) {
+        console.log("metamask present");
 
-      if (window) {
-        if (Window.ethereum) {
-          console.log("metamask present");
+        const accounts: any = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
 
-          const accounts: any = await Window.ethereum.request({
-            method: "eth_requestAccounts",
+        console.info(accounts);
+
+        if (accounts[0] !== "null") {
+          console.log("metamask connected");
+          const Message = "Sign the nonce";
+          const from = accounts[0];
+          const msg = `0x${Buffer.from(Message, "utf8").toString("hex")}`;
+          const sign = await window.ethereum.request({
+            method: "personal_sign",
+            params: [msg, from],
           });
 
-          console.info(accounts);
-
-          if (accounts[0] !== "null") {
-            console.log("metamask connected");
-            const Message = "Sign the nonce";
-            const from = accounts[0];
-            const msg = `0x${Buffer.from(Message, "utf8").toString("hex")}`;
-            const sign = await Window.ethereum.request({
-              method: "personal_sign",
-              params: [msg, from],
-            });
-          }
-        } else {
-          alert("You do not have Metamask.");
+          // const recovered = sigUtil.decrypt{}
         }
+      } else {
+        alert("You do not have Metamask.");
       }
     } catch (err: any) {
       if (err.code == "-32002") {
