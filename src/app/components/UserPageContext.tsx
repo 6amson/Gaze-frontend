@@ -10,6 +10,7 @@ import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
 import { MetaMaskSDK } from '@metamask/sdk';
+import * as sigUtil from '@metamask/eth-sig-util';
 
 
 export interface UserPageContextTypes {
@@ -390,12 +391,19 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           const Message = 'Sign the nonce';
           const from = accounts[0];
           const msg = `0x${Buffer.from(Message, 'utf8').toString('hex')}`;
-          const sign = await window.ethereum.request({
+          const sign: any = await window.ethereum.request({
             method: 'personal_sign',
             params: [msg, from],
           });
 
-          // const recovered = sigUtil.decrypt{}
+          // backend
+          const options = {
+            data: msg,
+            signature: sign
+          }
+
+          const recovered = sigUtil.recoverPersonalSignature(options);
+          console.log({ recoveredAddr: recovered, msg: msg, signature: sign });
         }
       }
       else {

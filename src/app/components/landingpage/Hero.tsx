@@ -12,19 +12,23 @@ import heroMainMobile from "../../../../public/svgs/landing-page/hero-main-mobil
 import heroMainMobile2 from "../../../../public/svgs/landing-page/hero-main-mobile.svg";
 import heroMonitor from "../../../../public/svgs/landing-page/hero-monitor.svg";
 import spaceMan from "../../../../public/svgs/landing-page/space-man.svg";
-
 import Image from "next/image";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Header from "../globals/Header";
 import { useContext } from "react";
+import * as sigUtil from '@metamask/eth-sig-util';
+
+
+
+
 export default function Hero() {
   const { loading } = useContext(UserPageContext) as UserPageContextTypes;
   const router = useRouter();
 
   const url = "https://gazebackend.cyclic.cloud/";
-  // const url = "http://localhost:4000/"
+
 
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -34,12 +38,10 @@ export default function Hero() {
       axios
         .get(`${url}user/verify`, {
           headers: {
-            // "Content-Type": "application/json",
             Authorization: `Bearer ${accesstoken}`,
           },
         })
         .then((res) => {
-          // console.info({ RT: refreshtoken, AT: accesstoken, res });
 
           if (res.status == 200) {
             Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
