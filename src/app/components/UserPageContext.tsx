@@ -32,6 +32,7 @@ export interface UserPageContextTypes {
   collectionContractAddress: string;
   setCollectionContractAddress: Dispatch<SetStateAction<string>>;
   handleNotificationList: (data: NotificationObjType[]) => void;
+  verifyValidAndSusbscribeTwo: () => void;
 }
 
 export const UserPageContext = React.createContext<
@@ -137,6 +138,67 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     verifyValidAndSusbscribe();
   }, [isValid, isSubscribed]);
 
+  const verifyValidAndSusbscribeTwo = () => {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    const refreshtoken = Cookies.get("Gaze_userAccess_RT");
+
+    async function verifyValidAndSusbscribe(): Promise<any> {
+      if ("serviceWorker" in navigator && "PushManager" in window) {
+        navigator.serviceWorker.register("/sw.js").then(() => {
+          toast.info("registered service worker", { autoClose: false });
+          navigator.serviceWorker.ready.then(async (registration) => {
+            toast.info("runining serviceWorker ready", {
+              autoClose: false,
+            });
+            // Get the current subscription status
+            const subscription =
+              await registration.pushManager.getSubscription();
+
+            if (
+              (accesstoken && refreshtoken) ||
+              (accesstoken && !refreshtoken)
+            ) {
+              try {
+                setLoading(true);
+
+                const res = await axios.get(`${url}user/verify`, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accesstoken}`,
+                  },
+                });
+                if (res.status === 200) {
+                  Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
+                  const { contractAddress, username } = res.data;
+                  setUsername(username);
+                  setIsValid(true);
+
+                  if (contractAddress === null || contractAddress === "") {
+                    setIsSubscribed(false);
+                  } else if (contractAddress != null || contractAddress != "") {
+                    setIsSubscribed(true);
+                    setAddress(contractAddress);
+                  }
+                }
+              } catch (err) {
+                router.push("/signin");
+                setIsSubscribed(false);
+                return err;
+              } finally {
+                setLoading(false);
+              }
+            } else if (accesstoken === null) {
+              router.push("/signin");
+            }
+          });
+        });
+      } else {
+        throw new Error("No service worker or push notification not supported");
+      }
+    }
+
+    verifyValidAndSusbscribe();
+  };
 
   // console.info({
   //   isSubscribed: isSubscribed,
@@ -380,6 +442,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         totalNft,
         loading,
         address,
+        verifyValidAndSusbscribeTwo,
       }}
     >
       {" "}

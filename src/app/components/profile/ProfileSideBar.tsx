@@ -12,6 +12,7 @@ import { UserPageContextTypes } from "../UserPageContext";
 import { useRouter, usePathname, useParams } from "next/navigation";
 
 export default function ProfileSideBar() {
+  const router = useRouter();
   const {
     isSubscribed,
     isValid,
@@ -45,14 +46,20 @@ export default function ProfileSideBar() {
         src={sideBarLogoMobile.src}
         width={35}
         height={35}
-        className={"mt-[12px] xl:hidden"}
+        onClick={() => {
+          router.push("/");
+        }}
+        className={"mt-[12px] xl:hidden cursor-pointer"}
         alt={"gaze logo"}
       ></Image>
       <Image
         src={sideBarLogoLaptop.src}
         width={150}
         height={35}
-        className={"mt-[16px] xl:block hidden"}
+        onClick={() => {
+          router.push("/");
+        }}
+        className={"mt-[16px] xl:block hidden cursor-pointer"}
         alt={"gaze logo"}
       ></Image>
       {sideBarLinks.map((item, index) => {
