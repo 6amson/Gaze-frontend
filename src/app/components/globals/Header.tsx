@@ -48,7 +48,7 @@ export default function Header() {
             return (
               <button
                 onClick={() => {
-                  router.push("/");
+                  item.isConnect ? router.push("/") : connectMetamask();
                 }}
                 className={`${
                   item.isConnect

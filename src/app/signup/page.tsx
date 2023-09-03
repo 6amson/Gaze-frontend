@@ -74,6 +74,7 @@ export default function Signup() {
         autoClose: 2500,
         theme: "dark",
       });
+      return;
     }
     try {
       setLoading(true);
@@ -139,15 +140,6 @@ export default function Signup() {
   return (
     <div className="">
       <div className="mainDiv">
-<<<<<<< HEAD
-=======
-        <div className="headerCont">
-          {" "}
-          {/* <div className="headerDiv">
-            <Header></Header>
-          </div> */}
-        </div>
->>>>>>> 4acf066361e173ccf9472d27f80896c61011c86d
         <div className="subMainDiv">
           <div className="subMainDiv1">
             <Image
