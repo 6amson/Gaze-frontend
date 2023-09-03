@@ -14,8 +14,8 @@ export default function ForgotPassword() {
         className={" z-0  w-[30vw] sm:w-[200px]"}
         alt={"confused space man "}
       ></Image>
-      <div className="border-t border-black p-2 text-center">
-        Enter your email and click send to recieve a code and begin recovery
+      <div className="border-t border-black p-2 text-center uppercase">
+        Enter your email and click send to recieve an email and begin recovery
       </div>
       <div className="flex mt-[10px] pb-[10px]">
         <input
@@ -24,7 +24,7 @@ export default function ForgotPassword() {
           }}
           className="border p-2 rounded-[12px] border-black border-r-0 rounded-r-none outline-none"
         ></input>
-        <button className="bg-spacePurple px-2 text-white rounded-r-[12px]">
+        <button className="bg-spacePurple px-4 text-white rounded-r-[12px]">
           send
         </button>
       </div>

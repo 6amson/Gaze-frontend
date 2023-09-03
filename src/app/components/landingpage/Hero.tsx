@@ -82,8 +82,8 @@ export default function Hero() {
         ></Image>
       </Marquee>
       <motion.img
-        initial={{ y: -40 }}
-        whileInView={{ y: 0 }}
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, bounce: 3, mass: 1, type: "spring" }}
         width={400}
         alt={"falling nft coins"}
