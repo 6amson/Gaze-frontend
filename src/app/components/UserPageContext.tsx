@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
 import { MetaMaskSDK } from '@metamask/sdk';
 
+
 export interface UserPageContextTypes {
   connectMetamask: () => Promise<any>,
   ismetaMaskConnected: boolean,
@@ -393,6 +394,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             method: 'personal_sign',
             params: [msg, from],
           });
+
+          // const recovered = sigUtil.decrypt{}
         }
       }
       else {
