@@ -38,11 +38,6 @@ export default function profileMethods() {
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   const url = "https://gazebackend.cyclic.cloud/";
 
-  useEffect(() => {
-    toast.info(` isValid: ${isValid},isSubscribed: ${isSubscribed}`, {
-      autoClose: false,
-    });
-  }, [isValid, isSubscribed]);
 
   return (
     <div>
