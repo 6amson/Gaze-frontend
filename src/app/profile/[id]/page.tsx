@@ -46,7 +46,7 @@ export default function profileMethods() {
 
   return (
     <div>
-      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] ">
+      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] h-full ">
         {!loading ? (
           isValid ? (
             isSubscribed ? (

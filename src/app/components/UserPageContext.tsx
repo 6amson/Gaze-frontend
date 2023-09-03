@@ -9,8 +9,7 @@ import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
-import { MetaMaskSDK } from '@metamask/sdk';
-
+import { MetaMaskSDK } from "@metamask/sdk";
 
 export interface UserPageContextTypes {
   connectMetamask: () => Promise<any>;
@@ -46,7 +45,6 @@ interface UserPageProviderProps {
 export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
-
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   const url = "https://gazebackend.cyclic.cloud/";
 
@@ -81,8 +79,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
-
-
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
@@ -234,14 +230,16 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         // navigator.serviceWorker.register()
         (async function registerServiceWorker() {
           if ("serviceWorker" in navigator) {
-            const registration = await navigator.serviceWorker.getRegistration();
+            const registration =
+              await navigator.serviceWorker.getRegistration();
             const subscribeOptions = {
               userVisibleOnly: true,
               applicationServerKey: vapidControl,
             };
 
             if (registration != undefined) {
-              const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
+              const pushSubscription =
+                registration.pushManager.subscribe(subscribeOptions);
               console.log(
                 "ServiceWorker present with scope:",
                 registration.scope
@@ -258,11 +256,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${accesstoken}`,
                   },
-                })
+                });
 
                 const { contractAddress } = res.data;
                 setAddress(contractAddress);
-                setIsSubscribed(true)
+                setIsSubscribed(true);
               } catch (err: any) {
                 if (err.response.data.statusCode == 422) {
                   toast.error(
@@ -279,8 +277,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                     autoClose: 2500,
                     theme: "dark",
                   });
-                }
-                else if (err.response.data.statusCode == 500) {
+                } else if (err.response.data.statusCode == 500) {
                   toast.error("This is from our end, please try again", {
                     position: "top-center",
                     autoClose: 2500,
@@ -289,7 +286,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                 }
                 return err;
               }
-            };
+            }
           } else {
             toast.info(
               "Your browser doesn't support features for subscription.",
@@ -303,7 +300,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           }
         })();
       }
-
     } catch (err: any) {
       return err;
     } finally {
@@ -352,7 +348,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   }
 
   async function getNftListing(): Promise<any> {
-
     try {
       setLoading(true);
       const response: any = await alchemy.nft.getNftsForContract(address);
@@ -370,49 +365,39 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-
-
   async function connectMetamask(): Promise<any> {
     try {
-
       if (window.ethereum) {
-
-        console.log('metamask present');
+        console.log("metamask present");
 
         const accounts: any = await window.ethereum.request({
-          method: 'eth_requestAccounts'
-        })
+          method: "eth_requestAccounts",
+        });
 
         console.info(accounts);
 
-        if (accounts[0] !== 'null') {
-          console.log('metamask connected');
-          const Message = 'Sign the nonce';
+        if (accounts[0] !== "null") {
+          console.log("metamask connected");
+          const Message = "Sign the nonce";
           const from = accounts[0];
-          const msg = `0x${Buffer.from(Message, 'utf8').toString('hex')}`;
+          const msg = `0x${Buffer.from(Message, "utf8").toString("hex")}`;
           const sign = await window.ethereum.request({
-            method: 'personal_sign',
+            method: "personal_sign",
             params: [msg, from],
           });
 
           // const recovered = sigUtil.decrypt{}
         }
+      } else {
+        alert("You do not have Metamask.");
       }
-      else {
-        alert('You do not have Metamask.');
-
-      }
-    }
-    catch (err: any) {
-      if (err.code == '-32002') {
-        alert('Your connection is pending. Please, open metamask to continue.')
-      }
-      else if (err.code == '4001') {
-        alert('You rejected the request to connect Metamask.');
-
-      }
-      else {
-        alert('Thre is an error connecting with your metamask');
+    } catch (err: any) {
+      if (err.code == "-32002") {
+        alert("Your connection is pending. Please, open metamask to continue.");
+      } else if (err.code == "4001") {
+        alert("You rejected the request to connect Metamask.");
+      } else {
+        alert("Thre is an error connecting with your metamask");
       }
       return err;
     } finally {

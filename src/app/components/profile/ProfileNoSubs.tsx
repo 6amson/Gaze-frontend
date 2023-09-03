@@ -15,9 +15,9 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
   };
 
   return (
-    <div className="w-full h-[90vh] sm:h-full flex items-center justify-center overflow-hidden font-raleWay ">
+    <div className="w-full h-screen -mt-[45px] xl:-mt-[60px]  flex items-center justify-center overflow-hidden font-raleWay ">
       <ToastContainer></ToastContainer>
-      <div className="border border-black bg-[#EBEBEB] sm:mt-[90px]  sm:h-fit sm:py-0 py-[25px]   overflow-hidden relative flex items-center justify-center ">
+      <div className="border border-black bg-[#EBEBEB]   sm:h-fit sm:py-0 py-[25px]   overflow-hidden relative flex items-center justify-center ">
         <div className="sm:h-fit  sm:bg-white z-20 w-fit sm:py-[15px] sm:px-[66px]  px-[10px]  sm:absolute sm:border border-black  flex flex-col items-center">
           <div className="text-center mb-[8px] font-bold text-[0.8rem] sm:text-[1rem] hidden sm:block ">
             YOU ARE NOT SUBSCRIBED TO ANY COLLECTION
