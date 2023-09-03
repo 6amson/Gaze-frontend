@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Manrope, Poppins, Raleway } from "next/font/google";
-import { UserPageContext } from "./components/UserPageContext";
 import UserPageProvider from "./components/UserPageContext";
 import Header from "./components/globals/Header";
 export const metadata: Metadata = {
@@ -9,7 +8,6 @@ export const metadata: Metadata = {
   description: "Push notifications for verified NFT collections",
 };
 
-import { useRouter, usePathname } from "next/navigation";
 
 const openSans = Raleway({
   weight: ["400", "700", "100", "300", "200", "500", "600", "800", "900"],

@@ -9,8 +9,12 @@ import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
+import { MetaMaskSDK } from '@metamask/sdk';
 
 export interface UserPageContextTypes {
+  connectMetamask: () => Promise<any>,
+  ismetaMaskConnected: boolean,
+  metamaskAddr: string | null,
   username: string;
   isSubscribed: boolean;
   isValid: boolean;
@@ -41,12 +45,14 @@ interface UserPageProviderProps {
 export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
+
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   const url = "https://gazebackend.cyclic.cloud/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
-  // const [isValidated, setIsValidated] = useState(false);
+  const [metamaskAddr, setMetamaskAddr] = useState(null);
   const [isValid, setIsValid] = useState(false);
+  const [ismetaMaskConnected, setIsmetaMaskConnected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
   const [totalNft, setTotalNft] = useState("");
@@ -74,19 +80,16 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
-    return;
+
+
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
 
     async function verifyValidAndSusbscribe(): Promise<any> {
-      if ("serviceWorker" in navigator && "PushManager" in window) {
+      if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js").then(() => {
-          toast.info("registered service worker", { autoClose: false });
           navigator.serviceWorker.ready.then(async (registration) => {
-            toast.info("runining serviceWorker ready", { autoClose: false });
             // Get the current subscription status
-            const subscription =
-              await registration.pushManager.getSubscription();
 
             if (
               (accesstoken && refreshtoken) ||
@@ -226,48 +229,57 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
       if (permissionResult !== "granted") {
         throw new Error("We weren't granted permission.");
-      } else if (permissionResult == "granted") {
+      } else if (permissionResult == "granted" && "PushManager" in window) {
         // navigator.serviceWorker.register()
         (async function registerServiceWorker() {
           if ("serviceWorker" in navigator) {
-            const registration = await navigator.serviceWorker.register(
-              "/sw.js"
-            );
+            const registration = await navigator.serviceWorker.getRegistration();
             const subscribeOptions = {
               userVisibleOnly: true,
               applicationServerKey: vapidControl,
             };
 
-            const pushSubscription =
-              registration.pushManager.subscribe(subscribeOptions);
-            console.log(
-              "ServiceWorker registration successful with scope:",
-              registration.scope
-            );
-            const subscriptionObject = await pushSubscription;
-            const rawData = {
-              contractAddress: collectionContractAddress,
-              subscriptionId: subscriptionObject,
-            };
-            const data = JSON.stringify(rawData);
-            const res = await axios
-              .post(`${url}user/updateuser`, data, {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${accesstoken}`,
-                },
-              })
-              .catch((err: any) => {
+            if (registration != undefined) {
+              const pushSubscription = registration.pushManager.subscribe(subscribeOptions);
+              console.log(
+                "ServiceWorker present with scope:",
+                registration.scope
+              );
+              const subscriptionObject = await pushSubscription;
+              const rawData = {
+                contractAddress: collectionContractAddress,
+                subscriptionId: subscriptionObject,
+              };
+              try {
+                const data = JSON.stringify(rawData);
+                const res = await axios.post(`${url}user/updateuser`, data, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accesstoken}`,
+                  },
+                })
+
+                const { contractAddress } = res.data;
+                setAddress(contractAddress);
+                setIsSubscribed(true)
+              } catch (err: any) {
                 if (err.response.data.statusCode == 422) {
                   toast.error(
                     "Wrong address format, confirm the address is correct and retry.",
                     {
                       position: "top-center",
-                      autoClose: 2500,
+                      autoClose: 3000,
                       theme: "dark",
                     }
                   );
-                } else if (err.response.data.statusCode == 500) {
+                } else if (err.response.data.statusCode == 400) {
+                  toast.error("Please enter a contract address.", {
+                    position: "top-center",
+                    autoClose: 2500,
+                    theme: "dark",
+                  });
+                }
+                else if (err.response.data.statusCode == 500) {
                   toast.error("This is from our end, please try again", {
                     position: "top-center",
                     autoClose: 2500,
@@ -275,39 +287,23 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                   });
                 }
                 return err;
-              });
-            if (!res.data) return;
-            const { contractAddress } = res.data;
-
-            //most likely wrap this in useContext API as they are neceessary for the state of the entire profile page
-            setAddress(contractAddress);
-            setIsSubscribed(true);
-            // router.push('path');
+              }
+            };
           } else {
+            toast.info(
+              "Your browser doesn't support features for subscription.",
+              {
+                position: "top-center",
+                autoClose: 2500,
+                theme: "dark",
+              }
+            );
             console.log("No service-worker on this browser");
           }
         })();
       }
 
-      // console.log(permissionResult);
     } catch (err: any) {
-      console.info("Permission request failed: " + err);
-      if (err.response.data.statusCode == 422) {
-        toast.error(
-          "Wrong address format, confirm the address is correct and retry.",
-          {
-            position: "top-center",
-            autoClose: 2500,
-            theme: "dark",
-          }
-        );
-      } else if (err.response.data.statusCode == 500) {
-        toast.error("This is from our end, please try again", {
-          position: "top-center",
-          autoClose: 2500,
-          theme: "dark",
-        });
-      }
       return err;
     } finally {
       setLoading(false);
@@ -322,7 +318,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     try {
       setLoading(true);
 
-      if ("serviceWorker" in navigator && "PushManager" in window) {
+      if ("serviceWorker" in navigator) {
         navigator.serviceWorker.ready.then(async (registration) => {
           const subscription = await registration.pushManager.getSubscription();
 
@@ -339,8 +335,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
           if (subscription) {
             const susbscriptionState = await subscription.unsubscribe();
-            //  console.info(susbscriptionState);
-            console.info(res.data);
+            console.info(susbscriptionState);
           } else {
             setIsSubscribed(false);
           }
@@ -378,16 +373,44 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   async function connectMetamask(): Promise<any> {
     try {
-      setLoading(true);
-      const response: any = await alchemy.nft.getNftsForContract(address);
-      const nftResponse: NftListingItemType[] = response.nfts;
-      console.log(nftResponse);
-      if (nftResponse[0].contract) {
-        setTotalNft(nftResponse[0].contract.totalSupply);
-        setCollectionName(nftResponse[0].contract.name);
+
+      if (window.ethereum) {
+
+        console.log('metamask present');
+
+        const accounts: any = await window.ethereum.request({
+          method: 'eth_requestAccounts'
+        })
+
+        console.info(accounts);
+
+        if (accounts[0] !== 'null') {
+          console.log('metamask connected');
+          const Message = 'Sign the nonce';
+          const from = accounts[0];
+          const msg = `0x${Buffer.from(Message, 'utf8').toString('hex')}`;
+          const sign = await window.ethereum.request({
+            method: 'personal_sign',
+            params: [msg, from],
+          });
+        }
       }
-      setNftCollectionListing(nftResponse);
-    } catch (err) {
+      else {
+        alert('You do not have Metamask.');
+
+      }
+    }
+    catch (err: any) {
+      if (err.code == '-32002') {
+        alert('Your connection is pending. Please, open metamask to continue.')
+      }
+      else if (err.code == '4001') {
+        alert('You rejected the request to connect Metamask.');
+
+      }
+      else {
+        alert('Thre is an error connecting with your metamask');
+      }
       return err;
     } finally {
       setLoading(false);
@@ -397,6 +420,9 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   return (
     <UserPageContext.Provider
       value={{
+        connectMetamask,
+        ismetaMaskConnected,
+        metamaskAddr,
         username,
         isSubscribed,
         handleLogout,

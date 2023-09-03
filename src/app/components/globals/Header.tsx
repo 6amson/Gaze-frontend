@@ -2,12 +2,20 @@
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import mobileMenuIcon from "../../../../public/svgs/header/mobile-menu-icon.svg";
 import Router from "next/router";
+import { UserPageContext } from "@/app/components/UserPageContext";
+import { useContext } from "react";
+import { UserPageContextTypes } from "@/app/components/UserPageContext";
+import UserPageProvider from "@/app/components/UserPageContext";
 
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
+  const { connectMetamask, ismetaMaskConnected } = useContext(
+    UserPageContext
+  ) as UserPageContextTypes;
+
   const pathName = usePathname();
   const router = useRouter();
   const headerButtons = [
