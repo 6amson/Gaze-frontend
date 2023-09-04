@@ -40,6 +40,7 @@ export interface UserPageContextTypes {
   handleNotificationList: (data: NotificationObjType[]) => void;
   verifyValidAndSusbscribeTwo: () => void;
   fethcUserEmailFromSupaBase: () => void;
+  loadingSub: boolean;
 }
 
 export const UserPageContext = React.createContext<
@@ -61,6 +62,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [isValid, setIsValid] = useState(false);
   const [ismetaMaskConnected, setIsmetaMaskConnected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingSub, setLoadingSub] = useState(false);
   const [address, setAddress] = useState("");
   const [totalNft, setTotalNft] = useState("");
   const [collectionName, setCollectionName] = useState("");
@@ -91,7 +93,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     console.log("sent supa");
 
     const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
-
+    resend.domains.create({ name: "example.com" });
     const supabaseUrl: any = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey: any = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -191,10 +193,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //To be attached to the subscribe button with ProfileWithNoSub
   async function askPermissionAndUpdate(): Promise<any> {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-
+    setLoadingSub(true);
     try {
-      setLoading(true);
-
       const permissionResult = await Notification.requestPermission();
 
       if (permissionResult !== "granted") {
@@ -257,6 +257,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                     theme: "dark",
                   });
                 }
+                setLoadingSub(false);
                 return err;
               }
             }
@@ -275,8 +276,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       }
     } catch (err: any) {
       return err;
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -409,6 +408,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         address,
         verifyValidAndSusbscribeTwo,
         fethcUserEmailFromSupaBase,
+        loadingSub,
       }}
     >
       {" "}

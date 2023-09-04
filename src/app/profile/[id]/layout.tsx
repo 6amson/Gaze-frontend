@@ -13,13 +13,13 @@ export default function ProfileLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { verifyValidAndSusbscribeTwo, isValid, isSubscribed} = useContext(
+  const { verifyValidAndSusbscribeTwo, isValid, isSubscribed } = useContext(
     UserPageContext
   ) as UserPageContextTypes;
 
   useEffect(() => {
     verifyValidAndSusbscribeTwo();
-  }, [isValid, isSubscribed]);
+  }, []);
   return (
     <section className="w-full h-screen">
       <div className="flex">
