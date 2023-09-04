@@ -98,6 +98,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { data } = await supabase.from("emails").select("*");
+    console.log(data, "supabase data");
     const emailss: any = data;
     resend.emails.send({
       from: "onboarding@resend.dev",
