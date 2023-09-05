@@ -41,6 +41,7 @@ export interface UserPageContextTypes {
   verifyValidAndSusbscribeTwo: () => void;
   fethcUserEmailFromSupaBase: () => void;
   loadingSub: boolean;
+  loadingNftList: boolean;
 }
 
 export const UserPageContext = React.createContext<
@@ -63,6 +64,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [ismetaMaskConnected, setIsmetaMaskConnected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingSub, setLoadingSub] = useState(false);
+  const [loadingNftList, setLoadingNftList] = useState(false);
   const [address, setAddress] = useState("");
   const [totalNft, setTotalNft] = useState("");
   const [collectionName, setCollectionName] = useState("");
@@ -321,7 +323,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   async function getNftListing(): Promise<any> {
     try {
-      setLoading(true);
+      setLoadingNftList(true);
       const response: any = await alchemy.nft.getNftsForContract(address);
       const nftResponse: NftListingItemType[] = response.nfts;
       console.log(nftResponse);
@@ -333,7 +335,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     } catch (err) {
       return err;
     } finally {
-      setLoading(false);
+      setLoadingNftList(false);
     }
   }
 
@@ -409,6 +411,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         verifyValidAndSusbscribeTwo,
         fethcUserEmailFromSupaBase,
         loadingSub,
+        loadingNftList,
       }}
     >
       {" "}
