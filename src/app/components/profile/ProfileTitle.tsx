@@ -6,6 +6,7 @@ import Image from "next/image";
 interface ProfileTitleProps {
   collectionName: string;
   totalNft: string;
+  nftTitleImage: string;
 }
 
 export default function ProfileTitle(props: ProfileTitleProps) {
@@ -18,13 +19,17 @@ export default function ProfileTitle(props: ProfileTitleProps) {
               Subscribed
             </div>
             <Image
-              src={demoTitleNftImage.src}
+              src={
+                props.nftTitleImage
+                  ? props.nftTitleImage
+                  : demoTitleNftImage.src
+              }
               alt={"demo title nft image"}
               width={350}
               height={300}
               unoptimized={true}
               className={
-                " sm:w-[240px] xl:w-[240px] xxl:w-[240px] 2xl:w-[260px] z-20 relative h-[160px] object-cover "
+                " sm:w-[240px] xl:w-[240px] xxl:w-[240px] 2xl:w-[260px] z-20 relative h-[160px] object-cover object-bottom"
               }
             ></Image>
           </div>

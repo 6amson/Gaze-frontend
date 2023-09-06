@@ -14,7 +14,7 @@ export default function RecoverPassword() {
         className={" z-0  w-[30vw] sm:w-[200px] pb-[10px]"}
         alt={"confused space man "}
       ></Image>
-      <div className="border-t border-black p-2 text-center  uppercase">
+      <div className="border-t border-black p-2 text-center ">
         Set a new Password
       </div>
       <div className="flex mt-[10px] pb-[10px]">
@@ -24,7 +24,7 @@ export default function RecoverPassword() {
           }}
           className="border p-2 rounded-[12px] border-black border-r-0 rounded-r-none outline-none"
         ></input>
-        <button className="bg-spacePurple px-4 hover:bg-spaceViolet text-white rounded-r-[12px]  ">
+        <button className="bg-neonGreen px-4 hover:bg-black duration-300 font-bold border border-black text-white rounded-r-[12px]  ">
           confirm
         </button>
       </div>

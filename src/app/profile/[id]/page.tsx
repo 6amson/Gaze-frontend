@@ -38,7 +38,6 @@ export default function profileMethods() {
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   const url = "https://gazebackend.cyclic.cloud/";
 
-
   return (
     <div>
       <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] h-full ">
