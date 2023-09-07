@@ -27,11 +27,18 @@ export default function ProfileWithSub(props: ProfileWithSubProps) {
     <>
       {!loading ? (
         <div className="h-screen  w-full pt-[32px] xl:pt-[51px] ">
-          <ProfileTitle
-            nftTitleImage={props.nftListingArray[0].media[0].thumbnail}
-            collectionName={props.collectionName}
-            totalNft={props.totalNft}
-          ></ProfileTitle>
+          {props.nftListingArray.slice(0, 1).map((item, index) => {
+            return (
+              <ProfileTitle
+                key={index}
+                nftTitleImage={
+                  item.media[0].thumbnail ? item.media[0].thumbnail : ""
+                }
+                collectionName={props.collectionName}
+                totalNft={props.totalNft}
+              ></ProfileTitle>
+            );
+          })}
           <div className="flex flex-col gap-y-[20px] pb-[50px] mt-[40px] sm:flex-row sm:gap-x-[10px] sm:justify-between    sm:flex-wrap sm:gap-y-[40px]">
             {props.nftListingArray.slice(0, 12).map((item, index) => {
               return (
