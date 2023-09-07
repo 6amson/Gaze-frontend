@@ -50,7 +50,6 @@ export default function Hero() {
             const encodedString = encodeURIComponent(userId);
             router.push(`/profile/${encodedString}`);
             return {
-              isValid: true,
               encodedString: encodedString,
               contractAddress,
             };
@@ -59,11 +58,9 @@ export default function Hero() {
         .catch((err) => {
           console.log(err);
           router.push("/signup");
-          return { isValid: false };
         });
     } else if (accesstoken == null) {
       router.push("/signup");
-      return { isValid: false };
     }
   };
 

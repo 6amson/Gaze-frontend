@@ -48,7 +48,9 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "https://gazebackend.cyclic.cloud/";
+  // const url = "https://gazebackend.cyclic.cloud/";
+  const url = "http://localhost:4000/"
+  // const url = 'gaze-backend.vercel.app';
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
@@ -79,10 +81,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
   const alchemy = new Alchemy(settings);
-
-  // useEffect(() => {
-   
-  // }, [isValid, isSubscribed]);
 
   const verifyValidAndSusbscribeTwo = () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -123,7 +121,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               } catch (err) {
                 router.push("/signin");
                 setIsSubscribed(false);
-                return err;
+                console.log(err);
               } finally {
                 setLoading(false);
               }
@@ -147,6 +145,9 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //   username: username,
   // });
 
+
+
+
   //logout function
   const handleLogout = (): void => {
     localStorage.removeItem("Gaze_userAccess_AT");
@@ -156,6 +157,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     setUsername("");
     router.push("/");
   };
+
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
@@ -182,13 +184,21 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             };
 
             if (registration != undefined) {
+
+              const subscription = await registration.pushManager.getSubscription();
+
+              if(subscription != null){await subscription.unsubscribe();}
+
               const pushSubscription =
                 registration.pushManager.subscribe(subscribeOptions);
               console.log(
                 "ServiceWorker present with scope:",
                 registration.scope
               );
+
               const subscriptionObject = await pushSubscription;
+              console.log(subscriptionObject);
+
               const rawData = {
                 contractAddress: collectionContractAddress,
                 subscriptionId: subscriptionObject,
@@ -251,6 +261,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
+
+
   //Unsubscribe function.
   //To be attached to the "unsubscribe" button in ProfileWithSubs page.
   async function unsubscribe(): Promise<any> {
@@ -276,7 +288,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
           if (subscription) {
             const susbscriptionState = await subscription.unsubscribe();
-            console.info(susbscriptionState);
           } else {
             setIsSubscribed(false);
           }
@@ -308,6 +319,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       setLoading(false);
     }
   }
+
 
   async function connectMetamask(): Promise<any> {
     try {
