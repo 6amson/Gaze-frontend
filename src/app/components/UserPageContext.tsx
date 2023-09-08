@@ -56,7 +56,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "https://gazebackend.cyclic.cloud/";
+  const formerUrl = "https://gazebackend.cyclic.cloud/";
+  const url = "https://previous-doralia-gaze.koyeb.app/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
