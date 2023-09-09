@@ -9,9 +9,14 @@ import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
-import { MetaMaskSDK } from '@metamask/sdk';
-import * as sigUtil from '@metamask/eth-sig-util';
-
+import { MetaMaskSDK } from "@metamask/sdk";
+import * as sigUtil from "@metamask/eth-sig-util";
+// import {
+//   createServerComponentClient,
+//   createClientComponentClient,
+// } from "@supabase/auth-helpers-nextjs";
+// import { createClient } from "@supabase/supabase-js";
+// import { Resend } from "resend";
 
 export interface UserPageContextTypes {
   connectMetamask: () => Promise<any>;
@@ -34,6 +39,9 @@ export interface UserPageContextTypes {
   setCollectionContractAddress: Dispatch<SetStateAction<string>>;
   handleNotificationList: (data: NotificationObjType[]) => void;
   verifyValidAndSusbscribeTwo: () => void;
+  // fethcUserEmailFromSupaBase: () => void;
+  loadingSub: boolean;
+  loadingNftList: boolean;
 }
 
 export const UserPageContext = React.createContext<
@@ -57,6 +65,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [isValid, setIsValid] = useState(false);
   const [ismetaMaskConnected, setIsmetaMaskConnected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingSub, setLoadingSub] = useState(false);
+  const [loadingNftList, setLoadingNftList] = useState(false);
   const [address, setAddress] = useState("");
   const [totalNft, setTotalNft] = useState("");
   const [collectionName, setCollectionName] = useState("");
@@ -81,6 +91,33 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
   const alchemy = new Alchemy(settings);
+
+  // const fethcUserEmailFromSupaBase = async () => {
+  //   const cook: any = "";
+  //   console.log("sent supa");
+
+  //   const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+  //   resend.domains.create({ name: "example.com" });
+  //   const supabaseUrl: any = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  //   const supabaseKey: any = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  //   const supabase = createClient(supabaseUrl, supabaseKey);
+
+  //   const { data } = await supabase.from("emails").select("*");
+  //   console.log(data, "supabase data");
+  //   const emailss: any = data;
+  //   resend.emails.send({
+  //     from: "onboarding@resend.dev",
+  //     to: [emailss[0], emailss[1]],
+  //     subject: "Hello World",
+  //     html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
+  //   });
+  //   console.log("Fomer");
+  // };
+
+  // useEffect(() => {
+
+  // }, [isValid, isSubscribed]);
 
   const verifyValidAndSusbscribeTwo = () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -164,10 +201,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //To be attached to the subscribe button with ProfileWithNoSub
   async function askPermissionAndUpdate(): Promise<any> {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-
+    setLoadingSub(true);
     try {
-      setLoading(true);
-
       const permissionResult = await Notification.requestPermission();
 
       if (permissionResult !== "granted") {
@@ -187,7 +222,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
               const subscription = await registration.pushManager.getSubscription();
 
-              if(subscription != null){await subscription.unsubscribe();}
+              if (subscription != null) { await subscription.unsubscribe(); }
 
               const pushSubscription =
                 registration.pushManager.subscribe(subscribeOptions);
@@ -238,6 +273,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                     theme: "dark",
                   });
                 }
+                setLoadingSub(false);
                 return err;
               }
             }
@@ -256,8 +292,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       }
     } catch (err: any) {
       return err;
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -304,7 +338,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   async function getNftListing(): Promise<any> {
     try {
-      setLoading(true);
+      setLoadingNftList(true);
       const response: any = await alchemy.nft.getNftsForContract(address);
       const nftResponse: NftListingItemType[] = response.nfts;
       console.log(nftResponse);
@@ -316,7 +350,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     } catch (err) {
       return err;
     } finally {
-      setLoading(false);
+      setLoadingNftList(false);
     }
   }
 
@@ -336,17 +370,19 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           console.log("metamask connected");
           const Message = "Sign the nonce";
           const from = accounts[0];
-          const msg = `0x${Buffer.from(Message, 'utf8').toString('hex')}`;
+
+
+          const msg = `0x${Buffer.from(Message, "utf8").toString("hex")}`;
           const sign: any = await window.ethereum.request({
-            method: 'personal_sign',
+            method: "personal_sign",
             params: [msg, from],
           });
 
           // backend
           const options = {
             data: msg,
-            signature: sign
-          }
+            signature: sign,
+          };
 
           const recovered = sigUtil.recoverPersonalSignature(options);
           console.log({ recoveredAddr: recovered, msg: msg, signature: sign });
@@ -391,6 +427,9 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         loading,
         address,
         verifyValidAndSusbscribeTwo,
+        // fethcUserEmailFromSupaBase,
+        loadingSub,
+        loadingNftList,
       }}
     >
       {" "}
