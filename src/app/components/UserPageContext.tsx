@@ -56,8 +56,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "http://[::1]:4000/";
-  const urll = "https://previous-doralia-gaze.koyeb.app/";
+  const urll = "http://[::1]:4000/";
+  const url = "https://previous-doralia-gaze.koyeb.app/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
@@ -376,6 +376,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           if (accounts.length === 0) {
             // MetaMask disconnected from your site
             console.log('MetaMask is disconnected from your site');
+            localStorage.removeItem("Gaze_userAccess_AT");
+            Cookies.remove("Gaze_userAccess_RT");
+            setIsValid(false);
+            setIsSubscribed(false);
             router.push("/");
           } else if (accounts[0] != metamaskAddr) {
             toast.info(
