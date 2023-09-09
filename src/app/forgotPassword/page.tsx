@@ -9,9 +9,9 @@ import Image from "next/image";
 import { useState } from "react";
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const { fethcUserEmailFromSupaBase } = useContext(
-    UserPageContext
-  ) as UserPageContextTypes;
+  // const { fethcUserEmailFromSupaBase } = useContext(
+  //   UserPageContext
+  // ) as UserPageContextTypes;
   return (
     <div className="absolute border-black font-raleWay xl:w-fit w-[80vw] bg-white flex flex-col items-center justify-center p-2 border  backdrop-blur-sm">
       <Image
@@ -34,7 +34,7 @@ export default function ForgotPassword() {
         ></input>
         <button
           onClick={() => {
-            fethcUserEmailFromSupaBase();
+            // fethcUserEmailFromSupaBase();
           }}
           className="bg-neonGreen px-4 hover:bg-black duration-300 text-white rounded-r-[12px] border border-black font-bold"
         >
