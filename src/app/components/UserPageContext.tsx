@@ -56,9 +56,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  // const url = "https://gazebackend.cyclic.cloud/";
-  const url = "http://localhost:4000/"
-  // const url = 'gaze-backend.vercel.app';
+  const url = "http://[::1]:4000/";
+  const urll = "https://previous-doralia-gaze.koyeb.app/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
@@ -148,11 +147,13 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                   setUsername(username);
                   setIsValid(true);
 
-                  if (contractAddress === null || contractAddress === "") {
+                  if (contractAddress === null || contractAddress === "" || contractAddress == undefined) {
                     setIsSubscribed(false);
-                  } else if (contractAddress != null || contractAddress != "") {
+                  } else if (contractAddress != null || contractAddress != "" || contractAddress != undefined) {
                     setIsSubscribed(true);
                     setAddress(contractAddress);
+                    console.log(res)
+
                   }
                 }
               } catch (err) {
@@ -222,7 +223,16 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
               const subscription = await registration.pushManager.getSubscription();
 
-              if (subscription != null) { await subscription.unsubscribe(); }
+              if (subscription) {
+                toast.error(
+                  "You have already subscribed on this device",
+                  {
+                    position: "top-center",
+                    autoClose: 3000,
+                    theme: "dark",
+                  }
+                );
+              }
 
               const pushSubscription =
                 registration.pushManager.subscribe(subscribeOptions);
@@ -273,8 +283,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                     theme: "dark",
                   });
                 }
-                setLoadingSub(false);
                 return err;
+              } finally {
+                setLoadingSub(false);
+                window.location.reload();
               }
             }
           } else {
@@ -360,16 +372,35 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       if (window.ethereum) {
         console.log("metamask present");
 
-        const accounts: any = await window.ethereum.request({
+        window.ethereum.on('accountsChanged', (accounts: any) => {
+          if (accounts.length === 0) {
+            // MetaMask disconnected from your site
+            console.log('MetaMask is disconnected from your site');
+            router.push("/");
+          } else if (accounts[0] != metamaskAddr) {
+            toast.info(
+              "You swapped your address. Retry.",
+              {
+                position: "top-center",
+                autoClose: 2500,
+                theme: "dark",
+              }
+            );
+            router.push("/");
+          }
+        })
+
+        const Accounts: any = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
 
-        console.info(accounts);
+        console.info(Accounts);
 
-        if (accounts[0] !== "null") {
+        if (Accounts[0] !== "null") {
           console.log("metamask connected");
-          const Message = "Sign the nonce";
-          const from = accounts[0];
+          setMetamaskAddr(Accounts[0]);
+          const Message = "Sign this message to access Gaze.";
+          const from = Accounts[0];
 
 
           const msg = `0x${Buffer.from(Message, "utf8").toString("hex")}`;
@@ -378,25 +409,66 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             params: [msg, from],
           });
 
-          // backend
-          const options = {
-            data: msg,
-            signature: sign,
-          };
+          const data = {
+            accountAddr: Accounts[0],
+            signature: { sign, msg },
+          }
 
-          const recovered = sigUtil.recoverPersonalSignature(options);
-          console.log({ recoveredAddr: recovered, msg: msg, signature: sign });
+          const res = await axios.post(`${url}user/signupmeta`, data, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(res);
+
+          const { refreshToken, accessToken, id } = res.data;
+          localStorage.setItem("Gaze_userAccess_AT", accessToken);
+          Cookies.set("Gaze_userAccess_RT", refreshToken, {
+            secure: true,
+            sameSite: "lax",
+          });
+          const encodedString = encodeURIComponent(id);
+          router.push(`/profile/${encodedString}`);
+
         }
       } else {
-        alert("You do not have Metamask.");
+        toast.info(
+          "You don't have Metamask",
+          {
+            position: "top-center",
+            autoClose: 2500,
+            theme: "dark",
+          }
+        );
       }
     } catch (err: any) {
       if (err.code == "-32002") {
-        alert("Your connection is pending. Please, open metamask to continue.");
+        toast.info(
+          "Your connection is pending. Please, open metamask to continue.",
+          {
+            position: "top-center",
+            autoClose: 2500,
+            theme: "dark",
+          }
+        );
       } else if (err.code == "4001") {
-        alert("You rejected the request to connect Metamask.");
+        toast.error(
+          "You rejected the request to connect Metamask.",
+          {
+            position: "top-center",
+            autoClose: 2500,
+            theme: "dark",
+          }
+        );
       } else {
-        alert("Thre is an error connecting with your metamask");
+        toast.error(
+          "There is an error connecting with your metamask",
+          {
+            position: "top-center",
+            autoClose: 2500,
+            theme: "dark",
+          }
+        );
       }
       return err;
     } finally {

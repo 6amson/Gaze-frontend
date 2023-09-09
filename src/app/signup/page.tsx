@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import Header from "../components/globals/Header";
 import "./signup.scss";
 import passwordNotVisible from "../../../public/svgs/signup-in/password-not-visible.svg";
 import passwordVisible from "../../../public/svgs/signup-in/password-visible.svg";
@@ -21,7 +20,7 @@ import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import { Dna, RevolvingDot } from "react-loader-spinner";
+import { RevolvingDot } from "react-loader-spinner";
 
 export default function Signup() {
   const [error, setError] = useState("");
@@ -30,7 +29,8 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const url = "https://gazebackend.cyclic.cloud/";
+  const url = "https://previous-doralia-gaze.koyeb.app/";
+  const formerUrl = "https://gazebackend.cyclic.cloud/";
 
   const router = useRouter();
 
@@ -285,14 +285,6 @@ export default function Signup() {
                     wrapperClass="absolute mt-[50px]"
                     visible={loading}
                   />
-                  {/*                 <Dna
-                    visible={loading}
-                    height="150"
-                    width="150"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="dna-wrapper"
-                  /> */}
                 </div>
               </form>
             </div>

@@ -19,7 +19,6 @@ export default function ProfileNoSubs(props: ProfileNoSubsProps) {
     UserPageContext
   ) as UserPageContextTypes;
 
-  console.log(loadingSub, "a");
   return (
     <>
       {!loadingSub ? (

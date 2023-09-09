@@ -10,6 +10,8 @@ import UserPageProvider from "@/app/components/UserPageContext";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Header() {
   const { connectMetamask, ismetaMaskConnected } = useContext(
@@ -98,6 +100,7 @@ export default function Header() {
           }
         })}
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

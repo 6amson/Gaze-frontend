@@ -20,15 +20,15 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import { Dna, RevolvingDot } from "react-loader-spinner";
+import { RevolvingDot } from "react-loader-spinner";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const url = "https://gazebackend.cyclic.cloud/";
-
+  const url = "https://previous-doralia-gaze.koyeb.app/";
+  const formerUrl = "https://gazebackend.cyclic.cloud/";
   const router = useRouter();
 
   const handlePasswordChange = (e: any) => {
@@ -251,14 +251,6 @@ export default function Signin() {
                     visible={loading}
                   />
                   <ToastContainer />
-                  {/*      <Dna
-                    visible={loading}
-                    height="150"
-                    width="150"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="dna-wrapper"
-                  /> */}
                 </div>
                 <div className="text-center text-spacePurple">
                   {" "}
