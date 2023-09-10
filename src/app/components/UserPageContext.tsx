@@ -87,13 +87,15 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   const handleNotificationList = async () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+    console.log(accesstoken, "sd");
     try {
-      const res = await axios.post(`${url}user/getnotifs`, {
+      const res = await axios.get(`${url}user/getnotifs`, {
         headers: {
           Authorization: `Bearer ${accesstoken}`,
           "Content-Type": "application/json",
         },
       });
+      console.log(res);
       setNftNotificationList(res.data);
     } catch (err) {
       console.log(err);
