@@ -89,7 +89,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
 
     try {
-      const res = await axios.get(`${urll}user/getnotifs`, {
+      const res = await axios.get(`${url}user/getnotifs`, {
         headers: {
           Authorization: `Bearer ${accesstoken}`,
           "Content-Type": "application/json",
