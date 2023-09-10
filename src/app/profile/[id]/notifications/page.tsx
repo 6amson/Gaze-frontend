@@ -25,6 +25,13 @@ export default function Notifications() {
             ></NotificationItem>
           );
         })}
+        <button
+          onClick={() => {
+            handleNotificationList();
+          }}
+        >
+          fetch Notification List
+        </button>
       </div>
     </div>
   );

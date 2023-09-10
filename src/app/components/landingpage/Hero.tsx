@@ -17,23 +17,19 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Header from "../globals/Header";
-import { useContext } from "react";
-
-
-
-
+import { useContext, useState } from "react";
+import { RevolvingDot } from "react-loader-spinner";
 
 export default function Hero() {
   const { loading } = useContext(UserPageContext) as UserPageContextTypes;
   const router = useRouter();
-
+  const [isLoadin, setIsLoading] = useState(false);
   const url = "https://gazebackend.cyclic.cloud/";
-
 
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     const refreshtoken = Cookies.get("Gaze_userAccess_RT");
-
+    setIsLoading(true);
     if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
       axios
         .get(`${url}user/verify`, {
@@ -42,7 +38,6 @@ export default function Hero() {
           },
         })
         .then((res) => {
-
           if (res.status == 200) {
             Cookies.set("Gaze_userAccess_RT", res.data.refreshToken);
             const { userId } = res.data;
@@ -58,6 +53,9 @@ export default function Hero() {
         .catch((err) => {
           console.log(err);
           router.push("/signup");
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else if (accesstoken == null) {
       router.push("/signup");
@@ -143,15 +141,29 @@ export default function Hero() {
         </div>
         <button
           onClick={handleAuth}
+          disabled={isLoadin ? true : false}
           className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.8rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
         >
           Get Started
         </button>
+        <div className="w-full relative flex items-center justify-center mt-2">
+          <RevolvingDot
+            radius={20}
+            strokeWidth={2}
+            color="#A157FF "
+            secondaryColor=""
+            ariaLabel="revolving-dot-loading"
+            wrapperStyle={{}}
+            wrapperClass="absolute mt-[50px]"
+            visible={isLoadin}
+          />
+        </div>
       </div>
       {/* Mobile Section */}
       <div className="absolute bottom-[10%] text-center sm:hidden">
         <button
           onClick={handleAuth}
+          disabled={isLoadin ? true : false}
           className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black"
         >
           get started
@@ -166,6 +178,18 @@ export default function Hero() {
           height={100}
           src={blackTextLogo.src}
         ></Image>
+        <div className="w-full relative flex items-center justify-center mt-2">
+          <RevolvingDot
+            radius={20}
+            strokeWidth={2}
+            color="#A157FF "
+            secondaryColor=""
+            ariaLabel="revolving-dot-loading"
+            wrapperStyle={{}}
+            wrapperClass="absolute mt-[50px]"
+            visible={isLoadin}
+          />
+        </div>
       </div>
     </div>
   );
