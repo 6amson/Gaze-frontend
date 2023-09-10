@@ -265,7 +265,7 @@ export default function Signup() {
                 <button
                   className=" max-w-[320px] w-full sm:w-full 2xl:w-[25vw] text-center bg-spacePurple hover:bg-spaceViolet duration-300 rounded-[10px] p-2 font-bold text-white  mt-[10px]"
                   onClick={handleSignup}
-                  disabled={loading}
+                  disabled={loading ? true : false}
                 >
                   SIGN UP
                 </button>
@@ -274,7 +274,7 @@ export default function Signup() {
                   <Link href={"/signin"}>
                     <p>SIGN IN</p>
                   </Link>
-                  <ToastContainer />
+
                   <RevolvingDot
                     radius={20}
                     strokeWidth={2}

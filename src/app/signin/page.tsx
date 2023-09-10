@@ -232,6 +232,7 @@ export default function Signin() {
                   className="max-w-[320px] w-full sm:w-full 2xl:w-[25vw] text-center bg-spacePurple hover:bg-spaceViolet duration-300 rounded-[10px] p-2 font-bold text-white  mt-[10px]"
                   onClick={handleSignin}
                   type="submit"
+                  disabled={loading ? true : false}
                 >
                   SIGN IN
                 </button>
@@ -250,7 +251,6 @@ export default function Signin() {
                     wrapperClass="absolute mt-[50px]"
                     visible={loading}
                   />
-                  <ToastContainer />
                 </div>
                 <div className="text-center text-spacePurple">
                   {" "}
