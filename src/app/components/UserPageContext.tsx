@@ -197,6 +197,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
 
+
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
   //To be attached to the subscribe button with ProfileWithNoSub
@@ -223,6 +224,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
               const subscription = await registration.pushManager.getSubscription();
 
+              
               if (subscription) {
                 toast.error(
                   "You have already subscribed on this device",
@@ -244,6 +246,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               const subscriptionObject = await pushSubscription;
               console.log(subscriptionObject);
 
+              return
               const rawData = {
                 contractAddress: collectionContractAddress,
                 subscriptionId: subscriptionObject,
@@ -286,7 +289,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                 return err;
               } finally {
                 setLoadingSub(false);
-                window.location.reload();
+                // window.location.reload();
               }
             }
           } else {
