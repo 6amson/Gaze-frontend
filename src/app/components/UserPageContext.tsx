@@ -1,5 +1,5 @@
 "use client";
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import React from "react";
@@ -37,7 +37,7 @@ export interface UserPageContextTypes {
   nftNotificationList: NotificationObjType[];
   collectionContractAddress: string;
   setCollectionContractAddress: Dispatch<SetStateAction<string>>;
-  handleNotificationList: (data: NotificationObjType[]) => void;
+  handleNotificationList: () => void;
   verifyValidAndSusbscribeTwo: () => void;
   // fethcUserEmailFromSupaBase: () => void;
   loadingSub: boolean;
@@ -85,8 +85,22 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     network: Network.ETH_MAINNET,
   };
 
-  const handleNotificationList = (data: NotificationObjType[]) => {
-    setNftNotificationList(data);
+  const handleNotificationList = async () => {
+    const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
+
+    try {
+      const res = await axios.get(`${urll}user/getnotifs`, {
+        headers: {
+          Authorization: `Bearer ${accesstoken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      // console.log(res)
+      setNftNotificationList(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const alchemy = new Alchemy(settings);
@@ -147,13 +161,20 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                   setUsername(username);
                   setIsValid(true);
 
-                  if (contractAddress === null || contractAddress === "" || contractAddress == undefined) {
+                  if (
+                    contractAddress === null ||
+                    contractAddress === "" ||
+                    contractAddress == undefined
+                  ) {
                     setIsSubscribed(false);
-                  } else if (contractAddress != null || contractAddress != "" || contractAddress != undefined) {
+                  } else if (
+                    contractAddress != null ||
+                    contractAddress != "" ||
+                    contractAddress != undefined
+                  ) {
                     setIsSubscribed(true);
                     setAddress(contractAddress);
-                    console.log(res)
-
+                    console.log(res);
                   }
                 }
               } catch (err) {
@@ -183,9 +204,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //   username: username,
   // });
 
-
-
-
   //logout function
   const handleLogout = (): void => {
     localStorage.removeItem("Gaze_userAccess_AT");
@@ -195,8 +213,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     setUsername("");
     router.push("/");
   };
-
-
 
   //A function that requests permission from user to send them notification and updates the their profile
   //It sets stste
@@ -221,19 +237,16 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             };
 
             if (registration != undefined) {
+              const subscription =
+                await registration.pushManager.getSubscription();
 
-              const subscription = await registration.pushManager.getSubscription();
 
-              
               if (subscription) {
-                toast.error(
-                  "You have already subscribed on this device",
-                  {
-                    position: "top-center",
-                    autoClose: 3000,
-                    theme: "dark",
-                  }
-                );
+                toast.error("You have already subscribed on this device", {
+                  position: "top-center",
+                  autoClose: 3000,
+                  theme: "dark",
+                });
               }
 
               const pushSubscription =
@@ -244,9 +257,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               );
 
               const subscriptionObject = await pushSubscription;
-              console.log(subscriptionObject);
+              // console.log(subscriptionObject);
 
-              return
               const rawData = {
                 contractAddress: collectionContractAddress,
                 subscriptionId: subscriptionObject,
@@ -310,8 +322,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-
-
   //Unsubscribe function.
   //To be attached to the "unsubscribe" button in ProfileWithSubs page.
   async function unsubscribe(): Promise<any> {
@@ -336,7 +346,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           setNftNotificationList([]);
 
           if (subscription) {
-            const susbscriptionState = await subscription.unsubscribe();
+            await subscription.unsubscribe();
           } else {
             setIsSubscribed(false);
           }
@@ -369,33 +379,29 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-
   async function connectMetamask(): Promise<any> {
     try {
       if (window.ethereum) {
         console.log("metamask present");
 
-        window.ethereum.on('accountsChanged', (accounts: any) => {
+        window.ethereum.on("accountsChanged", (accounts: any) => {
           if (accounts.length === 0) {
             // MetaMask disconnected from your site
-            console.log('MetaMask is disconnected from your site');
+            console.log("MetaMask is disconnected from your site");
             localStorage.removeItem("Gaze_userAccess_AT");
             Cookies.remove("Gaze_userAccess_RT");
             setIsValid(false);
             setIsSubscribed(false);
             router.push("/");
           } else if (accounts[0] != metamaskAddr) {
-            toast.info(
-              "You swapped your address. Retry.",
-              {
-                position: "top-center",
-                autoClose: 2500,
-                theme: "dark",
-              }
-            );
+            toast.info("You swapped your address. Retry.", {
+              position: "top-center",
+              autoClose: 2500,
+              theme: "dark",
+            });
             router.push("/");
           }
-        })
+        });
 
         const Accounts: any = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -409,7 +415,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           const Message = "Sign this message to access Gaze.";
           const from = Accounts[0];
 
-
           const msg = `0x${Buffer.from(Message, "utf8").toString("hex")}`;
           const sign: any = await window.ethereum.request({
             method: "personal_sign",
@@ -419,7 +424,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           const data = {
             accountAddr: Accounts[0],
             signature: { sign, msg },
-          }
+          };
 
           const res = await axios.post(`${url}user/signupmeta`, data, {
             headers: {
@@ -436,17 +441,13 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           });
           const encodedString = encodeURIComponent(id);
           router.push(`/profile/${encodedString}`);
-
         }
       } else {
-        toast.info(
-          "You don't have Metamask",
-          {
-            position: "top-center",
-            autoClose: 2500,
-            theme: "dark",
-          }
-        );
+        toast.info("You don't have Metamask", {
+          position: "top-center",
+          autoClose: 2500,
+          theme: "dark",
+        });
       }
     } catch (err: any) {
       if (err.code == "-32002") {
@@ -459,23 +460,17 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           }
         );
       } else if (err.code == "4001") {
-        toast.error(
-          "You rejected the request to connect Metamask.",
-          {
-            position: "top-center",
-            autoClose: 2500,
-            theme: "dark",
-          }
-        );
+        toast.error("You rejected the request to connect Metamask.", {
+          position: "top-center",
+          autoClose: 2500,
+          theme: "dark",
+        });
       } else {
-        toast.error(
-          "There is an error connecting with your metamask",
-          {
-            position: "top-center",
-            autoClose: 2500,
-            theme: "dark",
-          }
-        );
+        toast.error("There is an error connecting with your metamask", {
+          position: "top-center",
+          autoClose: 2500,
+          theme: "dark",
+        });
       }
       return err;
     } finally {
