@@ -131,8 +131,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   //     html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
   //   });
   //   console.log("Fomer");
-  // };
-
+  // };s
   // useEffect(() => {
 
   // }, [isValid, isSubscribed]);
