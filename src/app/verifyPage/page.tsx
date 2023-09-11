@@ -28,7 +28,7 @@ export default function Page() {
             const { userId } = res.data;
             const { contractAddress } = res.data;
             const encodedString = encodeURIComponent(userId);
-            router.push(`/profile/${encodedString}`);
+            router.push(`/profile/${encodedString}/notifications`);
             return {
               encodedString: encodedString,
               contractAddress,
