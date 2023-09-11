@@ -1,3 +1,4 @@
+"use client";
 import ProfileTitle from "./ProfileTitle";
 import ProfileItem from "./ProfileItem";
 import { useEffect, useContext } from "react";
@@ -21,12 +22,14 @@ export default function ProfileWithSub(props: ProfileWithSubProps) {
   ) as UserPageContextTypes;
   console.log("menage", address);
   useEffect(() => {
+    console.log("ranUseEffect");
     getNftListing();
   }, []);
   return (
     <>
+      {" "}
       {!loading ? (
-        <div className="h-screen  w-full pt-[32px] xl:pt-[51px] ">
+        <div className="h-fit w-full   pt-[32px] xl:pt-[51px] ">
           {props.nftListingArray.slice(0, 1).map((item, index) => {
             return (
               <ProfileTitle
@@ -39,22 +42,25 @@ export default function ProfileWithSub(props: ProfileWithSubProps) {
               ></ProfileTitle>
             );
           })}
-          <div className="flex flex-col gap-y-[20px] pb-[50px] mt-[40px] sm:flex-row sm:gap-x-[10px] sm:justify-between    sm:flex-wrap sm:gap-y-[40px]">
-            {props.nftListingArray.slice(0, 12).map((item, index) => {
-              return (
-                <ProfileItem
-                  tokenId={item.tokenId}
-                  description={item.description}
-                  imageUrl={item.media[0].thumbnail}
-                  name={item.title}
-                  time={item.timeLastUpdated}
-                  newlyMinted={Math.random() > 0.5}
-                  newlyTransfer={Math.random() > 0.5}
-                  key={index}
-                ></ProfileItem>
-              );
-            })}
+          <div className="w-full  ">
+            <div className="flex flex-col w-full    lg:w-full  gap-y-[20px] pb-[50px] mt-[40px] sm:flex-row sm:gap-x-[10px] sm:justify-between    sm:flex-wrap sm:gap-y-[40px]">
+              {props.nftListingArray.slice(0, 12).map((item, index) => {
+                return (
+                  <ProfileItem
+                    tokenId={item.tokenId}
+                    description={item.description}
+                    imageUrl={item.media[0].thumbnail}
+                    name={item.title}
+                    time={item.timeLastUpdated}
+                    newlyMinted={Math.random() > 0.5}
+                    newlyTransfer={Math.random() > 0.5}
+                    key={index}
+                  ></ProfileItem>
+                );
+              })}
+            </div>
           </div>
+
           <button
             onClick={() => {
               props.unSubscribe();

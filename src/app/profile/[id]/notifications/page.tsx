@@ -55,6 +55,7 @@ export default function Notifications() {
             );
           })}
           <button
+            className="hidden"
             onClick={() => {
               handleNotificationList();
             }}

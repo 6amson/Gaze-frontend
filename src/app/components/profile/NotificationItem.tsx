@@ -39,12 +39,12 @@ export default function NotificationItem(props: NotificationItemProps) {
         <div className="font-bold truncate uppercase">
           {props.collectionName}
         </div>
-        <div className="text-[0.8rem]">
+        <div className="text-[0.8rem] break-all">
           An Nft <span>with tokenId {props.tokenId.toString()} </span> was just
           recently {props.newlyMinted ? "minted" : "transferred"}{" "}
           <span className={`${props.newlyMinted ? "hidden" : ""}`}>
-            from (<span className="text-spacePurple">{props.addrFrom}</span>) to
-            <span> {props.addrTo}</span>
+            from <span className="text-spacePurple">{props.addrFrom} to</span>
+            <span className=""> {props.addrTo}</span>
           </span>
         </div>
       </div>

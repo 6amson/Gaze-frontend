@@ -39,8 +39,8 @@ export default function profileMethods() {
   const url = "https://gazebackend.cyclic.cloud/";
 
   return (
-    <div>
-      <div className="mx-auto sm:w-[83%] xl:w-[90%] px-[10px] h-full ">
+    <div className="w-full">
+      <div className=" sm:w-[83%] xl:w-[90%] px-[10px] h-full w-full max-w-full mx-auto">
         {!loading ? (
           isValid ? (
             isSubscribed ? (

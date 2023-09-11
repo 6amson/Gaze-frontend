@@ -365,6 +365,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   }
 
   async function getNftListing(): Promise<any> {
+    console.log("rna");
     try {
       setLoadingNftList(true);
       const response: any = await alchemy.nft.getNftsForContract(address);

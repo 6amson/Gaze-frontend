@@ -30,7 +30,7 @@ export default function ProfileItem(props: ProfileItemProps) {
         </span>
       </div>
       <div className="leading-tight flex flex-col gap-y-[9px] sm:gap-y-0 mt-[9px] pb-[30px] xl:pb-[15px] text-[#9C9999]">
-        <div className="text-[1rem] font-extrabold text-black   gap-x-[5px] truncate ">
+        <div className="text-[1rem] font-extrabold text-black   gap-x-[5px] break-all">
           <Image
             src={fileIcon.src}
             width={12}
@@ -48,8 +48,10 @@ export default function ProfileItem(props: ProfileItemProps) {
           {"   "}
           {props.time.substring(0, 10)}
         </div>
-        <div className="text-[0.7rem] mt-[5px] truncate">
-          {props.description}
+        <div className="text-[0.7rem] mt-[5px] break-all">
+          {props.description.length > 149
+            ? props.description.substring(0, 150) + "..."
+            : props.description}
         </div>
       </div>
     </div>
