@@ -89,7 +89,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   const handleNotificationList = async () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-    console.log(accesstoken, "sd");
     try {
       setLoadingNotifs(true);
       const res = await axios.get(`${url}user/getnotifs`, {
@@ -98,12 +97,13 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           "Content-Type": "application/json",
         },
       });
-      console.log(res);
 
+      // console.log(res)
       setNftNotificationList(res.data);
       setLoadingNotifs(false);
     } catch (err) {
       setLoadingNotifs(false);
+
       console.log(err);
     }
   };
@@ -261,7 +261,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               );
 
               const subscriptionObject = await pushSubscription;
-              console.log(subscriptionObject);
+              // console.log(subscriptionObject);
 
               const rawData = {
                 contractAddress: collectionContractAddress,
@@ -305,7 +305,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                 return err;
               } finally {
                 setLoadingSub(false);
-                window.location.reload();
+                // window.location.reload();
               }
             }
           } else {
@@ -350,7 +350,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           setNftNotificationList([]);
 
           if (subscription) {
-            const susbscriptionState = await subscription.unsubscribe();
+            await subscription.unsubscribe();
           } else {
             setIsSubscribed(false);
           }
