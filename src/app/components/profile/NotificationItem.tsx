@@ -4,8 +4,11 @@ import Image from "next/image";
 
 interface NotificationItemProps {
   newlyMinted: boolean;
-  tokenId?: string;
+  tokenId: number;
   transactionHash?: string;
+  collectionName: string;
+  addrTo: string;
+  addrFrom: string;
 }
 
 export default function NotificationItem(props: NotificationItemProps) {
@@ -33,11 +36,16 @@ export default function NotificationItem(props: NotificationItemProps) {
       ></Image>
       <div>
         {" "}
-        <div className="font-bold">BORED APE YATCH CLUB</div>
+        <div className="font-bold truncate uppercase">
+          {props.collectionName}
+        </div>
         <div className="text-[0.8rem]">
-          The Ape with Glasses NFT was just recently minted at 8:90am by
-          @bigNftguy (<span className="text-spacePurple">0x24shk624sd5</span>)
-          and listed for <span className="text-spacePurple">0.93eth</span>
+          An Nft <span>with tokenId {props.tokenId.toString()} </span> was just
+          recently {props.newlyMinted ? "minted" : "transferred"}{" "}
+          <span className={`${props.newlyMinted ? "hidden" : ""}`}>
+            from (<span className="text-spacePurple">{props.addrFrom}</span>) to
+            <span> {props.addrTo}</span>
+          </span>
         </div>
       </div>
     </div>

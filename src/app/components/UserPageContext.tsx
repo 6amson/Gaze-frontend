@@ -42,6 +42,7 @@ export interface UserPageContextTypes {
   // fethcUserEmailFromSupaBase: () => void;
   loadingSub: boolean;
   loadingNftList: boolean;
+  loadingNotifs: boolean;
 }
 
 export const UserPageContext = React.createContext<
@@ -66,6 +67,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [loading, setLoading] = useState(false);
   const [loadingSub, setLoadingSub] = useState(false);
   const [loadingNftList, setLoadingNftList] = useState(false);
+  const [loadingNotifs, setLoadingNotifs] = useState(false);
   const [address, setAddress] = useState("");
   const [totalNft, setTotalNft] = useState("");
   const [collectionName, setCollectionName] = useState("");
@@ -87,8 +89,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   const handleNotificationList = async () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
-
     try {
+      setLoadingNotifs(true);
       const res = await axios.get(`${url}user/getnotifs`, {
         headers: {
           Authorization: `Bearer ${accesstoken}`,
@@ -98,7 +100,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
       // console.log(res)
       setNftNotificationList(res.data);
+      setLoadingNotifs(false);
     } catch (err) {
+      setLoadingNotifs(false);
+
       console.log(err);
     }
   };
@@ -239,7 +244,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
             if (registration != undefined) {
               const subscription =
                 await registration.pushManager.getSubscription();
-
 
               if (subscription) {
                 toast.error("You have already subscribed on this device", {
@@ -504,6 +508,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         // fethcUserEmailFromSupaBase,
         loadingSub,
         loadingNftList,
+        loadingNotifs,
       }}
     >
       {" "}
