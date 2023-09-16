@@ -41,7 +41,7 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
       </div>
 
       <div className="lg:flex hidden">
-        <div className="text-7xl font-raleWay mr-[30px] font-bold ">
+        <div className="text-5xl  mr-[30px]  font-raleWay">
           {props.index + 1}
         </div>
         <motion.div
@@ -55,7 +55,7 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
             className={`font-raleWay z-20 absolute flex w-full h-[447px] max-w-[750px] border-2 border-black rounded-3xl overflow-hidden`}
           >
             <div
-              className={`w-[50%]  ${props.firstSectionStyle} p-[30px] pt-[43px] relative`}
+              className={`w-[50%]  ${props.firstSectionStyle} p-[30px] pt-[43px] relative border-r border-black`}
             >
               <div className={`text-[30px] font-medium`}>{props.heading}</div>{" "}
               <div className={`text-[20px] mt-[32px] leading-tight`}>

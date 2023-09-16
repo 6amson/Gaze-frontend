@@ -74,6 +74,7 @@ export default function HowToGetStartedNew() {
               width={200}
               height={300}
               src={howToGetStartedOneText.src}
+              className={"absolute -right-16 rotate-[-25deg]"}
               alt={"text saying click to go page"}
             ></Image>
           </div>
@@ -391,19 +392,17 @@ export default function HowToGetStartedNew() {
     },
   ];
   return (
-    <div className="2xl:px-[10vw] sm:px-[6vw] lg:px-[10vw] pt-[20px] bg-[#ECECEC] lg:bg-white h-fit">
+    <div className="2xl:px-[10vw] sm:px-[6vw] lg:px-[10vw] pt-[20px] lg:pt-[50px] bg-[#ECECEC] lg:bg-white h-fit">
       {" "}
       <div className="hidden sm:flex font-raleWay font-bold  text-[2.3rem] mb-[41px] mt-[47px] gap-x-[10px]">
         {" "}
-        <div className="leading-none">
-          {" "}
-          HOW TO GET <div className="">STARTED </div>
-        </div>
+        <div className="leading-none"> HOW TO GET STARTED</div>
         <div>
           <Image
             src={hWTGSTHeader.src}
             alt="planet with stars"
             width={75}
+            className={" -mt-4"}
             height={300}
           ></Image>
         </div>
