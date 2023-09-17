@@ -26,7 +26,7 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
         <div className="w-[300px]  z-10  border-2 border-black rounded-[20px] overflow-hidden absolute">
           <div className="w-full h-[210px]">{props.displaySectionMobile}</div>
           <div
-            className={`h-[150px] ${props.firstSectionStyle} font-raleWay p-[16px]  w-full relative`}
+            className={`h-[160px] ${props.firstSectionStyle} font-raleWay p-[16px]  w-full relative`}
           >
             {props.mobileSectionExtra}
             <div className="text-[16px] leading-none font-semibold">
@@ -37,12 +37,16 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
             </div>
           </div>
         </div>
-        <div className="w-[300px] absolute h-[360px] bg-black top-[10px] left-[10px] rounded-[20px] z-0"></div>
+        <div className="w-[300px] absolute h-[370px] bg-black top-[10px] left-[10px] rounded-[20px] z-0"></div>
       </div>
 
       <div className="lg:flex hidden">
-        <div className="text-5xl  mr-[30px]  font-raleWay">
+        <div className="text-4xl font-bold  mr-[30px]  font-raleWay relative text-neonGreen">
           {props.index + 1}
+          <span className="absolute top-[2px] left-[2px] text-black">
+            {" "}
+            {props.index + 1}
+          </span>
         </div>
         <motion.div
           onViewportEnter={() => {

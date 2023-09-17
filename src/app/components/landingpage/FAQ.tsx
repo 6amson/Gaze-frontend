@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function FAQ() {
   return (
-    <div className="h-fit bg-white w-full sm:pb-[8%]">
+    <div id="faq" className="h-fit bg-white w-full sm:pb-[8%]">
       {/* Laptop header */}
       <div className="hidden items-center sm:flex sm:flex-row pt-[57px] mb-[50px]  lg:px-[10vw] sm:px-[6vw] sm:gap-x-[10px]">
         <div className="text-[1.5rem] font-bold  sm:text-[2.3rem] leading-none ">

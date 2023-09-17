@@ -21,6 +21,7 @@ import howToGetStartedTwoMobilePic from "../../../../../public/svgs/landing-page
 import howToGetStartedThreeMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-3-mobile-pic.png";
 import howToGetStartedFourMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-4-mobile-pic.png";
 import howToGetStartedFiveMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-5-mobile-pic.png";
+import Link from "next/link";
 
 export default function HowToGetStartedNew() {
   const HowToGetStartedArray = [
@@ -29,13 +30,22 @@ export default function HowToGetStartedNew() {
       text: "Open a new tab and go to opensea.io or click the link in the section beside.",
       displaySection: (
         <>
-          <Image
-            src={htGStOneOpenSea.src}
-            width={300}
-            alt="open sea svg"
-            height={100}
-            className={"absolute right-0 top-[30px]"}
-          ></Image>
+          <Link
+            target={"_blank"}
+            referrerPolicy={"no-referrer"}
+            href={"https://opensea.io/"}
+          >
+            {" "}
+            <Image
+              src={htGStOneOpenSea.src}
+              width={300}
+              alt="open sea svg"
+              height={100}
+              className={
+                "absolute right-0 top-[30px] hover:scale-[1.1] duration-300"
+              }
+            ></Image>
+          </Link>
         </>
       ),
       functionSection: (trigger: boolean, style: string) => {
@@ -57,7 +67,7 @@ export default function HowToGetStartedNew() {
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={trigger ? { pathLength: 1 } : { pathLength: 0 }}
-                transition={{ duration: 1.6 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
               />
               <motion.path
                 d="M8.5 89.52L35.72 8.5L127.19 49.01"
@@ -67,7 +77,7 @@ export default function HowToGetStartedNew() {
                 strokeLinejoin="round"
                 initial={{ pathLength: 0 }}
                 animate={trigger ? { pathLength: 1 } : { pathLength: 0 }}
-                transition={{ duration: 1.6 }}
+                transition={{ duration: 1.4, delay: 0.2 }}
               />
             </motion.svg>
             <Image
@@ -106,13 +116,20 @@ export default function HowToGetStartedNew() {
       ),
       displaySectionMobile: (
         <div className="w-full">
-          <Image
-            width={320}
-            height={300}
-            className={"absolute top-[10px] right-[-20px]"}
-            alt={"opensea link"}
-            src={htGStOneMobileOpenSea.src}
-          ></Image>
+          <Link
+            target={"_blank"}
+            referrerPolicy={"no-referrer"}
+            href={"https://opensea.io/"}
+          >
+            {" "}
+            <Image
+              width={320}
+              height={300}
+              className={"absolute top-[10px] right-[-20px]"}
+              alt={"opensea link"}
+              src={htGStOneMobileOpenSea.src}
+            ></Image>
+          </Link>
           <Image
             src={howToGetStartedOneMobilePic.src}
             width={100}
@@ -161,7 +178,7 @@ export default function HowToGetStartedNew() {
             width={800}
             height={400}
             alt={"star"}
-            className={"absolute bottom-0 z-0 left-0"}
+            className={"absolute bottom-[-50px] rotate-y-[90deg] z-0 right-0"}
           ></Image>
         </>
       ),
@@ -232,7 +249,7 @@ export default function HowToGetStartedNew() {
             width={100}
             height={40}
             alt={"planet"}
-            className={"absolute bottom-[40px] right-[50px]"}
+            className={"absolute bottom-[40px] right-[50px] rotate-[74deg]"}
           ></Image>
         </>
       ),
@@ -362,7 +379,7 @@ export default function HowToGetStartedNew() {
             width={80}
             height={40}
             alt={"planet"}
-            className={"absolute bottom-[40px] left-0"}
+            className={"absolute bottom-[20px] left-0"}
           ></Image>
         </>
       ),
