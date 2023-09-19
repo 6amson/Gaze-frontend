@@ -57,8 +57,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "http://[::1]:4000/";
-  // const url = "https://previous-doralia-gaze.koyeb.app/";
+  /*   const url = "http://[::1]:4000/"; */
+  const url = "https://previous-doralia-gaze.koyeb.app/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
