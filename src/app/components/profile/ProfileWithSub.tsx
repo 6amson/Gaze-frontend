@@ -20,9 +20,8 @@ export default function ProfileWithSub(props: ProfileWithSubProps) {
   const { getNftListing, address, loading } = useContext(
     UserPageContext
   ) as UserPageContextTypes;
-  console.log("menage", address);
+
   useEffect(() => {
-    console.log("ranUseEffect");
     getNftListing();
   }, []);
   return (

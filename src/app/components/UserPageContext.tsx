@@ -57,8 +57,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "http://[::1]:4000/";
-  // const url = "https://previous-doralia-gaze.koyeb.app/";
+  /*   const url = "http://[::1]:4000/"; */
+  const url = "https://previous-doralia-gaze.koyeb.app/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
@@ -98,7 +98,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         },
       });
 
-      // console.log(res)
       setNftNotificationList(res.data);
       setLoadingNotifs(false);
     } catch (err) {
@@ -109,32 +108,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
   const alchemy = new Alchemy(settings);
-
-  // const fethcUserEmailFromSupaBase = async () => {
-  //   const cook: any = "";
-  //   console.log("sent supa");
-
-  //   const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
-  //   resend.domains.create({ name: "example.com" });
-  //   const supabaseUrl: any = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  //   const supabaseKey: any = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  //   const supabase = createClient(supabaseUrl, supabaseKey);
-
-  //   const { data } = await supabase.from("emails").select("*");
-  //   console.log(data, "supabase data");
-  //   const emailss: any = data;
-  //   resend.emails.send({
-  //     from: "onboarding@resend.dev",
-  //     to: [emailss[0], emailss[1]],
-  //     subject: "Hello World",
-  //     html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
-  //   });
-  //   console.log("Fomer");
-  // };s
-  // useEffect(() => {
-
-  // }, [isValid, isSubscribed]);
 
   const verifyValidAndSusbscribeTwo = () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -178,7 +151,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                   ) {
                     setIsSubscribed(true);
                     setAddress(contractAddress);
-                    console.log(res);
                   }
                 }
               } catch (err) {
@@ -200,13 +172,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
     verifyValidAndSusbscribe();
   };
-
-  // console.info({
-  //   isSubscribed: isSubscribed,
-  //   address: address,
-  //   isValid: isValid,
-  //   username: username,
-  // });
 
   //logout function
   const handleLogout = (): void => {
@@ -254,13 +219,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
               const pushSubscription =
                 registration.pushManager.subscribe(subscribeOptions);
-              console.log(
-                "ServiceWorker present with scope:",
-                registration.scope
-              );
 
               const subscriptionObject = await pushSubscription;
-              // console.log(subscriptionObject);
 
               const rawData = {
                 contractAddress: collectionContractAddress,
@@ -365,12 +325,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   }
 
   async function getNftListing(): Promise<any> {
-    console.log("rna");
     try {
       setLoadingNftList(true);
       const response: any = await alchemy.nft.getNftsForContract(address);
       const nftResponse: NftListingItemType[] = response.nfts;
-      console.log(nftResponse);
+
       if (nftResponse[0].contract) {
         setTotalNft(nftResponse[0].contract.totalSupply);
         setCollectionName(nftResponse[0].contract.name);
@@ -386,12 +345,10 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   async function connectMetamask(): Promise<any> {
     try {
       if (window.ethereum) {
-        console.log("metamask present");
-
         window.ethereum.on("accountsChanged", (accounts: any) => {
           if (accounts.length === 0) {
             // MetaMask disconnected from your site
-            console.log("MetaMask is disconnected from your site");
+
             localStorage.removeItem("Gaze_userAccess_AT");
             Cookies.remove("Gaze_userAccess_RT");
             setIsValid(false);
@@ -414,7 +371,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         console.info(Accounts);
 
         if (Accounts[0] !== "null") {
-          console.log("metamask connected");
+          /*   console.log("metamask connected"); */
           setMetamaskAddr(Accounts[0]);
           const Message = "Sign this message to access Gaze.";
           const from = Accounts[0];
@@ -435,7 +392,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
               "Content-Type": "application/json",
             },
           });
-          console.log(res);
 
           const { refreshToken, accessToken, id } = res.data;
           localStorage.setItem("Gaze_userAccess_AT", accessToken);
