@@ -22,8 +22,6 @@ export default function Notifications() {
     handleNotificationList();
   }, []);
 
-  console.log(nftNotificationList);
-
   return (
     <div className="w-full px-[10px]">
       {loadingNotifs ? (
