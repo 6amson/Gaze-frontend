@@ -57,8 +57,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const router = useRouter();
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const urll = "http://[::1]:4000/";
-  const url = "https://previous-doralia-gaze.koyeb.app/";
+  const url = "http://[::1]:4000/";
+  // const url = "https://previous-doralia-gaze.koyeb.app/";
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
@@ -304,7 +304,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
                 return err;
               } finally {
                 setLoadingSub(false);
-                // window.location.reload();
+                window.location.reload();
               }
             }
           } else {
@@ -365,6 +365,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   }
 
   async function getNftListing(): Promise<any> {
+    console.log("rna");
     try {
       setLoadingNftList(true);
       const response: any = await alchemy.nft.getNftsForContract(address);
