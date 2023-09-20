@@ -6,6 +6,7 @@ import { UserPageContext } from "@/app/components/UserPageContext";
 import { useContext } from "react";
 import { UserPageContextTypes } from "@/app/components/UserPageContext";
 import UserPageProvider from "@/app/components/UserPageContext";
+import * as Scroll from "react-scroll";
 
 import Image from "next/image";
 import { useState } from "react";
@@ -50,17 +51,20 @@ export default function Header() {
           {headerButtons.map((item, index) => {
             if (item.name === "FAQ") {
               return (
-                <Link
-                  href={"#faq"}
+                <Scroll.Link
+                  spy={true}
+                  to={"faq"}
+                  smooth={true}
+                  duration={500}
                   className={`${
                     item.isConnect
                       ? "border border-neonGreen p-[10px] sm:p-[14px] rounded-[10px] "
                       : "hidden sm:flex  items-center jusitfy-center"
-                  } text-white  2xl:text-[0.875rem] text-[0.7rem] leading-none hover:text-neonGreen duration-300 `}
+                  } text-white cursor-pointer 2xl:text-[0.875rem] text-[0.7rem] leading-none hover:text-neonGreen duration-300 `}
                   key={index}
                 >
                   {item.name}
-                </Link>
+                </Scroll.Link>
               );
             } else
               return (

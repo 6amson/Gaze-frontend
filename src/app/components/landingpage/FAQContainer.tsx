@@ -10,26 +10,61 @@ export default function FAQContainer() {
       question: "How do i get started with Gaze?",
       isOpen: false,
 
-      answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum debitis excepturi nobis quasi! Facilis voluptatum totam nostrum rem sequi",
+      answer: (
+        <div>
+          Click on the Faq button or for mobile, open the drop down menu and
+          then click on the faq button to be directed to the How to get Started
+          Section.
+        </div>
+      ),
     },
     {
       question: "How do i access my notifications in Gaze",
       isOpen: false,
-      answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum debitis excepturi nobis quasi! Facilis voluptatum totam nostrum rem sequi",
+      answer: (
+        <div>
+          {" "}
+          Sign up for a Gaze account, subscribe to notifications with a contract
+          address. Check the notification segment on the dashboard.
+        </div>
+      ),
     },
     {
-      question: "How do i get started with Gaze?",
+      question: "Why am i not getting any notifications?",
       isOpen: false,
-      answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum debitis excepturi nobis quasi! Facilis voluptatum totam nostrum rem sequi",
+      answer: (
+        <div>
+          {" "}
+          There are a few reasons why you may not get notifications:{" "}
+          <div>
+            i - You subscribed to a contract address that isn't on Ethereum
+            mainnet e.g Optimism, Arbitrium.
+          </div>{" "}
+          <div> ii - You rejected the push notification request. </div>
+        </div>
+      ),
     },
     {
-      question: "How do i get started with Gaze?",
+      question: "What devices does Gaze support?",
       isOpen: false,
-      answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum debitis excepturi nobis quasi! Facilis voluptatum totam nostrum rem sequi",
+      answer: (
+        <div>
+          {" "}
+          Gaze works on laptps and android devices. Support for ios will be
+          introduced soon.
+        </div>
+      ),
+    },
+    {
+      question: "What is Gaze about?",
+      isOpen: false,
+      answer: (
+        <div>
+          {" "}
+          Gaze is a push notification service for NFT enthusiasts. It notifies
+          you of new mints and transfers for a ft collection.
+        </div>
+      ),
     },
   ]);
   const handleArrowClick = (questionIndex: number) => {
