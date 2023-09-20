@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 export default function Header() {
+  const NewLink = Scroll.Link;
   const { connectMetamask, ismetaMaskConnected } = useContext(
     UserPageContext
   ) as UserPageContextTypes;
@@ -51,7 +52,7 @@ export default function Header() {
           {headerButtons.map((item, index) => {
             if (item.name === "FAQ") {
               return (
-                <Scroll.Link
+                <NewLink
                   spy={true}
                   to={"faq"}
                   smooth={true}
@@ -64,7 +65,7 @@ export default function Header() {
                   key={index}
                 >
                   {item.name}
-                </Scroll.Link>
+                </NewLink>
               );
             } else
               return (
