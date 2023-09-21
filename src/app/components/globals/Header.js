@@ -6,6 +6,7 @@ import { UserPageContext } from "@/app/components/UserPageContext";
 import { useContext } from "react";
 import { UserPageContextTypes } from "@/app/components/UserPageContext";
 import UserPageProvider from "@/app/components/UserPageContext";
+import * as Scroll from "react-scroll";
 
 import Image from "next/image";
 import { useState } from "react";
@@ -15,9 +16,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 export default function Header() {
-  const { connectMetamask, ismetaMaskConnected } = useContext(
-    UserPageContext
-  ) as UserPageContextTypes;
+  const NewLink = Scroll.Link;
+  let scroll = Scroll.animateScroll;
+  let scrollA = Scroll.scroller;
+  const { connectMetamask, ismetaMaskConnected } = useContext(UserPageContext);
 
   const pathName = usePathname();
   const router = useRouter();
@@ -29,6 +31,15 @@ export default function Header() {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  /*  const scrollTo = () => {
+    scrollA.scrollTo("faq", {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      containerId: "ContainerElementID",
+      offset: 50, // Scrolls to element + 50 pixels down the page
+    });
+  }; */
   return (
     <div
       className={`${
@@ -50,17 +61,23 @@ export default function Header() {
           {headerButtons.map((item, index) => {
             if (item.name === "FAQ") {
               return (
-                <Link
-                  href={"#faq"}
+                <NewLink
+                  to="faq"
+                  duration={500}
+                  spy={true}
+                  smooth
+                  onClick={() => {
+                    scrollTo();
+                  }}
                   className={`${
                     item.isConnect
                       ? "border border-neonGreen p-[10px] sm:p-[14px] rounded-[10px] "
                       : "hidden sm:flex  items-center jusitfy-center"
-                  } text-white  2xl:text-[0.875rem] text-[0.7rem] leading-none hover:text-neonGreen duration-300 `}
+                  } text-white cursor-pointer 2xl:text-[0.875rem] text-[0.7rem] leading-none hover:text-neonGreen duration-300 `}
                   key={index}
                 >
                   {item.name}
-                </Link>
+                </NewLink>
               );
             } else
               return (

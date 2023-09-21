@@ -1,11 +1,12 @@
 import faqQuestionArrow from "../../../../public/svgs/landing-page/faq-question-arrow-mobile.svg";
 import Image from "next/image";
+import React from "react";
 
 interface FAQItemProps {
   question: string;
   isOpen: boolean;
   index: number;
-  answer: string;
+  answer: React.ReactNode;
   handleArrowClick: (questionIndex: number) => void;
 }
 
@@ -15,9 +16,7 @@ export default function FAQItem(props: FAQItemProps) {
       <div className="leading-tight pr-[20px]">
         {props.question}
         <div className={`${props.isOpen ? "" : "hidden"}`}>
-          answer:Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Possimus eum debitis excepturi nobis quasi! Facilis voluptatum totam
-          nostrum rem sequi,
+          answer: {props.answer}
         </div>
       </div>
       <button

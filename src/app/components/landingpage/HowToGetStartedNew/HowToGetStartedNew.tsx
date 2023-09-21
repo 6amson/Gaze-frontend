@@ -167,7 +167,7 @@ export default function HowToGetStartedNew() {
             width={800}
             height={400}
             alt={"star"}
-            className={"absolute bottom-0 z-0 left-0 scale-[2]"}
+            className={"absolute bottom-0 z-0 left-0 scale-[2] hidden"}
           ></Image>
         </div>
       ),
@@ -178,7 +178,9 @@ export default function HowToGetStartedNew() {
             width={800}
             height={400}
             alt={"star"}
-            className={"absolute bottom-[-50px] rotate-y-[90deg] z-0 right-0"}
+            className={
+              "absolute bottom-[-50px] rotate-y-[90deg] z-0 right-0 hidden"
+            }
           ></Image>
         </>
       ),
@@ -288,7 +290,7 @@ export default function HowToGetStartedNew() {
             alt="open sea svg"
             height={100}
             unoptimized={true}
-            className={"w-full"}
+            className={"w-full "}
           ></Image>
         </>
       ),
@@ -325,7 +327,7 @@ export default function HowToGetStartedNew() {
             width={150}
             height={40}
             alt={"planet"}
-            className={"absolute bottom-[20px] right-[10px]"}
+            className={"absolute bottom-[20px] right-[10px] hidden"}
           ></Image>
         </>
       ),
@@ -336,7 +338,7 @@ export default function HowToGetStartedNew() {
             width={70}
             height={40}
             alt={"planet"}
-            className={"absolute bottom-[20px] right-[10px]"}
+            className={"absolute bottom-[20px] right-[10px] hidden"}
           ></Image>
         </>
       ),
