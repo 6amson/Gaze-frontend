@@ -1,11 +1,12 @@
 import faqQuestionArrow from "../../../../public/svgs/landing-page/faq-question-arrow-mobile.svg";
 import Image from "next/image";
+import React from "react";
 
 interface FAQItemProps {
   question: string;
   isOpen: boolean;
   index: number;
-  answer: string;
+  answer: React.ReactNode;
   handleArrowClick: (questionIndex: number) => void;
 }
 
