@@ -17,9 +17,9 @@ import Link from "next/link";
 
 export default function Header() {
   const NewLink = Scroll.Link;
-  const { connectMetamask, ismetaMaskConnected } = useContext(
-    UserPageContext
-  ) as UserPageContextTypes;
+  let scroll = Scroll.animateScroll;
+  let scrollA = Scroll.scroller;
+  const { connectMetamask, ismetaMaskConnected } = useContext(UserPageContext);
 
   const pathName = usePathname();
   const router = useRouter();
@@ -31,6 +31,15 @@ export default function Header() {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  /*  const scrollTo = () => {
+    scrollA.scrollTo("faq", {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      containerId: "ContainerElementID",
+      offset: 50, // Scrolls to element + 50 pixels down the page
+    });
+  }; */
   return (
     <div
       className={`${
@@ -53,10 +62,13 @@ export default function Header() {
             if (item.name === "FAQ") {
               return (
                 <NewLink
-                  spy={true}
-                  to={"faq"}
-                  smooth={true}
+                  to="faq"
                   duration={500}
+                  spy={true}
+                  smooth
+                  onClick={() => {
+                    scrollTo();
+                  }}
                   className={`${
                     item.isConnect
                       ? "border border-neonGreen p-[10px] sm:p-[14px] rounded-[10px] "
