@@ -125,7 +125,7 @@ self.addEventListener("notificationclick", function (event) {
   event.notification.close(); // Close the notification
 
   // Open a new window/tab with the desired URL
-  event.waitUntil(clients.openWindow("/verifypage"));
+  event.waitUntil(clients.openWindow("/verifyPage"));
 });
 
 // self.addEventListener('push', function (event) {
