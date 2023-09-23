@@ -12,6 +12,7 @@ import footerMoon from "../../../../public/svgs/landing-page/footer/footer-moon.
 import footerStar from "../../../../public/svgs/landing-page/footer/footer-stars.svg";
 import footerMail from "../../../../public/svgs/landing-page/footer/footer-email.svg";
 import footerLinkdn from "../../../../public/svgs/landing-page/footer/footer-linkdn.svg";
+import footerGithub from "../../../../public/svgs/landing-page/footer/footer-github.svg";
 import stars from "../../../../public/svgs/globals/404-stars.svg";
 import Image from "next/image";
 import { useState } from "react";
@@ -45,15 +46,15 @@ export default function Footer() {
         target={"_blank"}
         referrerPolicy={"no-referrer"}
         className="flex items-center gap-x-2"
-        href={"https://www.linkedin.com/in/damilola-olusinde/"}
+        href={"https://github.com/6amson"}
       >
         <Image
           width={30}
           height={30}
           alt={"linkwdin link illustration"}
-          src={footerLinkdn.src}
+          src={footerGithub.src}
         ></Image>
-        linkedin
+        github
       </Link>
     </div>,
   ];
@@ -70,6 +71,20 @@ export default function Footer() {
           height={30}
           alt={"email link illustration"}
           src={footerMail.src}
+        ></Image>
+      </Link>
+    </div>,
+    <div className="flex justify-end">
+      <Link
+        className="flex items-center gap-x-2"
+        href="https://github.com/derin-art"
+      >
+        github
+        <Image
+          width={30}
+          height={30}
+          alt={"email link illustration"}
+          src={footerGithub.src}
         ></Image>
       </Link>
     </div>,
@@ -119,16 +134,16 @@ export default function Footer() {
                 <Link
                   target={"_blank"}
                   referrerPolicy={"no-referrer"}
-                  className="flex items-center gap-x-2 mb-4"
-                  href={"https://www.linkedin.com/in/damilola-olusinde/"}
+                  className="flex items-center gap-x-2"
+                  href={"https://github.com/6amson"}
                 >
                   <Image
-                    width={24}
-                    height={24}
+                    width={30}
+                    height={30}
                     alt={"linkwdin link illustration"}
-                    src={footerLinkdn.src}
+                    src={footerGithub.src}
                   ></Image>
-                  linkedin
+                  github
                 </Link>
               </div>
             </div>
@@ -147,6 +162,18 @@ export default function Footer() {
                     src={footerMail.src}
                   ></Image>
                   email
+                </Link>
+                <Link
+                  className="flex items-center gap-x-2 mb-4"
+                  href="https://github.com/derin-art"
+                >
+                  <Image
+                    width={30}
+                    height={30}
+                    alt={"email link illustration"}
+                    src={footerGithub.src}
+                  ></Image>
+                  github
                 </Link>
                 <Link
                   className="flex items-center gap-x-2 mb-4"
