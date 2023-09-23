@@ -60,8 +60,8 @@ export default function Footer() {
   ];
   const derinInfo = [
     <div className="text-[32px]">Derin</div>,
-    <div className="flex justify-end">
-      <Link
+    <motion.div className="justify-end">
+      <a
         className="flex items-center gap-x-2"
         href="mailto:owoadederin6@gmail.com;"
       >
@@ -72,10 +72,12 @@ export default function Footer() {
           alt={"email link illustration"}
           src={footerMail.src}
         ></Image>
-      </Link>
-    </div>,
-    <div className="flex justify-end">
-      <Link
+      </a>
+    </motion.div>,
+    <motion.div className="justify-end">
+      <a
+        target={"_blank"}
+        referrerPolicy={"no-referrer"}
         className="flex items-center gap-x-2"
         href="https://github.com/derin-art"
       >
@@ -86,11 +88,11 @@ export default function Footer() {
           alt={"email link illustration"}
           src={footerGithub.src}
         ></Image>
-      </Link>
-    </div>,
-    <div className="flex justify-end">
-      <Link
-        className="flex items-center gap-x-2"
+      </a>
+    </motion.div>,
+    <motion.div className=" justify-end">
+      <a
+        className="flex items-center gap-x-2 "
         target={"_blank"}
         referrerPolicy={"no-referrer"}
         href={"https://www.linkedin.com/in/derin-owoade-089685172/"}
@@ -99,11 +101,12 @@ export default function Footer() {
         <Image
           width={30}
           height={30}
+          className={""}
           alt={"linkwdin link illustration"}
           src={footerLinkdn.src}
         ></Image>
-      </Link>
-    </div>,
+      </a>
+    </motion.div>,
   ];
 
   return (
@@ -164,6 +167,8 @@ export default function Footer() {
                   email
                 </Link>
                 <Link
+                  target={"_blank"}
+                  referrerPolicy={"no-referrer"}
                   className="flex items-center gap-x-2 mb-4"
                   href="https://github.com/derin-art"
                 >
@@ -227,10 +232,10 @@ export default function Footer() {
       </div>
       {/* Laptop section for Footer */}
       <div className="h-full w-full hidden lg:flex bg-black items-center justify-center relative overflow-hidden">
-        <div className="text-white text-[14px] top-[10%] absolute uppercase">
+        <div className="text-white text-[14px] top-[10%] absolute uppercase h-fit">
           Get in touch with the people behind this project{" "}
         </div>
-        <motion.div className="flex text-white text-[16px] absolute top-[30%] z-10">
+        <motion.div className="flex text-white text-[16px] absolute top-[30%] z-20">
           <motion.div className="w-[200px] overflow-hidden">
             {bunmiInfo.map((item, index) => {
               return (
@@ -239,26 +244,30 @@ export default function Footer() {
                   initial={{ x: "90%" }}
                   transition={{ duration: 0.7 }}
                   key={index}
+                  className={"z-20"}
                 >
                   {item}
                 </motion.div>
               );
             })}
           </motion.div>
-          <motion.div className="w-[200px] overflow-hidden border-l text-right">
+          <div className="  border-l text-right ">
             {derinInfo.map((item, index) => {
               return (
-                <motion.div
-                  whileInView={{ x: "0%" }}
-                  initial={{ x: "-90%" }}
-                  transition={{ duration: 0.7 }}
-                  key={index}
-                >
-                  {item}
+                <motion.div key={index} className="overflow-hidden w-[200px]">
+                  <motion.span
+                    whileInView={{ x: "0%" }}
+                    initial={{ x: "-90%" }}
+                    transition={{ duration: 0.7 }}
+                    key={index}
+                    className={"z-20 flex  justify-end"}
+                  >
+                    {item}
+                  </motion.span>
                 </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </motion.div>
         <Image
           src={purpleTextLogo.src}
