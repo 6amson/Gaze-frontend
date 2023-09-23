@@ -95,61 +95,75 @@ export default function Footer() {
     <div className="h-screen w-full bg-black lg:bg-white overflow-hidden relative font-raleWay">
       {/* Mobile section for Footer */}
       <div className="w-full h-full lg:hidden">
-        <div className="text-white text-[1.5rem] pt-[56px] pl-[23px] leading-tight">
-          <div>GET IN TOUCH WITH THE PEOPLE BEHIND THIS PROJECT. </div>
-          <div className="text-[1rem] mt-[43px]">
-            Send it to;
-            <div>
-              <button>{info.bunmi.email}</button>
-            </div>
-            <div>
-              <button>{info.derin.email}</button>
-            </div>
+        <div className="text-white text-[1.5rem] pt-[56px]  leading-tight">
+          <div className="px-[15px] text-center">
+            GET IN TOUCH WITH THE PEOPLE BEHIND THIS PROJECT.{" "}
           </div>
-
-          <div className="text-[1rem] mt-[18px]">
-            Connect at;
-            <div>
-              Bunmi (
-              <a
-                className="text-spacePurple"
-                target="_blank"
-                referrerPolicy="no-referrer"
-                href="#"
-              >
-                Twitter
-              </a>
-              ,{" "}
-              <a
-                target="_blank"
-                className="text-spacePurple"
-                referrerPolicy="no-referrer"
-                href="#"
-              >
-                Linkedin
-              </a>
-              )
+          <div className="text-[1rem] mt-[43px] flex justify-between px-[15px]">
+            <div className="w-1/2  flex flex-col items-center border-r">
+              <div>
+                {" "}
+                <div className="text-[24px] mb-2 ">Bumni</div>
+                <Link
+                  className="flex items-center gap-x-2 mb-4"
+                  href="mailto:bunmigrey@icloud.com;"
+                >
+                  <Image
+                    width={24}
+                    height={24}
+                    alt={"email link illustration"}
+                    src={footerMail.src}
+                  ></Image>
+                  email
+                </Link>
+                <Link
+                  target={"_blank"}
+                  referrerPolicy={"no-referrer"}
+                  className="flex items-center gap-x-2 mb-4"
+                  href={"https://www.linkedin.com/in/damilola-olusinde/"}
+                >
+                  <Image
+                    width={24}
+                    height={24}
+                    alt={"linkwdin link illustration"}
+                    src={footerLinkdn.src}
+                  ></Image>
+                  linkedin
+                </Link>
+              </div>
             </div>
-            <div>
-              Derin (
-              <a
-                className="text-spacePurple"
-                target="_blank"
-                referrerPolicy="no-referrer"
-                href="#"
-              >
-                Twitter
-              </a>
-              ,{" "}
-              <a
-                target="_blank"
-                className="text-spacePurple"
-                referrerPolicy="no-referrer"
-                href="#"
-              >
-                Linkedin
-              </a>
-              )
+            <div className="w-1/2 flex flex-col items-center">
+              <div>
+                <div className="text-[24px] mb-2">Derin</div>
+                <Link
+                  className="flex items-center gap-x-2 mb-4"
+                  href="mailto:owoadederin6@gmail.com;"
+                >
+                  {" "}
+                  <Image
+                    width={24}
+                    height={24}
+                    alt={"email link illustration"}
+                    src={footerMail.src}
+                  ></Image>
+                  email
+                </Link>
+                <Link
+                  className="flex items-center gap-x-2 mb-4"
+                  target={"_blank"}
+                  referrerPolicy={"no-referrer"}
+                  href={"https://www.linkedin.com/in/derin-owoade-089685172/"}
+                >
+                  {" "}
+                  <Image
+                    width={24}
+                    height={24}
+                    alt={"linkwdin link illustration"}
+                    src={footerLinkdn.src}
+                  ></Image>
+                  linkedin
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -186,7 +200,7 @@ export default function Footer() {
       </div>
       {/* Laptop section for Footer */}
       <div className="h-full w-full hidden lg:flex bg-black items-center justify-center relative overflow-hidden">
-        <div className="text-white text-[14px] top-[10%] absolute">
+        <div className="text-white text-[14px] top-[10%] absolute uppercase">
           Get in touch with the people behind this project{" "}
         </div>
         <motion.div className="flex text-white text-[16px] absolute top-[30%] z-10">
@@ -226,13 +240,15 @@ export default function Footer() {
           className="absolute bottom-[5%] z-30 w-[10vw]"
           alt="logo"
         ></Image>
-        <Image
+        <motion.img
           src={footerEarth.src}
           width={400}
           height={500}
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           alt={"earth illustration"}
           className={"bottom-[-35vw] absolute w-[60vw] z-20"}
-        ></Image>
+        ></motion.img>
         <Image
           src={footerJup.src}
           width={100}
