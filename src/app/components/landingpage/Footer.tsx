@@ -5,8 +5,18 @@ import footerSaturnMobile from "../../../../public/svgs/landing-page/footer-satu
 import footerEarthMobile from "../../../../public/svgs/landing-page/footer-earth-mobile.svg";
 import footerPlanetsLp from "../../../../public/svgs/landing-page/footer-planets-lp3.svg";
 import purpleTextLogo from "../../../../public/svgs/globals/purple-text-logo.svg";
+import footerEarth from "../../../../public/svgs/landing-page/footer/footer-earth.svg";
+import footerJup from "../../../../public/svgs/landing-page/footer/footer-jup.svg";
+import footerSat from "../../../../public/svgs/landing-page/footer/footer-sat.svg";
+import footerMoon from "../../../../public/svgs/landing-page/footer/footer-moon.svg";
+import footerStar from "../../../../public/svgs/landing-page/footer/footer-stars.svg";
+import footerMail from "../../../../public/svgs/landing-page/footer/footer-email.svg";
+import footerLinkdn from "../../../../public/svgs/landing-page/footer/footer-linkdn.svg";
+import stars from "../../../../public/svgs/globals/404-stars.svg";
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Footer() {
   const [info, setInfo] = useState({
@@ -16,12 +26,77 @@ export default function Footer() {
     derin: { email: "owoadederin6@gmail.com" },
   });
 
+  const bunmiInfo = [
+    <div className="text-[32px]">Bumni</div>,
+    <Link
+      className="flex items-center gap-x-2"
+      href="mailto:bunmigrey@icloud.com;"
+    >
+      <Image
+        width={30}
+        height={30}
+        alt={"email link illustration"}
+        src={footerMail.src}
+      ></Image>
+      email
+    </Link>,
+    <div className="flex">
+      <Link
+        target={"_blank"}
+        referrerPolicy={"no-referrer"}
+        className="flex items-center gap-x-2"
+        href={"https://www.linkedin.com/in/damilola-olusinde/"}
+      >
+        <Image
+          width={30}
+          height={30}
+          alt={"linkwdin link illustration"}
+          src={footerLinkdn.src}
+        ></Image>
+        linkedin
+      </Link>
+    </div>,
+  ];
+  const derinInfo = [
+    <div className="text-[32px]">Derin</div>,
+    <div className="flex justify-end">
+      <Link
+        className="flex items-center gap-x-2"
+        href="mailto:owoadederin6@gmail.com;"
+      >
+        email
+        <Image
+          width={30}
+          height={30}
+          alt={"email link illustration"}
+          src={footerMail.src}
+        ></Image>
+      </Link>
+    </div>,
+    <div className="flex justify-end">
+      <Link
+        className="flex items-center gap-x-2"
+        target={"_blank"}
+        referrerPolicy={"no-referrer"}
+        href={"https://www.linkedin.com/in/derin-owoade-089685172/"}
+      >
+        linkedin
+        <Image
+          width={30}
+          height={30}
+          alt={"linkwdin link illustration"}
+          src={footerLinkdn.src}
+        ></Image>
+      </Link>
+    </div>,
+  ];
+
   return (
     <div className="h-screen w-full bg-black lg:bg-white overflow-hidden relative font-raleWay">
       {/* Mobile section for Footer */}
       <div className="w-full h-full lg:hidden">
         <div className="text-white text-[1.5rem] pt-[56px] pl-[23px] leading-tight">
-          <div>GET IN TOUCH WITH THE PEOPLE BEHIND THIS PROJECT.</div>
+          <div>GET IN TOUCH WITH THE PEOPLE BEHIND THIS PROJECT. </div>
           <div className="text-[1rem] mt-[43px]">
             Send it to;
             <div>
@@ -110,7 +185,85 @@ export default function Footer() {
         </div>
       </div>
       {/* Laptop section for Footer */}
-      <div className="h-full w-full hidden lg:block">
+      <div className="h-full w-full hidden lg:flex bg-black items-center justify-center relative overflow-hidden">
+        <div className="text-white text-[14px] top-[10%] absolute">
+          Get in touch with the people behind this project{" "}
+        </div>
+        <motion.div className="flex text-white text-[16px] absolute top-[30%] z-10">
+          <motion.div className="w-[200px] overflow-hidden">
+            {bunmiInfo.map((item, index) => {
+              return (
+                <motion.div
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "90%" }}
+                  transition={{ duration: 0.7 }}
+                  key={index}
+                >
+                  {item}
+                </motion.div>
+              );
+            })}
+          </motion.div>
+          <motion.div className="w-[200px] overflow-hidden border-l text-right">
+            {derinInfo.map((item, index) => {
+              return (
+                <motion.div
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "-90%" }}
+                  transition={{ duration: 0.7 }}
+                  key={index}
+                >
+                  {item}
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </motion.div>
+        <Image
+          src={purpleTextLogo.src}
+          width={220}
+          height={300}
+          className="absolute bottom-[5%] z-30 w-[10vw]"
+          alt="logo"
+        ></Image>
+        <Image
+          src={footerEarth.src}
+          width={400}
+          height={500}
+          alt={"earth illustration"}
+          className={"bottom-[-35vw] absolute w-[60vw] z-20"}
+        ></Image>
+        <Image
+          src={footerJup.src}
+          width={100}
+          height={500}
+          alt={"earth illustration"}
+          className={"left-[10%] top-[10%] absolute w-[7vw]  z-20"}
+        ></Image>
+        <Image
+          src={footerStar.src}
+          alt="stars"
+          width={200}
+          height={200}
+          className={"absolute w-full z-0 hidden sm:block"}
+        ></Image>
+        <Image
+          src={footerSat.src}
+          alt="saturn illustration"
+          width={70}
+          height={200}
+          className={"absolute right-[15%] top-[20%] z-20 w-[4.5vw]"}
+        ></Image>
+        {/*     <Image
+          src={footerMoon.src}
+          alt="moon illustration"
+          width={120}
+          height={200}
+          className={"absolute right-[35%] top-[12%] z-20"}
+        ></Image> */}
+      </div>
+
+      {/*   <div className="h-full w-full hidden lg:block">
         <div className="w-full h-1/2 bg-black relative overflow-hidden">
           <Image
             src={footerPlanetsLp.src}
@@ -196,7 +349,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

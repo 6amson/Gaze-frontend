@@ -12,9 +12,21 @@ export default function FAQContainer() {
 
       answer: (
         <div>
-          Click on the Faq button or for mobile, open the drop down menu and
-          then click on the faq button to be directed to the How to get Started
+          Click on the Faq button or for mobile, open the drop-down menu and
+          then click on the FAQ button to be directed to the How to get started
           Section.
+        </div>
+      ),
+    },
+    {
+      question: "What devices does Gaze surport?",
+      isOpen: false,
+
+      answer: (
+        <div>
+          {" "}
+          Gaze works on laptops and Android devices. Support for ios will be
+          introduced soon.
         </div>
       ),
     },
@@ -24,8 +36,9 @@ export default function FAQContainer() {
       answer: (
         <div>
           {" "}
-          Sign up for a Gaze account, subscribe to notifications with a contract
-          address. Check the notification segment on the dashboard.
+          When you sign up for Gaze and subscribe you will receive your
+          notifications to the device you used to subscribe. your notifications
+          can also be accessed on the dashboard when you log in.
         </div>
       ),
     },
@@ -44,17 +57,7 @@ export default function FAQContainer() {
         </div>
       ),
     },
-    {
-      question: "What devices does Gaze support?",
-      isOpen: false,
-      answer: (
-        <div>
-          {" "}
-          Gaze works on laptps and android devices. Support for ios will be
-          introduced soon.
-        </div>
-      ),
-    },
+
     {
       question: "What is Gaze about?",
       isOpen: false,
@@ -62,7 +65,7 @@ export default function FAQContainer() {
         <div>
           {" "}
           Gaze is a push notification service for NFT enthusiasts. It notifies
-          you of new mints and transfers for a ft collection.
+          you of new mints and transfers for your preferred NFT collection.
         </div>
       ),
     },

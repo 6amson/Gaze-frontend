@@ -15,7 +15,7 @@ export default function FAQItem(props: FAQItemProps) {
     <div className="text-[0.8rem] sm:text-[1rem] sm:w-full items-center relative rounded-[10px] w-[80vw] font-raleWay flex gap-x-[10px] px-[25px] py-[17px] border-2 border-black">
       <div className="leading-tight pr-[20px]">
         {props.question}
-        <div className={`${props.isOpen ? "" : "hidden"}`}>
+        <div className={`${props.isOpen ? "" : "hidden"} font-bold`}>
           answer: {props.answer}
         </div>
       </div>

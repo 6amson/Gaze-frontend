@@ -143,7 +143,7 @@ export default function HowToGetStartedNew() {
     },
     {
       heading: "Click on any collection and check the chain",
-      text: "Click on any collection. When the page navigates to the collection page, check if the collection is ethereum based. It should be indicated on the page",
+      text: "Click on any collection. When the page navigates to the collection page, check if the collection is Ethereum-based. It should be indicated on the page",
       displaySection: (
         <>
           <Image
@@ -199,7 +199,7 @@ export default function HowToGetStartedNew() {
     },
     {
       heading: "Navigate to the Etherscan page of the collection",
-      text: "Click on the indicated icon to navigate to the etherscan page of the collection",
+      text: "Click on the indicated icon to navigate to the Etherscan page of the collection",
       displaySection: (
         <div className="relative w-full h-full ">
           <Image
@@ -281,7 +281,7 @@ export default function HowToGetStartedNew() {
     },
     {
       heading: "Copy the contract address from the etherscan page",
-      text: "Copy the contract address from the etherscan page of the collection. ",
+      text: "Copy the contract address from the Etherscan page. ",
       displaySection: (
         <>
           <Image

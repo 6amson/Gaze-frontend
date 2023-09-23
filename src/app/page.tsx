@@ -9,6 +9,13 @@ import { useEffect } from "react";
 import HowToGetStartedNew from "./components/landingpage/HowToGetStartedNew/HowToGetStartedNew";
 
 export default function Index() {
+  const lenis = new Lenis();
+  function raf(time: any) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
   return (
     <div className=" h-fit    text-4xl">
       <Hero></Hero>
