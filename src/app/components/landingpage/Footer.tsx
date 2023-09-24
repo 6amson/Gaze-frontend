@@ -28,24 +28,26 @@ export default function Footer() {
   });
 
   const bunmiInfo = [
-    <div className="text-[32px]">Bumni</div>,
-    <Link
-      className="flex items-center gap-x-2"
-      href="mailto:bunmigrey@icloud.com;"
-    >
-      <Image
-        width={30}
-        height={30}
-        alt={"email link illustration"}
-        src={footerMail.src}
-      ></Image>
-      email
-    </Link>,
-    <div className="flex">
+    <div className="text-[32px] w-full">Bunmi</div>,
+    <div className="w-full ">
+      <Link
+        className="flex items-center gap-x-2"
+        href="mailto:bunmigrey@icloud.com;"
+      >
+        <Image
+          width={30}
+          height={30}
+          alt={"email link illustration"}
+          src={footerMail.src}
+        ></Image>
+        email
+      </Link>
+    </div>,
+    <div className="w-full">
       <Link
         target={"_blank"}
         referrerPolicy={"no-referrer"}
-        className="flex items-center gap-x-2"
+        className="flex items-center gap-x-2 "
         href={"https://github.com/6amson"}
       >
         <Image
@@ -60,9 +62,9 @@ export default function Footer() {
   ];
   const derinInfo = [
     <div className="text-[32px]">Derin</div>,
-    <motion.div className="justify-end">
+    <motion.div className="w-full ">
       <a
-        className="flex items-center gap-x-2"
+        className="flex items-center gap-x-2 justify-end"
         href="mailto:owoadederin6@gmail.com;"
       >
         email
@@ -74,11 +76,11 @@ export default function Footer() {
         ></Image>
       </a>
     </motion.div>,
-    <motion.div className="justify-end">
+    <motion.div className="w-full">
       <a
         target={"_blank"}
         referrerPolicy={"no-referrer"}
-        className="flex items-center gap-x-2"
+        className="flex items-center gap-x-2 justify-end"
         href="https://github.com/derin-art"
       >
         github
@@ -90,9 +92,9 @@ export default function Footer() {
         ></Image>
       </a>
     </motion.div>,
-    <motion.div className=" justify-end">
+    <motion.div className=" w-full">
       <a
-        className="flex items-center gap-x-2 "
+        className="flex items-center gap-x-2 justify-end "
         target={"_blank"}
         referrerPolicy={"no-referrer"}
         href={"https://www.linkedin.com/in/derin-owoade-089685172/"}
@@ -107,6 +109,26 @@ export default function Footer() {
         ></Image>
       </a>
     </motion.div>,
+  ];
+
+  const derinLinks = [
+    {
+      link: "mailto:owoadederin6@gmail.com;",
+      name: "Derin",
+      icon: footerMail,
+      notLink: true,
+    },
+    { link: "mailto:owoadederin6@gmail.com;", name: "email", icon: footerMail },
+    {
+      link: "https://github.com/derin-art",
+      name: "github",
+      icon: footerGithub,
+    },
+    {
+      link: "https://www.linkedin.com/in/derin-owoade-089685172/",
+      name: " linkedin",
+      icon: footerLinkdn,
+    },
   ];
 
   return (
@@ -235,8 +257,8 @@ export default function Footer() {
         <div className="text-white text-[14px] top-[10%] absolute uppercase h-fit">
           Get in touch with the people behind this project{" "}
         </div>
-        <motion.div className="flex text-white text-[16px] absolute top-[30%] z-20">
-          <motion.div className="w-[200px] overflow-hidden">
+        <motion.div className="flex text-white text-[16px] absolute top-[30%] z-20 w-fit">
+          <motion.div className="w-[200px] ">
             {bunmiInfo.map((item, index) => {
               return (
                 <motion.div
@@ -244,27 +266,27 @@ export default function Footer() {
                   initial={{ x: "90%" }}
                   transition={{ duration: 0.7 }}
                   key={index}
-                  className={"z-20"}
+                  className={"z-20 flex justify-end w-full"}
                 >
                   {item}
                 </motion.div>
               );
             })}
           </motion.div>
-          <div className="  border-l text-right ">
+          <div className="  border-l text-right overflow-hidden w-[200px] flex flex-col">
             {derinInfo.map((item, index) => {
               return (
-                <motion.div key={index} className="overflow-hidden w-[200px]">
+                <motion.button key={index} className="w-full">
                   <motion.span
                     whileInView={{ x: "0%" }}
                     initial={{ x: "-90%" }}
                     transition={{ duration: 0.7 }}
                     key={index}
-                    className={"z-20 flex  justify-end"}
+                    className={"z-20 flex  justify-end w-full"}
                   >
                     {item}
                   </motion.span>
-                </motion.div>
+                </motion.button>
               );
             })}
           </div>
