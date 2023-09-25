@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { SetStateAction, useContext } from "react";
 import React from "react";
+import { RevolvingDot } from "react-loader-spinner";
+
 import gazeIcon from "../../public/svgs/landing-page/loading/gaze-icon.svg";
 import {
   UserPageContext,
@@ -103,6 +105,17 @@ export default function LoadingPage(props: LoadingPageProps) {
         </clipPath>
       </svg>
 
+      <RevolvingDot
+        radius={20}
+        strokeWidth={2}
+        color="white"
+        secondaryColor=""
+        ariaLabel="revolving-dot-loading"
+        wrapperStyle={{}}
+        wrapperClass="absolute sm:hidden"
+        visible={true}
+      />
+
       <motion.div
         initial={{ opacity: 1 }}
         animate={{ scale: 1 }}
@@ -112,7 +125,7 @@ export default function LoadingPage(props: LoadingPageProps) {
         }}
         onAnimationComplete={() => props.setLoading(false)}
         layoutId={"main-image"}
-        className="relative"
+        className="relative sm:block hidden"
       >
         <div className="w-[30px] h-[30px] bg-white sm:bg-black rounded-full absolute top-6 right-6"></div>
         <div className="clipped-two relative ">
