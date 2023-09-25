@@ -31,9 +31,9 @@ export default function Index() {
       >
         do something
       </button>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {loading ? (
-          <LoadingPage></LoadingPage>
+          <LoadingPage key={"loader"} setLoading={setLoading}></LoadingPage>
         ) : (
           <>
             {" "}

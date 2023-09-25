@@ -7,7 +7,7 @@ import heroStarsLp from "../../../../public/svgs/landing-page/hero-stars-lp.svg"
 import whiteTextIconLogo from "../../../../public/svgs/globals/white-text-icon-logo.svg";
 import whiteTextLogo from "../../../../public/svgs/globals/white-text-logo.svg";
 import blackTextLogo from "../../../../public/svgs/globals/black-text-logo.svg";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import heroMainMobile from "../../../../public/svgs/landing-page/hero-main-mobile2.png";
 import heroMainMobile2 from "../../../../public/svgs/landing-page/hero-main-mobile.svg";
 import heroMonitor from "../../../../public/svgs/landing-page/hero-monitor.svg";
@@ -67,125 +67,127 @@ export default function Hero(props: HeroProps) {
   };
 
   return (
-    <motion.div
-      layoutId="main-image"
-      className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black "
-    >
-      <Marquee
-        autoFill={true}
-        delay={0}
-        speed={100}
-        className="absolute z-0 relative overflow-hidden  min-w-full text-white text-6xl  h-full "
+    <motion.div className="bg-black">
+      <motion.div
+        transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 1.6 }}
+        layoutId="main-image"
+        className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black "
       >
-        <Image
-          width={"100"}
-          height={"100"}
-          className={"w-screen   sm:block hidden "}
-          alt={"green stars "}
-          src={heroStarsLp.src}
-        ></Image>
-      </Marquee>
-      <motion.img
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, bounce: 3, mass: 1, type: "spring" }}
-        width={400}
-        alt={"falling nft coins"}
-        src={heroMainMobile.src}
-        className="pt-[60px] p-2 sm:hidden absolute "
-      ></motion.img>
-
-      <motion.img
-        animate={{
-          y: [-8, 10],
-          x: [-10, 10],
-          rotate: 4,
-
-          transition: {
-            delay: 0,
-            duration: 2,
-            repeat: Infinity,
-            // repeatDelay: 0.2,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          },
-        }}
-        src={spaceMan.src}
-        width={"700"}
-        className={
-          "w-[16vw]  2xl:w-[15vw] sm:block hidden absolute top-[180px] mr-[27vw]"
-        }
-        height={"400"}
-        alt={"man floating in space"}
-      ></motion.img>
-      <motion.img
-        animate={{
-          y: [-15, 12],
-          x: [-5, 8],
-          rotate: 6,
-          transition: {
-            delay: 0.2,
-            duration: 3,
-            repeat: Infinity,
-            // repeatDelay: 0.2,
-            repeatType: "reverse",
-          },
-        }}
-        src={heroMonitor.src}
-        width={"700"}
-        className={
-          "w-[22vw]  2xl:w-[22vw] sm:block hidden absolute top-[130px] ml-[27vw]"
-        }
-        height={"400"}
-        alt={"man floating in space"}
-      ></motion.img>
-
-      {/* Laptop Section */}
-      <div className="absolute bottom-[10%] text-center hidden sm:block">
-        <div className="uppercase leading-tight text-white font-black 2xl:text-[4.3rem] xl:text-[4rem] lg:text-[3.3rem] text-center ">
-          Track your favorite <span className="text-spacePurple">NFT</span>
-          <div>Collection</div>
-        </div>
-        <button
-          onClick={handleAuth}
-          disabled={isLoadin ? true : false}
-          className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.8rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
+        <Marquee
+          autoFill={true}
+          delay={0}
+          speed={100}
+          className="absolute z-0 relative overflow-hidden  min-w-full text-white text-6xl  h-full "
         >
-          Get Started
-        </button>
-      </div>
-      {/* Mobile Section */}
-      <div className="absolute bottom-[10%] text-center sm:hidden">
-        <button
-          onClick={handleAuth}
-          disabled={isLoadin ? true : false}
-          className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black"
-        >
-          get started
-        </button>
-        <div className="text-[1rem] font-bold mb-[11px] uppercase leading-tight">
-          Track your favorite NFT
-          <span className="block"> Collection with</span>
+          <Image
+            width={"100"}
+            height={"100"}
+            className={"w-screen   sm:block hidden "}
+            alt={"green stars "}
+            src={heroStarsLp.src}
+          ></Image>
+        </Marquee>
+        <motion.img
+          initial={{ y: -60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, bounce: 3, mass: 1, type: "spring" }}
+          width={400}
+          alt={"falling nft coins"}
+          src={heroMainMobile.src}
+          className="pt-[60px] p-2 sm:hidden absolute "
+        ></motion.img>
+
+        <motion.img
+          animate={{
+            y: [-8, 10],
+            x: [-10, 10],
+            rotate: 4,
+
+            transition: {
+              delay: 0,
+              duration: 2,
+              repeat: Infinity,
+              // repeatDelay: 0.2,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            },
+          }}
+          src={spaceMan.src}
+          width={"700"}
+          className={
+            "w-[16vw]  2xl:w-[15vw] sm:block hidden absolute top-[180px] mr-[27vw]"
+          }
+          height={"400"}
+          alt={"man floating in space"}
+        ></motion.img>
+        <motion.img
+          animate={{
+            y: [-15, 12],
+            x: [-5, 8],
+            rotate: 6,
+            transition: {
+              delay: 0.2,
+              duration: 3,
+              repeat: Infinity,
+              // repeatDelay: 0.2,
+              repeatType: "reverse",
+            },
+          }}
+          src={heroMonitor.src}
+          width={"700"}
+          className={
+            "w-[22vw]  2xl:w-[22vw] sm:block hidden absolute top-[130px] ml-[27vw]"
+          }
+          height={"400"}
+          alt={"man floating in space"}
+        ></motion.img>
+        {/* Laptop Section */}
+        <div className="absolute bottom-[10%] text-center hidden sm:block">
+          <div className="uppercase leading-tight text-white font-black 2xl:text-[4.3rem] xl:text-[4rem] lg:text-[3.3rem] text-center ">
+            Track your favorite <span className="text-spacePurple">NFT</span>
+            <div>Collection</div>
+          </div>
+          <button
+            onClick={handleAuth}
+            disabled={isLoadin ? true : false}
+            className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.8rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
+          >
+            Get Started
+          </button>
         </div>
-        <Image
-          alt="gaze logo"
-          width={300}
-          height={100}
-          src={blackTextLogo.src}
-        ></Image>
-        <div className="w-full relative flex items-center justify-center mt-2">
-          <RevolvingDot
-            radius={20}
-            strokeWidth={2}
-            color="#A157FF "
-            secondaryColor=""
-            ariaLabel="revolving-dot-loading"
-            wrapperStyle={{}}
-            wrapperClass="absolute mt-[50px]"
-            visible={isLoadin}
-          />
+        {/* Mobile Section */}
+        <div className="absolute bottom-[10%] text-center sm:hidden">
+          <button
+            onClick={handleAuth}
+            disabled={isLoadin ? true : false}
+            className="uppercase mb-[28px] bg-neonGreen text-[1rem] p-[0.6rem] leading-none font-bold text-black rounded-[10px] border-2 border-black"
+          >
+            get started
+          </button>
+          <div className="text-[1rem] font-bold mb-[11px] uppercase leading-tight">
+            Track your favorite NFT
+            <span className="block"> Collection with</span>
+          </div>
+          <Image
+            alt="gaze logo"
+            width={300}
+            height={100}
+            src={blackTextLogo.src}
+          ></Image>
+          <div className="w-full relative flex items-center justify-center mt-2">
+            <RevolvingDot
+              radius={20}
+              strokeWidth={2}
+              color="#A157FF "
+              secondaryColor=""
+              ariaLabel="revolving-dot-loading"
+              wrapperStyle={{}}
+              wrapperClass="absolute mt-[50px]"
+              visible={isLoadin}
+            />
+          </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
