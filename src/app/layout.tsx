@@ -21,8 +21,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  /*  const path = usePathname(); */
-
   return (
     <html lang="en">
       <Suspense>
@@ -38,5 +36,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// className={`${openSans.variable}  relative mx-auto  `}
