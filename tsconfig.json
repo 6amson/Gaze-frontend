@@ -27,3 +27,4 @@
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/loader.jsx", "src/app/components/globals/Header.js"],
   "exclude": ["node_modules"]
 }
+
