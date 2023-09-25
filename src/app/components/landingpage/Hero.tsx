@@ -20,7 +20,11 @@ import Header from "../globals/Header";
 import { useContext, useState } from "react";
 import { RevolvingDot } from "react-loader-spinner";
 
-export default function Hero() {
+interface HeroProps {
+  loading: boolean;
+}
+
+export default function Hero(props: HeroProps) {
   const { loading } = useContext(UserPageContext) as UserPageContextTypes;
   const router = useRouter();
   const [isLoadin, setIsLoading] = useState(false);
@@ -63,7 +67,10 @@ export default function Hero() {
   };
 
   return (
-    <div className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black ">
+    <motion.div
+      layoutId="main-image"
+      className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black "
+    >
       <Marquee
         autoFill={true}
         delay={0}
@@ -179,6 +186,6 @@ export default function Hero() {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

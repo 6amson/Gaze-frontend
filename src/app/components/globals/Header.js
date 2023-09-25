@@ -28,6 +28,10 @@ export default function Header() {
     { name: "FAQ", link: "faq" },
     { name: "Connect with Metamask", isConnect: true },
   ];
+  const mobileheaderButtons = [
+    { name: "Home", link: "/" },
+    { name: "FAQ", link: "faq" },
+  ];
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -117,8 +121,8 @@ export default function Header() {
           !isMobileMenuOpen ? "-top-[100%]" : "top-[100%]"
         }`}
       >
-        {headerButtons.map((item, index) => {
-          if (!item.isConnect) {
+        {mobileheaderButtons.map((item, index) => {
+          if (item.link != "faq") {
             return (
               <button
                 onClick={() => {
@@ -130,7 +134,22 @@ export default function Header() {
                 {item.name}
               </button>
             );
-          }
+          } else
+            return (
+              <NewLink
+                to="faq"
+                duration={500}
+                spy={true}
+                smooth
+                onClick={() => {
+                  scrollTo();
+                }}
+                className="text-[0.7rem] text-white border-t border-gray-800 leading-[0rem] h-[35px] font-raleWay flex items-center justify-center "
+                key={index}
+              >
+                <button>{item.name}</button>
+              </NewLink>
+            );
         })}
       </div>
       <ToastContainer></ToastContainer>

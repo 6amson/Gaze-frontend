@@ -12,9 +12,7 @@ export default function FAQContainer() {
 
       answer: (
         <div>
-          Click on the Faq button or for mobile, open the drop-down menu and
-          then click on the FAQ button to be directed to the How to get started
-          Section.
+          Head to the How the get started section. There is a guide there.
         </div>
       ),
     },

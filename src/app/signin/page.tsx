@@ -79,7 +79,7 @@ export default function Signin() {
       });
       const encodedString = encodeURIComponent(id);
       router.push(`/profile/${encodedString}`);
-      // console.log('here:', res.data);
+      
     } catch (err: any) {
       console.info("this is the error:", err);
 

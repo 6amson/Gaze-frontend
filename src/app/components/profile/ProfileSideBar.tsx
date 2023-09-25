@@ -30,7 +30,7 @@ export default function ProfileSideBar() {
   const pathName = usePathname();
 
   const { id } = useParams();
-  /*   console.log(id, "dfdf"); */
+ 
 
   const sideBarLinks = [
     { name: "SUBSCRIPTIONS", location: `/profile/${id}`, icon: sideBarSubs },
