@@ -24,7 +24,7 @@ export default function Hero() {
   const { loading } = useContext(UserPageContext) as UserPageContextTypes;
   const router = useRouter();
   const [isLoadin, setIsLoading] = useState(false);
-  const url = "https://gazebackend.cyclic.cloud/";
+  const url = "https://previous-doralia-gaze.koyeb.app/";
 
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");

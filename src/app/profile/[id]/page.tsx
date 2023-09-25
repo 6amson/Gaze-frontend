@@ -36,7 +36,6 @@ export default function profileMethods() {
   } = useContext(UserPageContext) as UserPageContextTypes;
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "https://gazebackend.cyclic.cloud/";
 
   return (
     <div className="w-full">

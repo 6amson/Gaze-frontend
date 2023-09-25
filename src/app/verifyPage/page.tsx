@@ -9,7 +9,8 @@ import { useEffect } from "react";
 export default function Page() {
   const router = useRouter();
 
-  const url = "https://gazebackend.cyclic.cloud/";
+  const url = "https://previous-doralia-gaze.koyeb.app/";
+
 
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
