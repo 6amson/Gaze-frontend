@@ -46,8 +46,8 @@ export default function FAQContainer() {
       answer: (
         <div>
           {" "}
-          When you sign up for Gaze and subscribe you will receive
-          notifications oo your device. Your notifications
+          When you subscribe to a NFT contract address, you will receive
+          notifications on your device. Your notifications
           can also be accessed on the dashboard when you log in.
         </div>
       ),
@@ -61,7 +61,7 @@ export default function FAQContainer() {
           There are a few reasons why you may not get notifications:{" "}
           <div>
             i - You subscribed to a contract address that isn't on Ethereum
-            main network like Optimism, Arbitrium.
+            main network like Optimism, Arbitrium etc.
           </div>{" "}
           <div> ii - You rejected the push notification request. </div>
           {" "}

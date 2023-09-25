@@ -22,7 +22,7 @@ import Link from "next/link";
 export default function Footer() {
   const [info, setInfo] = useState({
     bunmi: {
-      email: "bunmi@gmail.com",
+      email: "bunmi@icloud.com",
     },
     derin: { email: "owoadederin6@gmail.com" },
   });
@@ -143,7 +143,7 @@ export default function Footer() {
             <div className="w-1/2  flex flex-col items-center border-r">
               <div>
                 {" "}
-                <div className="text-[24px] mb-2 ">Bumni</div>
+                <div className="text-[24px] mb-2 ">Bunmi</div>
                 <Link
                   className="flex items-center gap-x-2 mb-4"
                   href="mailto:bunmigrey@icloud.com;"
