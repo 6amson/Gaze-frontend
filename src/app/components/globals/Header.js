@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { UserPageContextTypes } from "@/app/components/UserPageContext";
 import UserPageProvider from "@/app/components/UserPageContext";
 import * as Scroll from "react-scroll";
-
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
@@ -19,7 +19,12 @@ export default function Header() {
   const NewLink = Scroll.Link;
   let scroll = Scroll.animateScroll;
   let scrollA = Scroll.scroller;
-  const { connectMetamask, ismetaMaskConnected } = useContext(UserPageContext);
+  const {
+    connectMetamask,
+    ismetaMaskConnected,
+    homePageLoading,
+    setHomePageLoading,
+  } = useContext(UserPageContext);
 
   const pathName = usePathname();
   const router = useRouter();
@@ -45,7 +50,10 @@ export default function Header() {
     });
   }; */
   return (
-    <div
+    <motion.div
+      animate={!homePageLoading && { opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 0.8, delay: 4 }}
       className={`${
         pathName.includes("profile") && "hidden"
       } w-full  z-40 relative bg-black  `}
@@ -153,6 +161,6 @@ export default function Header() {
         })}
       </div>
       <ToastContainer></ToastContainer>
-    </div>
+    </motion.div>
   );
 }

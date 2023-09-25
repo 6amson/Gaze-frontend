@@ -9,8 +9,19 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import LoadingPage from "./loading";
 import HowToGetStartedNew from "./components/landingpage/HowToGetStartedNew/HowToGetStartedNew";
 import { AnimatePresence } from "framer-motion";
+import { useContext } from "react";
+import {
+  UserPageContext,
+  UserPageContextTypes,
+} from "./components/UserPageContext";
 
 export default function Index() {
+  const {
+    connectMetamask,
+    ismetaMaskConnected,
+    homePageLoading,
+    setHomePageLoading,
+  } = useContext(UserPageContext) as UserPageContextTypes;
   const [loading, setLoading] = useState(true);
   useLayoutEffect(() => {
     const lenis = new Lenis();
@@ -23,27 +34,24 @@ export default function Index() {
 
   return (
     <div className=" h-fit    text-4xl">
-      <button
-        onClick={() => {
-          setLoading((prev) => !prev);
-        }}
-        className="absolute bottom-[10px]"
-      >
-        do something
-      </button>
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <LoadingPage key={"loader"} setLoading={setLoading}></LoadingPage>
-        ) : (
-          <>
-            {" "}
-            <Hero loading={loading}></Hero>
-            <HowToGetStartedNew></HowToGetStartedNew>
-            <FAQ></FAQ>
-            <Footer></Footer>
-          </>
-        )}
-      </AnimatePresence>
+      <div>
+        <AnimatePresence mode="wait">
+          {homePageLoading ? (
+            <LoadingPage
+              key={"loader"}
+              setLoading={setHomePageLoading}
+            ></LoadingPage>
+          ) : (
+            <>
+              {" "}
+              <Hero loading={homePageLoading}></Hero>
+              <HowToGetStartedNew></HowToGetStartedNew>
+              <FAQ></FAQ>
+              <Footer></Footer>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ import Link from "next/link";
 export default function Footer() {
   const [info, setInfo] = useState({
     bunmi: {
-      email: "bunmi@gmail.com",
+      email: "bunmi@icloud.com",
     },
     derin: { email: "owoadederin6@gmail.com" },
   });

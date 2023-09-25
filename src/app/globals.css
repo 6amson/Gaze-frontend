@@ -24,3 +24,39 @@ a {
   font-family: raleway;
   src: url("../../public/fonts/Raleway/Raleway-VariableFont_wght.ttf");
 }
+
+.svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.clipped {
+  width: 370px;
+  height: 350px;
+  background: turquoise url(https://source.unsplash.com/600x600?summer);
+  background-size: cover;
+  -webkit-clip-path: url(#my-clip-path);
+  clip-path: url(#my-clip-path);
+}
+.clipped-two {
+  width: 215px;
+  height: 200px;
+
+  background-size: cover;
+  -webkit-clip-path: url(#my-clip-path);
+  clip-path: url(#my-clip-path);
+}
+
+.svgTwo {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.clippedTwo {
+  width: 100px;
+  height: 100px;
+  background: turquoise url(https://source.unsplash.com/600x600?summer);
+  background-size: cover;
+  -webkit-clip-path: url(#my-clip-path);
+  clip-path: url(#my-clip-path);
+}

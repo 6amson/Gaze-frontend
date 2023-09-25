@@ -69,8 +69,9 @@ export default function Hero(props: HeroProps) {
   return (
     <motion.div className="bg-black">
       <motion.div
-        transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 1.6 }}
-        layoutId="main-image"
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
         className="h-screen w-full  overflow-hidden flex flex-col items-center font-raleWay relative  bg-white sm:bg-black "
       >
         <Marquee
@@ -79,13 +80,20 @@ export default function Hero(props: HeroProps) {
           speed={100}
           className="absolute z-0 relative overflow-hidden  min-w-full text-white text-6xl  h-full "
         >
-          <Image
+          <motion.img
+            animate={{ scale: 1 }}
+            initial={{ scale: 0.2 }}
+            transition={{
+              ease: [0.6, 0.01, 0.05, 0.95],
+              duration: 1.6,
+              delay: 0.3,
+            }}
             width={"100"}
             height={"100"}
             className={"w-screen   sm:block hidden "}
             alt={"green stars "}
             src={heroStarsLp.src}
-          ></Image>
+          ></motion.img>
         </Marquee>
         <motion.img
           initial={{ y: -60, opacity: 0 }}
@@ -97,63 +105,97 @@ export default function Hero(props: HeroProps) {
           className="pt-[60px] p-2 sm:hidden absolute "
         ></motion.img>
 
-        <motion.img
-          animate={{
-            y: [-8, 10],
-            x: [-10, 10],
-            rotate: 4,
+        <motion.div
+          animate={{ scale: 1, opacity: 1 }}
+          initial={{ scale: 0.2 }}
+          transition={{
+            ease: [0.6, 0.01, 0.05, 0.95],
+            duration: 1,
+            delay: 0.6,
+          }}
+          className="sm:block hidden absolute top-[180px] mr-[27vw]"
+        >
+          <motion.img
+            animate={{
+              y: [-8, 10],
+              x: [-10, 10],
+              rotate: 4,
 
-            transition: {
-              delay: 0,
-              duration: 2,
-              repeat: Infinity,
-              // repeatDelay: 0.2,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            },
+              transition: {
+                delay: 0,
+                duration: 2,
+                repeat: Infinity,
+                // repeatDelay: 0.2,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              },
+            }}
+            src={spaceMan.src}
+            width={"700"}
+            className={"w-[16vw]  2xl:w-[15vw] "}
+            height={"400"}
+            alt={"man floating in space"}
+          ></motion.img>
+        </motion.div>
+        <motion.div
+          animate={{ scale: 1, opacity: 1 }}
+          initial={{ scale: 0.2 }}
+          transition={{
+            ease: [0.6, 0.01, 0.05, 0.95],
+            duration: 1,
+            delay: 0.6,
           }}
-          src={spaceMan.src}
-          width={"700"}
-          className={
-            "w-[16vw]  2xl:w-[15vw] sm:block hidden absolute top-[180px] mr-[27vw]"
-          }
-          height={"400"}
-          alt={"man floating in space"}
-        ></motion.img>
-        <motion.img
-          animate={{
-            y: [-15, 12],
-            x: [-5, 8],
-            rotate: 6,
-            transition: {
-              delay: 0.2,
-              duration: 3,
-              repeat: Infinity,
-              // repeatDelay: 0.2,
-              repeatType: "reverse",
-            },
-          }}
-          src={heroMonitor.src}
-          width={"700"}
-          className={
-            "w-[22vw]  2xl:w-[22vw] sm:block hidden absolute top-[130px] ml-[27vw]"
-          }
-          height={"400"}
-          alt={"man floating in space"}
-        ></motion.img>
+          className="sm:block hidden absolute top-[130px] ml-[27vw]"
+        >
+          <motion.img
+            animate={{
+              y: [-15, 12],
+              x: [-5, 8],
+              rotate: 6,
+              transition: {
+                delay: 0.2,
+                duration: 3,
+                repeat: Infinity,
+                // repeatDelay: 0.2,
+                repeatType: "reverse",
+              },
+            }}
+            src={heroMonitor.src}
+            width={"700"}
+            className={"w-[22vw]  2xl:w-[22vw] "}
+            height={"400"}
+            alt={"man floating in space"}
+          ></motion.img>
+        </motion.div>
         {/* Laptop Section */}
         <div className="absolute bottom-[10%] text-center hidden sm:block">
-          <div className="uppercase leading-tight text-white font-black 2xl:text-[4.3rem] xl:text-[4rem] lg:text-[3.3rem] text-center ">
+          <motion.div
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{
+              ease: [0.6, 0.01, 0.05, 0.95],
+              duration: 1,
+              delay: 1.3,
+            }}
+            className="uppercase leading-tight text-white font-black 2xl:text-[4.3rem] xl:text-[4rem] lg:text-[3.3rem] text-center "
+          >
             Track your favorite <span className="text-spacePurple">NFT</span>
             <div>Collection</div>
-          </div>
-          <button
+          </motion.div>
+          <motion.button
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{
+              ease: [0.6, 0.01, 0.05, 0.95],
+              duration: 1,
+              delay: 1.3,
+            }}
             onClick={handleAuth}
             disabled={isLoadin ? true : false}
             className="bg-neonGreen uppercase mt-[1rem] 2xl:text-[1rem] xl:text-[0.8rem] lg:text-[0.8rem] text-[0.6rem] p-[0.8rem] xl:p-[1rem] font-bold leading-none  text-black rounded-[10px]"
           >
             Get Started
-          </button>
+          </motion.button>
         </div>
         {/* Mobile Section */}
         <div className="absolute bottom-[10%] text-center sm:hidden">
