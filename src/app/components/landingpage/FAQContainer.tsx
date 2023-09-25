@@ -6,6 +6,7 @@ import faqWindowIcon from "../../../../public/svgs/landing-page/faq-window-icon.
 
 export default function FAQContainer() {
   const [FAQs, setFAQs] = useState([
+
     {
       question: "What is Gaze?",
       isOpen: false,
@@ -21,7 +22,11 @@ export default function FAQContainer() {
       question: "How do i get started with Gaze?",
       isOpen: false,
 
-      answer: <div>Check out our how to get started section.</div>,
+      answer: (
+        <div>
+          Check out our how to get started section.
+        </div>
+      ),
     },
     {
       question: "What devices does Gaze support?",
@@ -30,8 +35,8 @@ export default function FAQContainer() {
       answer: (
         <div>
           {" "}
-          Gaze is only supported by windows and Android devices. Support for ios
-          will be introduced soon.
+          Gaze is only supported by windows and Android devices. Support for ios will be
+          introduced soon.
         </div>
       ),
     },
@@ -42,8 +47,8 @@ export default function FAQContainer() {
         <div>
           {" "}
           When you subscribe to a NFT contract address, you will receive
-          notifications on your device. Your notifications can also be accessed
-          on the dashboard when you log in.
+          notifications on your device. Your notifications
+          can also be accessed on the dashboard when you log in.
         </div>
       ),
     },
@@ -55,17 +60,26 @@ export default function FAQContainer() {
           {" "}
           There are a few reasons why you may not get notifications:{" "}
           <div>
-            i - You subscribed to a contract address that isn't on Ethereum main
-            network like Optimism, Arbitrium etc.
+            i - You subscribed to a contract address that isn't on Ethereum
+            main network like Optimism, Arbitrium etc.
           </div>{" "}
-          <div> ii - Your device is not supported. </div>
+          <div> ii - You rejected the push notification request. </div>
+          {" "}
+          <div> iii - The contract address subscribed to isn't for Non-fungible Tokens. </div>
+          {" "}
+          <div> iv - Your device is not supported. </div>
         </div>
       ),
     },
     {
       question: "Are you guys always this awesome?",
       isOpen: false,
-      answer: <div> Yes, all day, everyday.</div>,
+      answer: (
+        <div>
+          {" "}
+          Yes, all day, everyday.
+        </div>
+      ),
     },
   ]);
   const handleArrowClick = (questionIndex: number) => {
