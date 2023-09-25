@@ -9,8 +9,8 @@ import { Network, Alchemy } from "alchemy-sdk";
 import NftListingItemType from "../types/Nftlisting";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationObjType from "../types/NotificationObjType";
-import { MetaMaskSDK } from "@metamask/sdk";
-import * as sigUtil from "@metamask/eth-sig-util";
+// import { MetaMaskSDK } from "@metamask/sdk";
+// import * as sigUtil from "@metamask/eth-sig-util";
 // import {
 //   createServerComponentClient,
 //   createClientComponentClient,

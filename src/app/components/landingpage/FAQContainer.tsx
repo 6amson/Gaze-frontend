@@ -7,36 +7,43 @@ import faqWindowIcon from "../../../../public/svgs/landing-page/faq-window-icon.
 export default function FAQContainer() {
   const [FAQs, setFAQs] = useState([
     {
+      question: "What is Gaze?",
+      isOpen: false,
+      answer: (
+        <div>
+          {" "}
+          Gaze is a push notification service for NFT enthusiasts. It notifies
+          you of new mints and transfers for your preferred NFT collection.
+        </div>
+      ),
+    },
+    {
       question: "How do i get started with Gaze?",
       isOpen: false,
 
-      answer: (
-        <div>
-          Head to the How the get started section. There is a guide there.
-        </div>
-      ),
+      answer: <div>Check out our how to get started section.</div>,
     },
     {
-      question: "What devices does Gaze surport?",
+      question: "What devices does Gaze support?",
       isOpen: false,
 
       answer: (
         <div>
           {" "}
-          Gaze works on laptops and Android devices. Support for ios will be
-          introduced soon.
+          Gaze is only supported by windows and Android devices. Support for ios
+          will be introduced soon.
         </div>
       ),
     },
     {
-      question: "How do i access my notifications in Gaze",
+      question: "How do i access my notifications?",
       isOpen: false,
       answer: (
         <div>
           {" "}
-          When you sign up for Gaze and subscribe you will receive your
-          notifications to the device you used to subscribe. your notifications
-          can also be accessed on the dashboard when you log in.
+          When you sign up for Gaze and subscribe you will receive notifications
+          oo your device. Your notifications can also be accessed on the
+          dashboard when you log in.
         </div>
       ),
     },
@@ -48,24 +55,23 @@ export default function FAQContainer() {
           {" "}
           There are a few reasons why you may not get notifications:{" "}
           <div>
-            i - You subscribed to a contract address that isn't on Ethereum
-            mainnet e.g Optimism, Arbitrium.
+            i - You subscribed to a contract address that isn't on Ethereum main
+            network like Optimism, Arbitrium.
           </div>{" "}
-          <div> ii - You rejected the push notification request. </div>
+          <div> ii - You rejected the push notification request. </div>{" "}
+          <div>
+            {" "}
+            iii - The contract address subscribed to isn't for Non-fungible
+            Tokens. 
+          </div>{" "}
+          <div> iv - Your device is not supported. </div>
         </div>
       ),
     },
-
     {
-      question: "What is Gaze about?",
+      question: "Are you guys always this awesome?",
       isOpen: false,
-      answer: (
-        <div>
-          {" "}
-          Gaze is a push notification service for NFT enthusiasts. It notifies
-          you of new mints and transfers for your preferred NFT collection.
-        </div>
-      ),
+      answer: <div> Yes, all day, everyday.</div>,
     },
   ]);
   const handleArrowClick = (questionIndex: number) => {

@@ -99,27 +99,4 @@ export class gazeJobs {
       return error;
     }
   }
-
-  public async subscribe(): Promise<void> {
-    // const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiNjRjOTAxZWFlZjI5ODBmMWI5YzVmNGZlIiwiaWF0IjoxNjkwODk0ODI3LCJleHAiOjE2OTg2NzA4Mjd9.9YAIT3jn4AbBJwoObL4Auw0vyH69t4xbyRd8y66bsRM";
-    const accesstoken = localStorage.getItem("Gaze_userAccess_RT");
-    axios
-      .post(
-        "http://localhost:3005/user/test",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accesstoken}`,
-          },
-        }
-      )
-      .then((res) => {
-        if (res.status == 200) {
-          /*  console.log(res.data); */
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 }

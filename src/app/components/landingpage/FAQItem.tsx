@@ -16,7 +16,7 @@ export default function FAQItem(props: FAQItemProps) {
       <div className="leading-tight pr-[20px]">
         {props.question}
         <div className={`${props.isOpen ? "" : "hidden"} font-bold`}>
-          answer: {props.answer}
+          Answer: {props.answer}
         </div>
       </div>
       <button
