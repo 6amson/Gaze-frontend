@@ -34,15 +34,8 @@ export default function Index() {
 
   return (
     <div className=" h-fit    text-4xl">
-      <>
-        {" "}
-        <Hero loading={true}></Hero>
-        <HowToGetStartedNew></HowToGetStartedNew>
-        <FAQ></FAQ>
-        <Footer></Footer>
-      </>
       <div>
-        {/* <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait">
           {homePageLoading ? (
             <LoadingPage
               key={"loader"}
@@ -57,9 +50,8 @@ export default function Index() {
               <Footer></Footer>
             </>
           )}
-        </AnimatePresence> */}
+        </AnimatePresence>
       </div>
     </div>
   );
 }
-

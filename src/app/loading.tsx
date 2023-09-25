@@ -6,7 +6,7 @@ import { SetStateAction, useContext } from "react";
 import React from "react";
 import { RevolvingDot } from "react-loader-spinner";
 
-import gazeIcon from "../../public/svgs/landing-page/loading/gaze-icon.svg";
+import gazeIcon from "../../public/svgs/landing-page/loading/gaze-icon-white.svg";
 import {
   UserPageContext,
   UserPageContextTypes,
@@ -73,6 +73,12 @@ export default function LoadingPage(props: LoadingPageProps) {
 
   return (
     <div className="w-full h-screen sm:bg-white bg-black  font-raleWay flex items-center justify-center overflow-hidden">
+      <motion.div
+        transition={{ ease: "linear", duration: 3.2 }}
+        animate={{ x: 0 }}
+        initial={{ x: "-100%" }}
+        className="w-full h-[30px] bg-white absolute top-0 sm:hidden"
+      ></motion.div>
       <motion.img
         /*         onAnimationComplete={() => props.setLoading(false)} */
         initial={{ opacity: 0.5 }}
@@ -86,11 +92,19 @@ export default function LoadingPage(props: LoadingPageProps) {
         className={"hidden"}
         alt={"black hole illustration"}
       ></motion.img>
+
       <Image
         src={gazeIcon.src}
         alt={"logo icon"}
         width={100}
         className={"hidden"}
+        height={500}
+      ></Image>
+      <Image
+        src={gazeIcon.src}
+        alt={"logo icon"}
+        width={100}
+        className={"sm:hidden"}
         height={500}
       ></Image>
       <svg className="svg">
@@ -104,17 +118,6 @@ export default function LoadingPage(props: LoadingPageProps) {
           <path d="M0.5,1 C0.776,1,1,0.776,1,0.5 C1,0.224,0.776,0,0.5,0 C0.224,0,0,0.224,0,0.5 C0,0.776,0.224,1,0.5,1"></path>
         </clipPath>
       </svg>
-
-      <RevolvingDot
-        radius={20}
-        strokeWidth={2}
-        color="white"
-        secondaryColor=""
-        ariaLabel="revolving-dot-loading"
-        wrapperStyle={{}}
-        wrapperClass="absolute sm:hidden"
-        visible={true}
-      />
 
       <motion.div
         initial={{ opacity: 1 }}
