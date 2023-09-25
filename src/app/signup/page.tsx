@@ -94,7 +94,7 @@ export default function Signup() {
       const encodedString = encodeURIComponent(id);
 
       if (res.status == 201) {
-        // console.log(res);
+        
         router.push(`/profile/${encodedString}`);
       }
     } catch (err: any) {

@@ -43,6 +43,8 @@ export interface UserPageContextTypes {
   loadingSub: boolean;
   loadingNftList: boolean;
   loadingNotifs: boolean;
+  homePageLoading: boolean;
+  setHomePageLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const UserPageContext = React.createContext<
@@ -72,6 +74,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [totalNft, setTotalNft] = useState("");
   const [collectionName, setCollectionName] = useState("");
   const [username, setUsername] = useState("");
+  const [homePageLoading, setHomePageLoading] = useState(true);
   /* Added Nft listing item type */
   const [nftCollectionListing, setNftCollectionListing] = useState<
     NftListingItemType[]
@@ -465,6 +468,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         loadingSub,
         loadingNftList,
         loadingNotifs,
+        setHomePageLoading,
+        homePageLoading,
       }}
     >
       {" "}
