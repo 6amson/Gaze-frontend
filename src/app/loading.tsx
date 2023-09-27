@@ -131,7 +131,7 @@ export default function LoadingPage(props: LoadingPageProps) {
         className="relative sm:block hidden"
       >
         <div className="w-[30px] h-[30px] bg-white sm:bg-black rounded-full absolute top-6 right-6"></div>
-        <div className="clipped-two relative ">
+        <div className="clipped-two relative overflow-hidden ">
           <motion.div
             initial={{ x: "-100%" }}
             animate={{ x: "0%" }}
