@@ -90,6 +90,11 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     network: Network.ETH_MAINNET,
   };
 
+  const settings2 = {
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMYAPI2,
+    network: Network.ETH_MAINNET,
+  };
+
   const handleNotificationList = async () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
     try {
@@ -111,6 +116,8 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   };
 
   const alchemy = new Alchemy(settings);
+  const alchemy2 = new Alchemy(settings2);
+
 
   const verifyValidAndSusbscribeTwo = () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -288,6 +295,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
+
   //Unsubscribe function.
   //To be attached to the "unsubscribe" button in ProfileWithSubs page.
   async function unsubscribe(): Promise<any> {
@@ -338,8 +346,21 @@ export default function UserPageProvider(props: UserPageProviderProps) {
         setCollectionName(nftResponse[0].contract.name);
       }
       setNftCollectionListing(nftResponse);
-    } catch (err) {
-      return err;
+    } catch (err: any) {
+
+      try {
+        const response: any = await alchemy2.nft.getNftsForContract(address);
+        const nftResponse: NftListingItemType[] = response.nfts;
+
+        if (nftResponse[0].contract) {
+          setTotalNft(nftResponse[0].contract.totalSupply);
+          setCollectionName(nftResponse[0].contract.name);
+        }
+        setNftCollectionListing(nftResponse);
+      } catch (err) {
+        return err;
+      }
+
     } finally {
       setLoadingNftList(false);
     }
