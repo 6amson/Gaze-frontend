@@ -1003,9 +1003,10 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@studio-freight/lenis@github:studio-freight/lenis":
+"@studio-freight/lenis@^1.0.23":
   version "1.0.23"
-  resolved "git+ssh://git@github.com/studio-freight/lenis.git#d901a7e687daf23c84f7cc1b97368662f7c36d4c"
+  resolved "https://registry.yarnpkg.com/@studio-freight/lenis/-/lenis-1.0.23.tgz#b190531065b330353331fbfd4b92d73897289be6"
+  integrity sha512-eV/mGeHzP3D6eEH762CYBOQUMScy6ye9mhmT+GLMx10WaP7tB9OsX4kBBF4WeLgvi5ot4M3XaN2dgoLblNygRQ==
 
 "@supabase/auth-helpers-nextjs@^0.7.4":
   version "0.7.4"
