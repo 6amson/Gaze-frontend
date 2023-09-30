@@ -126,7 +126,7 @@ export default function HowToGetStartedNew() {
         </div>
       ),
       displaySectionMobile: (
-        <div className="w-[120vw]  h-fit absolute top-[40px] left-[40px]  border border-black bg-white rounded-full text-spacePurple ">
+        <div className="w-[120vw]  h-[50px] absolute top-[40px] left-[40px]  border border-black bg-white rounded-full text-spacePurple ">
           <Link
             target={"_blank"}
             referrerPolicy={"no-referrer"}
