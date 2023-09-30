@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Gaze",
   description: "Push notifications for verified NFT collections",
 };
-import LoadingPage from "./loading";
+import LoadingPage from "./Manualloading";
 import { Suspense } from "react";
 
 const openSans = Raleway({

@@ -44,6 +44,7 @@ export interface UserPageContextTypes {
   loadingNftList: boolean;
   loadingNotifs: boolean;
   homePageLoading: boolean;
+  isMetaMaskLoading: boolean;
   setHomePageLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -66,6 +67,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
   const [metamaskAddr, setMetamaskAddr] = useState(null);
   const [isValid, setIsValid] = useState(false);
   const [ismetaMaskConnected, setIsmetaMaskConnected] = useState(false);
+  const [isMetaMaskLoading, setIsMetaMaskLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingSub, setLoadingSub] = useState(false);
   const [loadingNftList, setLoadingNftList] = useState(false);
@@ -117,7 +119,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   const alchemy = new Alchemy(settings);
   const alchemy2 = new Alchemy(settings2);
-
 
   const verifyValidAndSusbscribeTwo = () => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
@@ -295,7 +296,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
     }
   }
 
-
   //Unsubscribe function.
   //To be attached to the "unsubscribe" button in ProfileWithSubs page.
   async function unsubscribe(): Promise<any> {
@@ -347,7 +347,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       }
       setNftCollectionListing(nftResponse);
     } catch (err: any) {
-
       try {
         const response: any = await alchemy2.nft.getNftsForContract(address);
         const nftResponse: NftListingItemType[] = response.nfts;
@@ -360,7 +359,6 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       } catch (err) {
         return err;
       }
-
     } finally {
       setLoadingNftList(false);
     }
@@ -368,6 +366,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   async function connectMetamask(): Promise<any> {
     try {
+      setIsMetaMaskLoading(true);
       if (window.ethereum) {
         window.ethereum.on("accountsChanged", (accounts: any) => {
           if (accounts.length === 0) {
@@ -458,13 +457,14 @@ export default function UserPageProvider(props: UserPageProviderProps) {
       }
       return err;
     } finally {
-      setLoading(false);
+      setIsMetaMaskLoading(false);
     }
   }
 
   return (
     <UserPageContext.Provider
       value={{
+        isMetaMaskLoading,
         connectMetamask,
         ismetaMaskConnected,
         metamaskAddr,
