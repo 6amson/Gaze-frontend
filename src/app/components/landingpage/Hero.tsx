@@ -196,6 +196,18 @@ export default function Hero(props: HeroProps) {
           >
             Get Started
           </motion.button>
+          <div className="w-full relative flex items-center justify-center mt-2">
+            <RevolvingDot
+              radius={20}
+              strokeWidth={2}
+              color="#A157FF "
+              secondaryColor=""
+              ariaLabel="revolving-dot-loading"
+              wrapperStyle={{}}
+              wrapperClass="absolute mt-[50px]"
+              visible={isLoadin}
+            />
+          </div>
         </div>
         {/* Mobile Section */}
         <div className="absolute bottom-[10%] text-center sm:hidden">

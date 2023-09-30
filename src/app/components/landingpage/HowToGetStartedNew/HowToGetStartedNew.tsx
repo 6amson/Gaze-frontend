@@ -1,6 +1,7 @@
 import HowToGetStartedNewItem from "./HowToGetStartedNewItem";
 import htGStOneOpenSea from "../../../../../public/svgs/landing-page/htgst/htgst-1-opensea.svg";
 import htGStOneMobileOpenSea from "../../../../../public/svgs/landing-page/htgst/htgst-1-mobile-opensea.svg";
+import htGStOneMobileOpenSeaTwo from "../../../../../public/svgs/landing-page/htgst/htgst-1-mobile-opensea-2.svg";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import hWTGSTHeader from "../../../../../public/svgs/landing-page/hwtgst-header.svg";
@@ -16,18 +17,27 @@ import howToGetStartedFourPic from "../../../../../public/svgs/landing-page/htgs
 import howToGetStartedFivePic from "../../../../../public/svgs/landing-page/htgst/htgst-5-pic-2.png";
 import howToGetStartedTwoStars from "../../../../../public/svgs/landing-page/htgst/htgst-2-stars.svg";
 import howToGetStartedThreeArrow from "../../../../../public/svgs/landing-page/htgst/htgst-arrow-3.svg";
+import howToGetStartedThreeMobileArrow from "../../../../../public/svgs/landing-page/htgst/htgst-3-mobile-arrow.svg";
+import howToGetStartedThreeMobileLine from "../../../../../public/svgs/landing-page/htgst/htgst-3-mobile-line.svg";
 import howToGetStartedOneMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-1-mobile-pic.png";
 import howToGetStartedTwoMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-2-mobile-pic.png";
+import howToGetStartedTwoMobilePicTwo from "../../../../../public/svgs/landing-page/htgst/htgst-2-mobile-pic-2.png";
 import howToGetStartedThreeMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-3-mobile-pic.png";
+import howToGetStartedThreeMobilePicTwo from "../../../../../public/svgs/landing-page/htgst/htgst-3-mobile-pic-2.png";
 import howToGetStartedFourMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-4-mobile-pic.png";
+import howToGetStartedFourMobilePicTwo from "../../../../../public/svgs/landing-page/htgst/htgst-4-mobile-pic-2.png";
 import howToGetStartedFiveMobilePic from "../../../../../public/svgs/landing-page/htgst/htgst-5-mobile-pic.png";
+import howToGetStartedFiveMobilePicTwo from "../../../../../public/svgs/landing-page/htgst/htgst-5-mobile-pic-2.png";
 import Link from "next/link";
 
 export default function HowToGetStartedNew() {
   const HowToGetStartedArray = [
     {
       heading: "Head Over to OpenSea",
+      indexMobileStyle: "text-white bg-spacePurple border-black",
       text: "Open a new tab and go to opensea.io or click the link in the section beside.",
+      textMobile:
+        "Open a new tab and go to opensea.io or click the link below.",
       displaySection: (
         <>
           <Link
@@ -91,6 +101,7 @@ export default function HowToGetStartedNew() {
         );
       },
       firstSectionStyle: "bg-black text-white",
+      mobileSectionStyle: "bg-white text-black",
       mobileSectionExtra: (
         <>
           <Image
@@ -98,7 +109,7 @@ export default function HowToGetStartedNew() {
             width={50}
             height={100}
             alt={"star"}
-            className={"absolute bottom-0 z-0 right-4"}
+            className={"absolute top-4 z-0 right-4"}
           ></Image>
         </>
       ),
@@ -115,34 +126,44 @@ export default function HowToGetStartedNew() {
         </div>
       ),
       displaySectionMobile: (
-        <div className="w-full">
+        <div className="w-[120vw]  h-fit absolute bottom-[10%] border border-black bg-white rounded-full text-spacePurple">
           <Link
             target={"_blank"}
             referrerPolicy={"no-referrer"}
             href={"https://opensea.io/"}
+            className="rounded w-[600px] relative h-full flex items-center"
           >
             {" "}
-            <Image
-              width={320}
+            <motion.img
+              width={160}
+              initial={{ x: "150%", rotate: 0 }}
+              whileInView={{ x: "0%", rotate: 360 }}
+              transition={{ duration: 0.6 }}
               height={300}
-              className={"absolute top-[10px] right-[-20px]"}
+              viewport={{ once: true }}
+              className={"z-10"}
               alt={"opensea link"}
-              src={htGStOneMobileOpenSea.src}
-            ></Image>
+              src={htGStOneMobileOpenSeaTwo.src}
+            ></motion.img>
+            <div className="text-4xl font-semibold ml-[10px] z-0">
+              Opensea. io
+            </div>
           </Link>
+
           <Image
             src={howToGetStartedOneMobilePic.src}
             width={100}
             height={100}
             unoptimized
             alt={"pic directing user to open sea"}
-            className={"w-full"}
+            className={"w-full hidden"}
           ></Image>
         </div>
       ),
     },
     {
       heading: "Click on any collection and check the chain",
+      indexMobileStyle: "text-spacePurple bg-white border-black",
       text: "Click on any collection. When the page navigates to the collection page, check if the collection is Ethereum-based. It should be indicated on the page",
       displaySection: (
         <>
@@ -160,6 +181,7 @@ export default function HowToGetStartedNew() {
         return <></>;
       },
       firstSectionStyle: "bg-[#A157FF] text-white",
+      mobileSectionStyle: "bg-[#A157FF]  text-white",
       writtenSectionExtra: (
         <div className="w-full">
           <Image
@@ -178,27 +200,36 @@ export default function HowToGetStartedNew() {
             width={800}
             height={400}
             alt={"star"}
-            className={
-              "absolute bottom-[-50px] rotate-y-[90deg] z-0 right-0 hidden"
-            }
+            className={"absolute top-[4px] rotate-y-[90deg] z-0 right-0 hidden"}
           ></Image>
         </>
       ),
       displaySectionMobile: (
-        <div className="w-full">
-          <Image
-            src={howToGetStartedTwoMobilePic.src}
-            width={100}
-            height={100}
-            unoptimized
-            alt={"pic directing user to open sea"}
-            className={"w-full"}
-          ></Image>
+        <div className="relative right-[-10%] bottom-0 h-[60vh]  overflow-hidden ">
+          <div className="w-full h-[100vw] max-h-[450px] bottom-0 left-8 bg-white border border-black absolute "></div>
+          <div
+            className={
+              " z-20 absolute bottom-0 left-0  w-full border border-black overflow-hidden"
+            }
+          >
+            <motion.img
+              src={howToGetStartedTwoMobilePicTwo.src}
+              width={100}
+              height={100}
+              transition={{ duration: 0.6 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              initial={{ scale: 1.2 }}
+              className="w-full"
+              alt={"pic directing user to open sea"}
+            ></motion.img>
+          </div>
         </div>
       ),
     },
     {
       heading: "Navigate to the Etherscan page of the collection",
+      indexMobileStyle: "text-white bg-black border-white",
       text: "Click on the indicated icon to navigate to the Etherscan page of the collection",
       displaySection: (
         <div className="relative w-full h-full ">
@@ -244,6 +275,7 @@ export default function HowToGetStartedNew() {
         );
       },
       firstSectionStyle: "bg-[#F0ECED] text-black",
+      mobileSectionStyle: "bg-black  text-white",
       writtenSectionExtra: (
         <>
           <Image
@@ -262,25 +294,37 @@ export default function HowToGetStartedNew() {
             width={50}
             height={40}
             alt={"planet"}
-            className={"absolute bottom-[10px] left-[20px]"}
+            className={"absolute bottom-[30%] z-20 right-[-10px] hidden"}
           ></Image>
         </>
       ),
+
       displaySectionMobile: (
-        <div className="w-full">
-          <Image
-            src={howToGetStartedThreeMobilePic.src}
-            width={100}
-            height={100}
-            unoptimized
-            alt={"pic directing user to open sea"}
-            className={"w-full"}
-          ></Image>
+        <div className="relative left-[-10%] bottom-0 h-[60vh] overflow-hidden ">
+          <div className="w-full h-[100vw] max-h-[450px] bottom-0 right-8 bg-black border border-white absolute "></div>
+          <div
+            className={
+              " z-20 absolute bottom-0 left-0  w-full border border-white overflow-hidden"
+            }
+          >
+            <motion.img
+              src={howToGetStartedThreeMobilePicTwo.src}
+              width={100}
+              height={100}
+              transition={{ duration: 0.6 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              initial={{ scale: 1.2 }}
+              className="w-full "
+              alt={"pic directing user to open sea"}
+            ></motion.img>
+          </div>
         </div>
       ),
     },
     {
       heading: "Copy the contract address from the etherscan page",
+      indexMobileStyle: "text-spacePurple bg-black border-white",
       text: "Copy the contract address from the Etherscan page. ",
       displaySection: (
         <>
@@ -320,6 +364,7 @@ export default function HowToGetStartedNew() {
         );
       },
       firstSectionStyle: "bg-[#A157FF] text-white",
+      mobileSectionStyle: "bg-[#A157FF]  text-white",
       writtenSectionExtra: (
         <>
           <Image
@@ -343,20 +388,32 @@ export default function HowToGetStartedNew() {
         </>
       ),
       displaySectionMobile: (
-        <div className="w-full">
-          <Image
-            src={howToGetStartedFourMobilePic.src}
-            width={100}
-            height={100}
-            unoptimized
-            alt={"pic directing user to open sea"}
-            className={"w-full"}
-          ></Image>
+        <div className="relative right-[-10%] bottom-0 h-[60vh] overflow-hidden ">
+          <div className="w-full h-[100vw] max-h-[450px] bottom-0 left-8 bg-black absolute "></div>
+          <div
+            className={
+              " z-20 absolute bottom-0 left-0  w-full border border-black overflow-hidden"
+            }
+          >
+            {" "}
+            <motion.img
+              src={howToGetStartedFourMobilePicTwo.src}
+              width={100}
+              height={100}
+              transition={{ duration: 0.6 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              initial={{ scale: 1.2 }}
+              alt={"pic directing user to open sea"}
+              className="w-full"
+            ></motion.img>
+          </div>
         </div>
       ),
     },
     {
       heading: "Paste it into the subscribe input upon account creation",
+      indexMobileStyle: "text-neonGreen bg-white border-black",
       text: "Once you create an account you will be redirected to your page. Paste it into the subscribe input and click the subscribe button. Thank you. ",
       displaySection: (
         <>
@@ -374,6 +431,7 @@ export default function HowToGetStartedNew() {
         return <></>;
       },
       firstSectionStyle: "bg-black text-white",
+      mobileSectionStyle: "bg-white  text-black",
       writtenSectionExtra: (
         <>
           <Image
@@ -397,15 +455,26 @@ export default function HowToGetStartedNew() {
         </>
       ),
       displaySectionMobile: (
-        <div className="w-full">
-          <Image
-            src={howToGetStartedFiveMobilePic.src}
-            width={100}
-            height={100}
-            unoptimized
-            alt={"pic directing user to open sea"}
-            className={"w-full"}
-          ></Image>
+        <div className="relative left-[-10%] bottom-0 h-[60vh] overflow-hidden ">
+          <div className="w-full h-[100vw] max-h-[450px]  bottom-0 right-8 bg-white border border-black absolute "></div>
+          <div
+            className={
+              " z-20 absolute bottom-0 left-0 border border-black  w-full overflow-hidden"
+            }
+          >
+            {" "}
+            <motion.img
+              src={howToGetStartedFiveMobilePicTwo.src}
+              width={100}
+              height={100}
+              transition={{ duration: 0.6 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              className="w-full"
+              initial={{ scale: 1.2 }}
+              alt={"pic directing user to open sea"}
+            ></motion.img>
+          </div>
         </div>
       ),
     },
@@ -441,13 +510,16 @@ export default function HowToGetStartedNew() {
             <HowToGetStartedNewItem
               index={index}
               heading={item.heading}
+              textMobile={item.textMobile}
               text={item.text}
+              indexMobileStyle={item.indexMobileStyle}
               displaySectionMobile={item.displaySectionMobile}
               firstSectionStyle={item.firstSectionStyle}
               displaySection={item.displaySection}
               functionSection={item.functionSection}
               mobileSectionExtra={item.mobileSectionExtra}
               key={index}
+              mobileSectionStyle={item.mobileSectionStyle}
               writtenSectionExtra={item.writtenSectionExtra}
             ></HowToGetStartedNewItem>
           );

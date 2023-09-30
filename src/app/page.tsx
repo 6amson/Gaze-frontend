@@ -6,7 +6,7 @@ import FAQ from "./components/landingpage/FAQ";
 import Footer from "./components/landingpage/Footer";
 import Lenis from "@studio-freight/lenis";
 import { useEffect, useLayoutEffect, useState } from "react";
-import LoadingPage from "./loading";
+import LoadingPage from "./Manualloading";
 import HowToGetStartedNew from "./components/landingpage/HowToGetStartedNew/HowToGetStartedNew";
 import { AnimatePresence } from "framer-motion";
 import { useContext } from "react";

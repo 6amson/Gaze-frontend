@@ -24,6 +24,7 @@ export default function Header() {
     ismetaMaskConnected,
     homePageLoading,
     setHomePageLoading,
+    isMetaMaskLoading,
   } = useContext(UserPageContext);
 
   const pathName = usePathname();
@@ -52,7 +53,7 @@ export default function Header() {
   return (
     <motion.div
       animate={!homePageLoading && { opacity: 1 }}
-      initial={{ opacity: 0 }}
+      initial={pathName === "/" ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: 0.8, delay: 4 }}
       className={`${
         pathName.includes("profile") && "hidden"
@@ -94,6 +95,7 @@ export default function Header() {
             } else
               return (
                 <button
+                  disabled={isMetaMaskLoading ? true : false}
                   onClick={() => {
                     !item.isConnect ? router.push("/") : connectMetamask();
                   }}
