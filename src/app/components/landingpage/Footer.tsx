@@ -140,11 +140,21 @@ export default function Footer() {
             GET IN TOUCH WITH THE PEOPLE BEHIND THIS PROJECT.{" "}
           </div>
           <div className="text-[1rem] mt-[43px] flex justify-between px-[15px]">
-            <div className="w-1/2  flex flex-col items-center border-r">
+            <div className="w-1/2  flex flex-col items-center border-r overflow-hidden">
               <div>
                 {" "}
-                <div className="text-[24px] mb-2 ">Bunmi</div>
-                <Link
+                <motion.div
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "150%" }}
+                  transition={{ duration: 0.5 }}
+                  className="text-[24px] mb-2 "
+                >
+                  Bunmi
+                </motion.div>
+                <motion.a
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "150%" }}
+                  transition={{ duration: 0.6 }}
                   className="flex items-center gap-x-2 mb-4"
                   href="mailto:bunmigrey@icloud.com;"
                 >
@@ -155,8 +165,11 @@ export default function Footer() {
                     src={footerMail.src}
                   ></Image>
                   email
-                </Link>
-                <Link
+                </motion.a>
+                <motion.a
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "150%" }}
+                  transition={{ duration: 0.7 }}
                   target={"_blank"}
                   referrerPolicy={"no-referrer"}
                   className="flex items-center gap-x-2"
@@ -169,13 +182,23 @@ export default function Footer() {
                     src={footerGithub.src}
                   ></Image>
                   github
-                </Link>
+                </motion.a>
               </div>
             </div>
-            <div className="w-1/2 flex flex-col items-center">
+            <div className="w-1/2 flex flex-col items-center overflow-hidden">
               <div>
-                <div className="text-[24px] mb-2">Derin</div>
-                <Link
+                <motion.div
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "-150%" }}
+                  transition={{ duration: 0.5 }}
+                  className="text-[24px] mb-2"
+                >
+                  Derin
+                </motion.div>
+                <motion.a
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "-150%" }}
+                  transition={{ duration: 0.6 }}
                   className="flex items-center gap-x-2 mb-4"
                   href="mailto:owoadederin6@gmail.com;"
                 >
@@ -187,8 +210,11 @@ export default function Footer() {
                     src={footerMail.src}
                   ></Image>
                   email
-                </Link>
-                <Link
+                </motion.a>
+                <motion.a
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "-150%" }}
+                  transition={{ duration: 0.7 }}
                   target={"_blank"}
                   referrerPolicy={"no-referrer"}
                   className="flex items-center gap-x-2 mb-4"
@@ -201,8 +227,11 @@ export default function Footer() {
                     src={footerGithub.src}
                   ></Image>
                   github
-                </Link>
-                <Link
+                </motion.a>
+                <motion.a
+                  whileInView={{ x: "0%" }}
+                  initial={{ x: "-150%" }}
+                  transition={{ duration: 0.8 }}
                   className="flex items-center gap-x-2 mb-4"
                   target={"_blank"}
                   referrerPolicy={"no-referrer"}
@@ -216,7 +245,7 @@ export default function Footer() {
                     src={footerLinkdn.src}
                   ></Image>
                   linkedin
-                </Link>
+                </motion.a>
               </div>
             </div>
           </div>
@@ -328,102 +357,7 @@ export default function Footer() {
           height={200}
           className={"absolute right-[15%] top-[20%] z-20 w-[4.5vw]"}
         ></Image>
-        {/*     <Image
-          src={footerMoon.src}
-          alt="moon illustration"
-          width={120}
-          height={200}
-          className={"absolute right-[35%] top-[12%] z-20"}
-        ></Image> */}
       </div>
-
-      {/*   <div className="h-full w-full hidden lg:block">
-        <div className="w-full h-1/2 bg-black relative overflow-hidden">
-          <Image
-            src={footerPlanetsLp.src}
-            alt="multiple planets illustration"
-            width={400}
-            height={400}
-            className="w-full absolute z-20"
-          ></Image>
-          <Image
-            src={footerStarsLp.src}
-            alt="stars illustration"
-            width={400}
-            height={400}
-            className="w-full  absolute"
-          ></Image>
-        </div>
-        <div className="w-full h-1/2 bg-white">
-          <div className="text-black text-[1.5rem] pt-[30px] pl-[61px] leading-tight">
-            <Image
-              src={purpleTextLogo.src}
-              width={220}
-              height={300}
-              className="pb-[20px]"
-              alt="logo"
-            ></Image>
-            <div className="font-bold">
-              GET IN TOUCH WITH THE PEOPLE BEHIND THIS PROJECT.
-            </div>
-            <div className="text-[0.95rem] mt-[20px]">
-              Send it to;
-              <div>
-                <button>{info.bunmi.email}</button>
-              </div>
-              <div>
-                <button>{info.derin.email}</button>
-              </div>
-            </div>
-
-            <div className="text-[0.95rem] mt-[18px]">
-              Connect at;
-              <div>
-                Bunmi (
-                <a
-                  className="text-spacePurple"
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  href="#"
-                >
-                  Twitter
-                </a>
-                ,{" "}
-                <a
-                  target="_blank"
-                  className="text-spacePurple"
-                  referrerPolicy="no-referrer"
-                  href="#"
-                >
-                  Linkedin
-                </a>
-                )
-              </div>
-              <div>
-                Derin (
-                <a
-                  className="text-spacePurple"
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  href="#"
-                >
-                  Twitter
-                </a>
-                ,{" "}
-                <a
-                  target="_blank"
-                  className="text-spacePurple"
-                  referrerPolicy="no-referrer"
-                  href="#"
-                >
-                  Linkedin
-                </a>
-                )
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

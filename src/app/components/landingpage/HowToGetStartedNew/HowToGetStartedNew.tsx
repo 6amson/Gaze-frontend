@@ -35,7 +35,7 @@ export default function HowToGetStartedNew() {
     {
       heading: "Head Over to OpenSea",
       indexMobileStyle: "text-white bg-spacePurple border-black",
-      text: "Open a new tab and go to opensea.io or click the link in the section beside.",
+      text: "Open a new tab and go to opensea.io or click the link in the section above.",
       textMobile:
         "Open a new tab and go to opensea.io or click the link below.",
       displaySection: (
@@ -126,16 +126,16 @@ export default function HowToGetStartedNew() {
         </div>
       ),
       displaySectionMobile: (
-        <div className="w-[120vw]  h-fit absolute bottom-[10%] border border-black bg-white rounded-full text-spacePurple">
+        <div className="w-[120vw]  h-fit absolute top-[40px] left-[40px]  border border-black bg-white rounded-full text-spacePurple ">
           <Link
             target={"_blank"}
             referrerPolicy={"no-referrer"}
             href={"https://opensea.io/"}
-            className="rounded w-[600px] relative h-full flex items-center"
+            className="rounded w-[600px] relative h-full flex items-center "
           >
             {" "}
             <motion.img
-              width={160}
+              width={50}
               initial={{ x: "150%", rotate: 0 }}
               whileInView={{ x: "0%", rotate: 360 }}
               transition={{ duration: 0.6 }}
@@ -145,7 +145,7 @@ export default function HowToGetStartedNew() {
               alt={"opensea link"}
               src={htGStOneMobileOpenSeaTwo.src}
             ></motion.img>
-            <div className="text-4xl font-semibold ml-[10px] z-0">
+            <div className="text-xl font-semibold ml-[10px] z-0">
               Opensea. io
             </div>
           </Link>
@@ -205,25 +205,18 @@ export default function HowToGetStartedNew() {
         </>
       ),
       displaySectionMobile: (
-        <div className="relative right-[-10%] bottom-0 h-[60vh]  overflow-hidden ">
-          <div className="w-full h-[100vw] max-h-[450px] bottom-0 left-8 bg-white border border-black absolute "></div>
-          <div
-            className={
-              " z-20 absolute bottom-0 left-0  w-full border border-black overflow-hidden"
-            }
-          >
-            <motion.img
-              src={howToGetStartedTwoMobilePicTwo.src}
-              width={100}
-              height={100}
-              transition={{ duration: 0.6 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              initial={{ scale: 1.2 }}
-              className="w-full"
-              alt={"pic directing user to open sea"}
-            ></motion.img>
-          </div>
+        <div className="relative  ">
+          <motion.img
+            src={howToGetStartedTwoMobilePic.src}
+            width={100}
+            height={100}
+            transition={{ duration: 0.6 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            initial={{ scale: 1.2 }}
+            className="w-full"
+            alt={"pic directing user to open sea"}
+          ></motion.img>
         </div>
       ),
     },
@@ -300,25 +293,18 @@ export default function HowToGetStartedNew() {
       ),
 
       displaySectionMobile: (
-        <div className="relative left-[-10%] bottom-0 h-[60vh] overflow-hidden ">
-          <div className="w-full h-[100vw] max-h-[450px] bottom-0 right-8 bg-black border border-white absolute "></div>
-          <div
-            className={
-              " z-20 absolute bottom-0 left-0  w-full border border-white overflow-hidden"
-            }
-          >
-            <motion.img
-              src={howToGetStartedThreeMobilePicTwo.src}
-              width={100}
-              height={100}
-              transition={{ duration: 0.6 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              initial={{ scale: 1.2 }}
-              className="w-full "
-              alt={"pic directing user to open sea"}
-            ></motion.img>
-          </div>
+        <div className="relative  overflow-hidden ">
+          <motion.img
+            src={howToGetStartedThreeMobilePic.src}
+            width={100}
+            height={100}
+            transition={{ duration: 0.6 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            initial={{ scale: 1.2 }}
+            className="w-full "
+            alt={"pic directing user to open sea"}
+          ></motion.img>
         </div>
       ),
     },
@@ -388,26 +374,18 @@ export default function HowToGetStartedNew() {
         </>
       ),
       displaySectionMobile: (
-        <div className="relative right-[-10%] bottom-0 h-[60vh] overflow-hidden ">
-          <div className="w-full h-[100vw] max-h-[450px] bottom-0 left-8 bg-black absolute "></div>
-          <div
-            className={
-              " z-20 absolute bottom-0 left-0  w-full border border-black overflow-hidden"
-            }
-          >
-            {" "}
-            <motion.img
-              src={howToGetStartedFourMobilePicTwo.src}
-              width={100}
-              height={100}
-              transition={{ duration: 0.6 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              initial={{ scale: 1.2 }}
-              alt={"pic directing user to open sea"}
-              className="w-full"
-            ></motion.img>
-          </div>
+        <div className="relative  ">
+          <motion.img
+            src={howToGetStartedFourMobilePic.src}
+            width={100}
+            height={100}
+            transition={{ duration: 0.6 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            initial={{ scale: 1.2 }}
+            alt={"pic directing user to open sea"}
+            className="w-full"
+          ></motion.img>
         </div>
       ),
     },
@@ -455,26 +433,18 @@ export default function HowToGetStartedNew() {
         </>
       ),
       displaySectionMobile: (
-        <div className="relative left-[-10%] bottom-0 h-[60vh] overflow-hidden ">
-          <div className="w-full h-[100vw] max-h-[450px]  bottom-0 right-8 bg-white border border-black absolute "></div>
-          <div
-            className={
-              " z-20 absolute bottom-0 left-0 border border-black  w-full overflow-hidden"
-            }
-          >
-            {" "}
-            <motion.img
-              src={howToGetStartedFiveMobilePicTwo.src}
-              width={100}
-              height={100}
-              transition={{ duration: 0.6 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              className="w-full"
-              initial={{ scale: 1.2 }}
-              alt={"pic directing user to open sea"}
-            ></motion.img>
-          </div>
+        <div className="relative  ">
+          <motion.img
+            src={howToGetStartedFiveMobilePic.src}
+            width={100}
+            height={100}
+            transition={{ duration: 0.6 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            className="w-full"
+            initial={{ scale: 1.2 }}
+            alt={"pic directing user to open sea"}
+          ></motion.img>
         </div>
       ),
     },
@@ -504,7 +474,7 @@ export default function HowToGetStartedNew() {
         ></Image>
         <div className="leading-none pt-[1px]">HOW TO GET STARTED</div>
       </div>
-      <div className="w-full  pb-[130px] h-fit  flex flex-wrap lg:flex-col justify-center sm:justify-between items-center lg:justify-center gap-y-[50px] sm:gap-y-[100px]  lg:gap-x-0  bg-[#ECECEC] lg:bg-white">
+      <div className="w-full  pb-[130px] h-fit overflow-x-hidden sm:overflow-visible  flex flex-wrap lg:flex-col justify-center sm:justify-between items-center lg:justify-center gap-y-[50px] sm:gap-y-[100px]  lg:gap-x-0  bg-[#ECECEC] lg:bg-white">
         {HowToGetStartedArray.map((item, index) => {
           return (
             <HowToGetStartedNewItem
