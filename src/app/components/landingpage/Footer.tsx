@@ -145,7 +145,7 @@ export default function Footer() {
                 {" "}
                 <motion.div
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "150%" }}
+                  initial={{ x: "90%" }}
                   transition={{ duration: 0.5 }}
                   className="text-[24px] mb-2 "
                 >
@@ -153,7 +153,7 @@ export default function Footer() {
                 </motion.div>
                 <motion.a
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "150%" }}
+                  initial={{ x: "90%" }}
                   transition={{ duration: 0.6 }}
                   className="flex items-center gap-x-2 mb-4"
                   href="mailto:bunmigrey@icloud.com;"
@@ -168,7 +168,7 @@ export default function Footer() {
                 </motion.a>
                 <motion.a
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "150%" }}
+                  initial={{ x: "90%" }}
                   transition={{ duration: 0.7 }}
                   target={"_blank"}
                   referrerPolicy={"no-referrer"}
@@ -189,7 +189,7 @@ export default function Footer() {
               <div>
                 <motion.div
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "-150%" }}
+                  initial={{ x: "-90%" }}
                   transition={{ duration: 0.5 }}
                   className="text-[24px] mb-2"
                 >
@@ -197,7 +197,7 @@ export default function Footer() {
                 </motion.div>
                 <motion.a
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "-150%" }}
+                  initial={{ x: "-90%" }}
                   transition={{ duration: 0.6 }}
                   className="flex items-center gap-x-2 mb-4"
                   href="mailto:owoadederin6@gmail.com;"
@@ -213,7 +213,7 @@ export default function Footer() {
                 </motion.a>
                 <motion.a
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "-150%" }}
+                  initial={{ x: "-90%" }}
                   transition={{ duration: 0.7 }}
                   target={"_blank"}
                   referrerPolicy={"no-referrer"}
@@ -230,7 +230,7 @@ export default function Footer() {
                 </motion.a>
                 <motion.a
                   whileInView={{ x: "0%" }}
-                  initial={{ x: "-150%" }}
+                  initial={{ x: "-90%" }}
                   transition={{ duration: 0.8 }}
                   className="flex items-center gap-x-2 mb-4"
                   target={"_blank"}
