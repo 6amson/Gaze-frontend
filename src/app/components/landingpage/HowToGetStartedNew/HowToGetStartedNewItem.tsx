@@ -26,7 +26,13 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
       } lg:flex  `}
     >
       {/* Former arrangement just in case */}
-      <motion.div className="relative w-[300px] h-[400px] hidden ">
+      <motion.div
+        whileInView={{ x: "0%" }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        initial={props.index % 2 === 0 ? { x: "-30%" } : { x: "30%" }}
+        className="relative w-[300px] h-[400px] lg:hidden"
+      >
         {" "}
         <div className="w-[300px]  z-10  border-2 border-black rounded-[20px] bg-white overflow-hidden absolute">
           <div className="w-full h-[210px]">{props.displaySectionMobile}</div>
@@ -45,7 +51,7 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
         <div className="w-[300px] absolute h-[370px] bg-black top-[10px] left-[10px] rounded-[20px] z-0"></div>
       </motion.div>
       {/* New arrangement */}
-      <motion.div
+      {/*    <motion.div
         className={`relative w-full ${
           props.index === 0 ? "h-[500px] sm:h-screen" : "h-fit"
         } border-black  lg:hidden border-y sm:border  max-w-[400px]`}
@@ -82,7 +88,7 @@ export default function HowToGetStartedNewItem(props: HowToGetStartedNewItem) {
           </div>
         </div>
       </motion.div>
-
+ */}
       <div className="lg:flex hidden">
         <div className="text-4xl font-bold  mr-[30px]  font-raleWay relative text-neonGreen">
           {props.index + 1}
