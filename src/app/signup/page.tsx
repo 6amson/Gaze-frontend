@@ -29,8 +29,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const url = "https://previous-doralia-gaze.koyeb.app/";
-  const formerUrl = "https://gazebackend.cyclic.cloud/";
+  const url = process.env.NEXT_PUBLIC_API_PATH;
 
   const router = useRouter();
 
@@ -94,7 +93,6 @@ export default function Signup() {
       const encodedString = encodeURIComponent(id);
 
       if (res.status == 201) {
-        
         router.push(`/profile/${encodedString}`);
       }
     } catch (err: any) {

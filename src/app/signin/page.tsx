@@ -21,14 +21,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import { RevolvingDot } from "react-loader-spinner";
+import { env } from "process";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const url = "https://previous-doralia-gaze.koyeb.app/";
-  const formerUrl = "https://gazebackend.cyclic.cloud/";
+
+  const url = process.env.NEXT_PUBLIC_API_PATH;
+
   const router = useRouter();
 
   const handlePasswordChange = (e: any) => {
@@ -79,7 +81,6 @@ export default function Signin() {
       });
       const encodedString = encodeURIComponent(id);
       router.push(`/profile/${encodedString}`);
-      
     } catch (err: any) {
       console.info("this is the error:", err);
 
