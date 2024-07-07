@@ -15,7 +15,6 @@ export default function Profile(props: ProfileMethodsProps) {
   const askPermission = props.askPermission;
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
-  const url = "http://localhost:3005/";
 
   useEffect(() => {}, []);
 

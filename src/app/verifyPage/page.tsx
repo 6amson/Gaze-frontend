@@ -9,8 +9,7 @@ import { useEffect } from "react";
 export default function Page() {
   const router = useRouter();
 
-  const url = "https://previous-doralia-gaze.koyeb.app/";
-
+  const url = process.env.NEXT_PUBLIC_API_PATH;
 
   const handleAuth = async (): Promise<any> => {
     const accesstoken = localStorage.getItem("Gaze_userAccess_AT");
