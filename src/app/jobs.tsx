@@ -31,7 +31,6 @@ export class gazeJobs {
     const refreshtoken = Cookies.get("userAccess_TT");
 
     if ((accesstoken && refreshtoken) || (accesstoken && !refreshtoken)) {
-      // console.log(accesstoken);
       axios
         .get("http://localhost:3005/user/verify", {
           headers: {
@@ -92,8 +91,6 @@ export class gazeJobs {
           }
         })();
       }
-
-      /*  console.log(permissionResult); */
     } catch (error) {
       console.info("Permission request failed: " + error);
       return error;
