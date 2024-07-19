@@ -61,7 +61,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
 
   const vapidControl = process.env.NEXT_PUBLIC_VAPIDPUBLICKEYS;
   /*   const url = "http://[::1]:4000/"; */
-  const url = "https://previous-doralia-gaze.koyeb.app/";
+  const url = process.env.NEXT_PUBLIC_API_PATH;
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [metamaskAddr, setMetamaskAddr] = useState(null);
@@ -391,10 +391,7 @@ export default function UserPageProvider(props: UserPageProviderProps) {
           method: "eth_requestAccounts",
         });
 
-        console.info(Accounts);
-
         if (Accounts[0] !== "null") {
-          /*   console.log("metamask connected"); */
           setMetamaskAddr(Accounts[0]);
           const Message = "Sign this message to access Gaze.";
           const from = Accounts[0];

@@ -116,8 +116,6 @@ self.addEventListener("push", function (event) {
     ],
   };
 
-  // console.log(event);
-
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
